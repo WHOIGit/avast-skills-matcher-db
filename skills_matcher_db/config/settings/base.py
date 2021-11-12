@@ -76,6 +76,8 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     "skills_matcher_db.users.apps.UsersConfig",
     # Your stuff: custom apps go here
+    "skills_matcher_db.clients",
+    "skills_matcher_db.engineers",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

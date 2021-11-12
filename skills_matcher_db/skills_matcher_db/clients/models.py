@@ -1,0 +1,29 @@
+from django.db import models
+from ..users.models import User
+
+
+class ClientManager(models.Manager):
+    def get_queryset(self, *args, **kwargs):
+        return super().get_queryset(*args, **kwargs).filter(type=User.Types.CLIENT)
+
+
+class Client(User):
+    """
+    Client Proxy User model set up.
+    Client type user will use the app to find Engineers that have skills matching their project needs
+    """
+
+    base_type = User.Types.CLIENT
+    objects = ClientManager()
+
+    class Meta:
+        proxy = True
+
+    @property
+    def addons(self):
+        return self.client_addon
+
+
+class ClientAddon(models.Model):
+    # Engineer specific fields
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
