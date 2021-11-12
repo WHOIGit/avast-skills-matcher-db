@@ -27,7 +27,7 @@ class Engineer(User):
 
     @property
     def addons(self):
-        return self.engineer_addon
+        return self.engineeraddon
 
 
 class EngineerAddon(models.Model):

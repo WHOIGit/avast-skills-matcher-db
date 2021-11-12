@@ -8,7 +8,7 @@ class Skill(MPTTModel):
     name = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
     parent = TreeForeignKey(
-        "self", blank=True, null=True, related_name="child", on_delete=models.CASCADE
+        "self", blank=True, null=True, related_name="children", on_delete=models.CASCADE
     )
 
     class Meta:

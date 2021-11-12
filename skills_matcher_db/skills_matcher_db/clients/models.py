@@ -22,7 +22,7 @@ class Client(User):
 
     @property
     def addons(self):
-        return self.client_addon
+        return self.clientaddon
 
 
 class ClientAddon(models.Model):
