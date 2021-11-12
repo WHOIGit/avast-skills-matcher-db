@@ -78,6 +78,7 @@ LOCAL_APPS = [
     # Your stuff: custom apps go here
     "skills_matcher_db.clients",
     "skills_matcher_db.engineers",
+    "skills_matcher_db.skills",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
