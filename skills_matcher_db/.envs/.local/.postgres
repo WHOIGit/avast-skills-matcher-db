@@ -1,0 +1,7 @@
+# PostgreSQL
+# ------------------------------------------------------------------------------
+POSTGRES_HOST=postgres
+POSTGRES_PORT=5432
+POSTGRES_DB=skills_matcher_db
+POSTGRES_USER=QJGoLpHjQvEythBCFRHlZApNRFilADfw
+POSTGRES_PASSWORD=ve7g7w7igv9d1uRdS3Lyu5kJoSbCLjTQHNcCFgFmXBndyIJUh9sPwrVUFFBik81e
