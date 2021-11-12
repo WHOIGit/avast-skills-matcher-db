@@ -1,8 +1,9 @@
 from django.db import models
+from django.contrib.auth.base_user import BaseUserManager
 from ..users.models import User
 
 
-class ClientManager(models.Manager):
+class ClientManager(BaseUserManager):
     def get_queryset(self, *args, **kwargs):
         return super().get_queryset(*args, **kwargs).filter(type=User.Types.CLIENT)
 
