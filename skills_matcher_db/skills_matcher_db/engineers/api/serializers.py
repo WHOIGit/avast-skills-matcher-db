@@ -1,23 +1,24 @@
 from rest_framework import serializers
 
 # local imports
-from ..models import Engineer, EngineerAddon
+from ..models import Engineer, EngineerProfile
+from ...skills.api.serializers import SkillSerializer
 
 
-class EngineerAddonSerializer(serializers.ModelSerializer):
-    # skills = SkillSerializer()
+class EngineerProfileSerializer(serializers.ModelSerializer):
+    skills = SkillSerializer(many=True)
 
     class Meta:
-        model = EngineerAddon
+        model = EngineerProfile
         fields = ["experience", "skills"]
 
 
 class EngineerSerializer(serializers.ModelSerializer):
-    addons = EngineerAddonSerializer()
+    profile = EngineerProfileSerializer()
 
     class Meta:
         model = Engineer
-        fields = ["id", "username", "name", "url", "addons"]
+        fields = ["id", "username", "name", "url", "profile"]
 
         extra_kwargs = {
             "url": {"view_name": "api:engineers-detail", "lookup_field": "username"}

@@ -21,10 +21,10 @@ class Client(User):
         proxy = True
 
     @property
-    def addons(self):
-        return self.clientaddon
+    def profile(self):
+        return self.clientprofile
 
 
-class ClientAddon(models.Model):
+class ClientProfile(models.Model):
     # Engineer specific fields
     user = models.OneToOneField(User, on_delete=models.CASCADE)

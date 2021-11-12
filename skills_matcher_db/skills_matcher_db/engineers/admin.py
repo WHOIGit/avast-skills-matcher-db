@@ -3,19 +3,19 @@ from django.forms import CheckboxSelectMultiple
 from mptt.models import TreeManyToManyField
 
 # local imports
-from .models import Engineer, EngineerAddon
+from .models import Engineer, EngineerProfile
 from ..users.admin import UserAdmin
 
 
-class EngineerAddonInline(admin.StackedInline):
-    model = EngineerAddon
+class EngineerProfileInline(admin.StackedInline):
+    model = EngineerProfile
     formfield_overrides = {
         TreeManyToManyField: {"widget": CheckboxSelectMultiple},
     }
 
 
 class EngineerAdmin(UserAdmin):
-    inlines = (EngineerAddonInline,)
+    inlines = (EngineerProfileInline,)
 
 
 admin.site.register(Engineer, EngineerAdmin)

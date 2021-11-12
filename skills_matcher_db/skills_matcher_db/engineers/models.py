@@ -26,11 +26,11 @@ class Engineer(User):
         proxy = True
 
     @property
-    def addons(self):
-        return self.engineeraddon
+    def profile(self):
+        return self.engineerprofile
 
 
-class EngineerAddon(models.Model):
+class EngineerProfile(models.Model):
     # Engineer specific fields
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     experience = models.TextField()
