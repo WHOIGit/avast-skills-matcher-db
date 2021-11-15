@@ -6,6 +6,9 @@ from django.views import defaults as default_views
 from django.views.generic import TemplateView
 from rest_framework.authtoken.views import obtain_auth_token
 
+from skills_matcher_db.users.api import jwt_views
+from skills_matcher_db.users.api.views import Ping
+
 urlpatterns = [
     path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
     path(
@@ -25,6 +28,10 @@ urlpatterns += [
     path("api/", include("config.api_router")),
     # DRF auth token
     path("auth-token/", obtain_auth_token),
+    path("token/", jwt_views.Login.as_view(), name="token"),
+    path("token/refresh/", jwt_views.RefreshToken.as_view(), name="token-refresh"),
+    path("token/logout/", jwt_views.Logout.as_view(), name="logout"),
+    path("ping/", Ping.as_view(), name="ping"),
 ]
 
 if settings.DEBUG:
