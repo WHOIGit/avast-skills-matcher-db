@@ -28,6 +28,7 @@ urlpatterns += [
     path("api/", include("config.api_router")),
     # DRF auth token
     path("auth-token/", obtain_auth_token),
+    # JWT auth
     path("token/", jwt_views.Login.as_view(), name="token"),
     path("token/refresh/", jwt_views.RefreshToken.as_view(), name="token-refresh"),
     path("token/logout/", jwt_views.Logout.as_view(), name="logout"),

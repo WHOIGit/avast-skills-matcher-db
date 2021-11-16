@@ -6,6 +6,6 @@ from .serializers import EngineerSerializer
 
 
 class EngineerViewSet(ModelViewSet):
-    lookup_field = "username"
     queryset = Engineer.objects.all()
     serializer_class = EngineerSerializer
+    lookup_field = "username"
