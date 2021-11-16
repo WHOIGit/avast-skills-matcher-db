@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import Link from '../src/components/Link';
 import Copyright from '../src/components/Copyright';
 
-export default function Index() {
+const Index = () => {
   return (
     <Container maxWidth="sm">
       <Box sx={{ my: 4 }}>
@@ -21,3 +21,5 @@ export default function Index() {
     </Container>
   );
 }
+
+export default Index;
