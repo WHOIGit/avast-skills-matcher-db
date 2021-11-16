@@ -10,6 +10,7 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import SkillsFilter from "./SkillsFilter";
 
 const drawerWidth = 240;
 
@@ -62,11 +63,11 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
-type Props = {
+interface LayoutProps {
   children?: React.ReactNode;
-};
+}
 
-const Layout: React.FC<Props> = ({ children }) => {
+const Layout: React.FC<LayoutProps> = ({ children }) => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -119,7 +120,7 @@ const Layout: React.FC<Props> = ({ children }) => {
           </IconButton>
         </DrawerHeader>
         <Divider />
-
+        <SkillsFilter />
         <Divider />
       </Drawer>
       <Main open={open}>
