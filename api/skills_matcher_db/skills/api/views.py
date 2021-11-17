@@ -6,6 +6,6 @@ from .serializers import SkillSerializer
 
 
 class SkillViewSet(ReadOnlyModelViewSet):
-    queryset = Skill.objects.all()
+    queryset = Skill.objects.root_nodes()
     serializer_class = SkillSerializer
     lookup_field = "pk"
