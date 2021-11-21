@@ -29,7 +29,6 @@ const useSkills = (): HookData => {
   console.log(selectedSkills);
 
   const changeSelectStatus = (skill: Skill, checked: boolean): void => {
-    console.log(skill, checked);
     const skillList = selectedSkills;
     if (checked) {
       setSelectedSkills([...skillList, skill]);

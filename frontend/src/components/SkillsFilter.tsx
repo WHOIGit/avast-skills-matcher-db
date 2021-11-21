@@ -5,7 +5,6 @@ import Skills, { Skill } from "../containers/skillsContainer";
 
 const SkillsFilter: React.FC = () => {
   const skillsCtx = Skills.useContainer();
-  console.log(skillsCtx.skills);
   const selectedIDs = skillsCtx.selectedSkills.map((skill) => skill.id);
   console.log(selectedIDs);
 
