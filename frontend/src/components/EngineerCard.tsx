@@ -46,7 +46,7 @@ export default function EngineerCard({ engineer }: CardProps) {
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            {engineer.name.charAt(0)}
+            {engineer.firstName.charAt(0)}
           </Avatar>
         }
         action={
@@ -54,7 +54,7 @@ export default function EngineerCard({ engineer }: CardProps) {
             <MoreVertIcon />
           </IconButton>
         }
-        title={engineer.name}
+        title={`${engineer.firstName} ${engineer.lastName}`}
         subheader="September 14, 2016"
       />
 

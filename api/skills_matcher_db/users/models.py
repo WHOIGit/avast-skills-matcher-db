@@ -13,10 +13,8 @@ class User(AbstractUser):
 
     base_type = Types.CLIENT
 
-    #: First and last name do not cover name patterns around the globe
-    name = models.CharField(_("Name of User"), blank=True, max_length=255)
-    first_name = None  # type: ignore
-    last_name = None  # type: ignore
+    first_name = models.CharField(blank=True, max_length=255)
+    last_name = models.CharField(blank=True, max_length=255)
     # What type of user are we?
     type = models.CharField(
         _("Type"), max_length=50, choices=Types.choices, default=base_type

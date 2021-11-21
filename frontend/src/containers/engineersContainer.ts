@@ -13,7 +13,8 @@ type Profile = {
 export type Engineer = {
   id: string;
   username: string;
-  name: string;
+  firstName: string;
+  lastName: string;
   url: string;
   profile: Profile;
 };

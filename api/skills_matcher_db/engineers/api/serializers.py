@@ -15,7 +15,7 @@ class EngineerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Engineer
-        fields = ["id", "username", "name", "url", "profile"]
+        fields = ["id", "username", "first_name", "last_name", "url", "profile"]
 
         extra_kwargs = {
             "url": {"view_name": "api:engineers-detail", "lookup_field": "username"}
