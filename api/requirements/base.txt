@@ -19,6 +19,7 @@ django-extensions==3.1.5
 djangorestframework==3.12.4  # https://github.com/encode/django-rest-framework
 django-cors-headers==3.10.0 # https://github.com/adamchainz/django-cors-headers
 djangorestframework-simplejwt==5.0.0
+djangorestframework-camel-case==1.2.0
 # Project specific
 django-mptt==0.13.4
 django-mptt-admin==2.1.0
