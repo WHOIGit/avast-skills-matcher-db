@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useSWR from "swr";
 import { createContainer } from "unstated-next";
 
@@ -15,13 +15,14 @@ export type Skill = {
 };
 
 type HookData = {
-  skills: Skill[];
+  skills: any;
+  selectedSkills: Skill[];
   changeSelectStatus: (skill: Skill, checked: boolean) => void;
   isLoading: boolean;
   isError: any;
 };
 
-const useSkills = () => {
+const useSkills = (): HookData => {
   const { data, error } = useSWR(`${API_BASE}/api/skills/`, fetcher);
   //const [skills, setSkills] = useState<Skill[]>([]);
   const [selectedSkills, setSelectedSkills] = useState<Skill[]>([]);
@@ -32,6 +33,8 @@ const useSkills = () => {
     const skillList = selectedSkills;
     if (checked) {
       setSelectedSkills([...skillList, skill]);
+    } else if (!checked) {
+      setSelectedSkills(skillList.filter((item) => item.id !== skill.id));
     }
   };
 

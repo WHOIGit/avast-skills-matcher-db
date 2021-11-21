@@ -2,12 +2,9 @@ from rest_framework import serializers
 
 # local imports
 from ..models import Engineer, EngineerProfile
-from ...skills.api.serializers import SkillSerializer
 
 
 class EngineerProfileSerializer(serializers.ModelSerializer):
-    skills = SkillSerializer(many=True)
-
     class Meta:
         model = EngineerProfile
         fields = ["experience", "skills"]

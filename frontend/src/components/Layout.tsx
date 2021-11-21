@@ -11,7 +11,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import SkillsFilter from "./SkillsFilter";
-
+import Engineers from "../containers/engineersContainer";
 const drawerWidth = 240;
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
@@ -123,10 +123,13 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         <SkillsFilter />
         <Divider />
       </Drawer>
-      <Main open={open}>
-        <DrawerHeader />
-        {children}
-      </Main>
+
+      <Engineers.Provider>
+        <Main open={open}>
+          <DrawerHeader />
+          {children}
+        </Main>
+      </Engineers.Provider>
     </Box>
   );
 };

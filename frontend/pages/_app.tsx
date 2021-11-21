@@ -20,7 +20,7 @@ const MyApp = (props: IAppProps) => {
   return (
     <CacheProvider value={emotionCache}>
       <Head>
-        <title>My page</title>
+        <title>AVAST Skills Matcher</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
       <ThemeProvider theme={theme}>
