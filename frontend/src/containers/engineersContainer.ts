@@ -8,7 +8,7 @@ const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
 type Profile = {
   experience: string;
-  skills: Skill[];
+  skills: string[];
 };
 export type Engineer = {
   id: string;

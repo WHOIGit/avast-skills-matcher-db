@@ -14,10 +14,9 @@ const SkillsFilter: React.FC = () => {
       hasChildren = true;
     }
     return (
-      <>
+      <div key={skill.id}>
         <FormControlLabel
           label={skill.name}
-          key={skill.id}
           control={
             <Checkbox
               checked={selectedIDs.includes(skill.id)}
@@ -32,7 +31,7 @@ const SkillsFilter: React.FC = () => {
           {hasChildren &&
             skill.children.map((child) => renderSkillsList(child))}
         </Box>
-      </>
+      </div>
     );
   };
 
