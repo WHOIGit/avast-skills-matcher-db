@@ -1,5 +1,7 @@
 import * as React from "react";
+import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
+import Router from "next/router";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -8,7 +10,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
-import theme from "../src/theme";
+import Auth from "../src/containers/authContainer";
 
 type FormData = {
   firstName: string;
@@ -18,13 +20,47 @@ type FormData = {
 };
 
 export default function SignUp() {
+  const authCtx = Auth.useContainer();
   const {
     handleSubmit,
     control,
     formState: { errors },
   } = useForm<FormData>();
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
-  const onSubmit = (data: any) => console.log(data);
+  const onSubmit = async (data: FormData): Promise<void> => {
+    console.log(data);
+    // send form data to API
+    try {
+      const resp = await authCtx.createUser(
+        data.firstName,
+        data.lastName,
+        data.email,
+        data.password
+      );
+      // now log the user in if creation successful
+      if (!resp.ok) {
+        setErrorMessage("API connection error. Please try again later.");
+      } else {
+        try {
+          const user = await authCtx.login(data.email, data.password);
+          if (user.status === 401) {
+            setErrorMessage("Invalid login credentials");
+          }
+        } catch (error: any) {
+          console.error(error);
+          // TODO: actually parse api 400 error messages
+          setErrorMessage(error.message);
+        }
+      }
+    } catch (error: any) {
+      console.error(error);
+      // TODO: actually parse api 400 error messages
+      setErrorMessage(error.message);
+    }
+  };
+
+  if (!authCtx.loading && authCtx.isAuthenticated) Router.push("/");
 
   return (
     <Box
@@ -140,6 +176,7 @@ export default function SignUp() {
         >
           Sign Up
         </Button>
+        <Box sx={{ color: "error.main" }}>{errorMessage}</Box>
         <Grid container justifyContent="flex-end">
           <Grid item>
             <Link href="#" variant="body2">

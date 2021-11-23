@@ -9,13 +9,27 @@ User = get_user_model()
 
 
 class UserSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True)
+
     class Meta:
         model = User
-        fields = ["id", "username", "first_name", "last_name", "email", "url"]
+        fields = [
+            "id",
+            "username",
+            "first_name",
+            "last_name",
+            "email",
+            "url",
+            "password",
+        ]
 
-        extra_kwargs = {
-            "url": {"view_name": "api:user-detail", "lookup_field": "username"}
-        }
+        extra_kwargs = {"url": {"view_name": "api:user-detail", "lookup_field": "pk"}}
+
+    def create(self, validated_data):
+        user = super(UserSerializer, self).create(validated_data)
+        user.set_password(validated_data["password"])
+        user.save()
+        return user
 
 
 class TokenObtainPairSerializer(jwt_serializers.TokenObtainPairSerializer):
@@ -24,7 +38,7 @@ class TokenObtainPairSerializer(jwt_serializers.TokenObtainPairSerializer):
         token = super().get_token(user)
 
         # Custom claims
-        token["name"] = user.name
+        token["name"] = user.username
 
         return token
 

@@ -5,12 +5,10 @@ import Link from "../src/components/Link";
 import Copyright from "../src/components/Copyright";
 import EngineersGrid from "../src/components/EngineersGrid";
 
-const Index = () => {
+export default function Index() {
   return (
     <Box sx={{ my: 4 }}>
       <EngineersGrid />
     </Box>
   );
-};
-
-export default Index;
+}

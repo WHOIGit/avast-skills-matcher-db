@@ -60,7 +60,7 @@ export default function EngineerCard({ engineer }: CardProps) {
 
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          {engineer.profile.experience}
+          {engineer.profile?.experience}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>

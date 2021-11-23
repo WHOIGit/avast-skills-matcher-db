@@ -33,6 +33,6 @@ class Engineer(User):
 class EngineerProfile(models.Model):
     # Engineer specific fields
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    experience = models.TextField()
-    skills = TreeManyToManyField(Skill, related_name="engineers")
+    experience = models.TextField(null=True)
+    skills = TreeManyToManyField(Skill, related_name="engineers", blank=True)
     avatar = models.ImageField(upload_to="avatars", null=True)
