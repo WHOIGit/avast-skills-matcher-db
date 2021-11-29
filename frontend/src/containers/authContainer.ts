@@ -5,7 +5,6 @@ const API_BASE = process.env.NEXT_PUBLIC_API_HOST;
 
 export type Profile = {
   experience: string;
-  avatar: string;
   skills: string[];
 };
 export type User = {
@@ -14,6 +13,7 @@ export type User = {
   firstName: string;
   lastName: string;
   username: string;
+  avatar: string;
   engineerProfile: Profile;
 };
 

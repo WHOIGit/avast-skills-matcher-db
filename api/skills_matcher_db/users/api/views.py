@@ -13,9 +13,9 @@ from rest_framework.mixins import (
 from rest_framework.response import Response
 from rest_framework import viewsets
 
-from .serializers import UserSerializer
+from .serializers import UserSerializer, AvatarSerializer
 from ...engineers.models import Engineer
-from ...engineers.api.serializers import EngineerProfileSerializer, AvatarSerializer
+from ...engineers.api.serializers import EngineerProfileSerializer
 
 User = get_user_model()
 
@@ -60,17 +60,16 @@ class UserViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=["patch"])
     def set_avatar(self, request, pk=None):
-        # user = self.get_object()
-        # user.model = Engineer
-        # print(user.profile, request.data)
-        try:
+        user = self.get_object()
+        serializer = AvatarSerializer(user, data=request.data)
+        """ try:
             eng = Engineer.objects.get(pk=pk)
             profile = eng.profile
             serializer = AvatarSerializer(profile, data=request.data)
         except Exception as e:
             return Response(
                 {"error": "no profile exists"}, status=status.HTTP_400_BAD_REQUEST
-            )
+            )"""
 
         if serializer.is_valid():
             serializer.save()

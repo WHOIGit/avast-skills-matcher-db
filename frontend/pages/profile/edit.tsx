@@ -36,9 +36,8 @@ export default function EditForm() {
 
   useEffect(() => {
     // set the initial values for the form
-    if (profile?.engineerProfile) {
-      setAvatarImage(profile.engineerProfile.avatar);
-    }
+    profile?.avatar && setAvatarImage(profile?.avatar);
+
     // set for fields controlled by react-hook-form
     reset({
       firstName: profile?.firstName,
@@ -120,7 +119,7 @@ export default function EditForm() {
           <Grid item xs={12} sm={6}>
             <Controller
               name="firstName"
-              //defaultValue={authCtx.user?.firstName}
+              defaultValue={profile?.firstName}
               control={control}
               rules={{ required: true }}
               render={({ field: { onChange, value } }) => (
@@ -139,6 +138,7 @@ export default function EditForm() {
           <Grid item xs={12} sm={6}>
             <Controller
               name="lastName"
+              defaultValue={profile?.lastName}
               control={control}
               rules={{ required: true }}
               render={({ field: { onChange, value } }) => (
@@ -158,6 +158,7 @@ export default function EditForm() {
           <Grid item xs={12}>
             <Controller
               name="email"
+              defaultValue={profile?.email}
               control={control}
               rules={{
                 required: true,
