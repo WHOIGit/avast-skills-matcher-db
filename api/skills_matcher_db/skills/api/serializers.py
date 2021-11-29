@@ -17,4 +17,4 @@ class SkillSerializer(serializers.ModelSerializer):
         model = Skill
         fields = ["id", "name", "url", "parent", "children"]
 
-        extra_kwargs = {"url": {"view_name": "api:skills-detail", "lookup_field": "pk"}}
+        extra_kwargs = {"url": {"view_name": "api:skill-detail", "lookup_field": "pk"}}

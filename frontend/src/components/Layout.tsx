@@ -16,6 +16,8 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import { NextLinkComposed } from "./Link";
 import SkillsFilter from "./SkillsFilter";
 import Engineers from "../containers/engineersContainer";
+import Auth from "../containers/authContainer";
+import { Button } from "@mui/material";
 const drawerWidth = 240;
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
@@ -114,6 +116,7 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const authCtx = Auth.useContainer();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -150,18 +153,30 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              component={NextLinkComposed}
-              to={{
-                pathname: "/about",
-              }}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
+            {authCtx.isAuthenticated ? (
+              <IconButton
+                size="large"
+                edge="end"
+                aria-label="account of current user"
+                component={NextLinkComposed}
+                to={{
+                  pathname: "/me",
+                }}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+            ) : (
+              <Button
+                color="inherit"
+                component={NextLinkComposed}
+                to={{
+                  pathname: "/signin",
+                }}
+              >
+                Login
+              </Button>
+            )}
           </Box>
         </Toolbar>
       </AppBar>

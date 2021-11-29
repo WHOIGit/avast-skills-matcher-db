@@ -13,7 +13,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { Engineer } from "../containers/engineersContainer";
+import { User } from "../containers/authContainer";
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -31,7 +31,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 }));
 
 type CardProps = {
-  engineer: Engineer;
+  engineer: User;
 };
 
 export default function EngineerCard({ engineer }: CardProps) {
@@ -60,7 +60,7 @@ export default function EngineerCard({ engineer }: CardProps) {
 
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          {engineer.profile?.experience}
+          {engineer.engineerProfile?.experience}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>

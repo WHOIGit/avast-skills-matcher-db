@@ -5,9 +5,24 @@ from ..models import Engineer, EngineerProfile
 
 
 class EngineerProfileSerializer(serializers.ModelSerializer):
+    avatar = serializers.SerializerMethodField("get_avatar_url")
+
     class Meta:
         model = EngineerProfile
-        fields = ["experience", "skills"]
+        fields = ["experience", "skills", "avatar"]
+
+    def get_avatar_url(self, obj):
+        # return the absolute URL of the image
+        if obj.avatar:
+            request = self.context.get("request")
+            return request.build_absolute_uri(obj.avatar.url)
+        return None
+
+
+class AvatarSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EngineerProfile
+        fields = ["avatar"]
 
 
 class EngineerSerializer(serializers.ModelSerializer):

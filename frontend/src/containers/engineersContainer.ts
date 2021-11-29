@@ -1,24 +1,11 @@
 import useSWR from "swr";
 import { createContainer } from "unstated-next";
-
+import { User } from "../containers/authContainer";
 const API_BASE = process.env.NEXT_PUBLIC_API_HOST;
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
-type Profile = {
-  experience: string;
-  skills: string[];
-};
-export type Engineer = {
-  id: string;
-  username: string;
-  firstName: string;
-  lastName: string;
-  url: string;
-  profile: Profile;
-};
-
 type HookData = {
-  engineers: any;
+  engineers: User[];
   isLoading: boolean;
   isError: any;
 };

@@ -1,8 +1,9 @@
 import * as React from "react";
 import { Grid } from "@mui/material";
 // local imports
+import { User } from "../containers/authContainer";
 import Skills, { Skill } from "../containers/skillsContainer";
-import Engineers, { Engineer } from "../containers/engineersContainer";
+import Engineers from "../containers/engineersContainer";
 import EngineerCard from "./EngineerCard";
 
 const EngineersGrid = () => {
@@ -27,13 +28,11 @@ const EngineersGrid = () => {
           (skill: Skill) => skill.id
         ) as string[];
 
-        const engineerList = engineersCtx.engineers.filter(
-          (engineer: Engineer) => {
-            return skillList.some((id: string) =>
-              engineer.profile.skills.includes(id)
-            );
-          }
-        ) as Engineer[];
+        const engineerList = engineersCtx.engineers.filter((engineer: User) => {
+          return skillList.some((id: string) =>
+            engineer.engineerProfile.skills.includes(id)
+          );
+        }) as User[];
 
         setMatchingEngineers(engineerList);
       }
@@ -46,7 +45,7 @@ const EngineersGrid = () => {
 
   return (
     <Grid container spacing={2}>
-      {matchingEngineers.map((engineer: Engineer) => {
+      {matchingEngineers.map((engineer: User) => {
         return (
           <Grid item xs={4} key={engineer.id}>
             <EngineerCard engineer={engineer} />

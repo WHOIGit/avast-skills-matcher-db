@@ -3,11 +3,18 @@ import { createContainer } from "unstated-next";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_HOST;
 
-type User = {
+export type Profile = {
+  experience: string;
+  avatar: string;
+  skills: string[];
+};
+export type User = {
   id: string;
   email: string;
-  name: string;
+  firstName: string;
+  lastName: string;
   username: string;
+  engineerProfile: Profile;
 };
 
 type TokenResponse = {
@@ -51,33 +58,6 @@ async function fetchUser(token: string): Promise<Response> {
     },
   });
 }
-
-const fetchUserCreate = (
-  firstName: string,
-  lastName: string,
-  email: string,
-  password: string
-): Promise<Response> => {
-  const url = makeUrl("/api/engineers/");
-  // default the Django username to use their email
-  const username = email;
-
-  return fetch(url, {
-    method: "POST",
-    body: JSON.stringify({
-      firstName,
-      lastName,
-      username,
-      password,
-      email,
-    }),
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-  });
-};
-
 type AuthContainerProps = {
   isAuthenticated: boolean;
   loading: boolean;
@@ -85,12 +65,6 @@ type AuthContainerProps = {
   login: (username: string, password: string) => Promise<Response>;
   logout: () => void;
   getToken: () => Promise<string>;
-  createUser: (
-    firstName: string,
-    lastName: string,
-    email: string,
-    password: string
-  ) => Promise<Response>;
 };
 
 export const useAuth = (): AuthContainerProps => {
@@ -162,27 +136,6 @@ export const useAuth = (): AuthContainerProps => {
     setLoading(false);
   };
 
-  const createUser = async (
-    firstName: string,
-    lastName: string,
-    email: string,
-    password: string
-  ): Promise<Response> => {
-    const resp = await fetchUserCreate(firstName, lastName, email, password);
-
-    if (resp.ok) {
-      const data = await resp.json();
-      console.log(data);
-    } else {
-      const error = await resp.json();
-      console.log(error);
-      setIsAuthenticated(false);
-      setLoading(true);
-      // Let the page handle the error
-    }
-    return resp;
-  };
-
   const login = async (
     username: string,
     password: string
@@ -240,7 +193,6 @@ export const useAuth = (): AuthContainerProps => {
     login,
     logout,
     getToken,
-    createUser,
   };
 };
 

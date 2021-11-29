@@ -8,7 +8,7 @@ from rest_framework_simplejwt.settings import api_settings as jwt_settings
 from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
 from rest_framework_simplejwt.tokens import RefreshToken as RefreshTokenModel
 
-from . import serializers
+from . import jwt_serializers
 
 
 class TokenViewBaseWithCookie(TokenViewBase):
@@ -38,11 +38,11 @@ class TokenViewBaseWithCookie(TokenViewBase):
 
 
 class Login(TokenViewBaseWithCookie):
-    serializer_class = serializers.TokenObtainPairSerializer
+    serializer_class = jwt_serializers.TokenObtainPairSerializer
 
 
 class RefreshToken(TokenViewBaseWithCookie):
-    serializer_class = serializers.TokenRefreshSerializer
+    serializer_class = jwt_serializers.TokenRefreshSerializer
 
 
 class Logout(APIView):

@@ -1,59 +1,68 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
+import { styled } from "@mui/material/styles";
 import Router from "next/router";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
+import Stack from "@mui/material/Stack";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import Typography from "@mui/material/Typography";
-import Auth from "../src/containers/authContainer";
-import useProfile from "../src/hooks/useProfile";
+import useProfile from "../../src/hooks/useProfile";
 
 type FormData = {
   firstName: string;
   lastName: string;
   email: string;
-  password: string;
 };
 
-export default function SignUp() {
-  const authCtx = Auth.useContainer();
-  const { createUser } = useProfile();
+const Input = styled("input")({
+  display: "none",
+});
+
+export default function EditForm() {
+  const { profile, editProfile, uploadAvatar } = useProfile();
+  const [avatarImage, setAvatarImage] = useState<string>("");
   const {
     handleSubmit,
     control,
     formState: { errors },
+    reset,
   } = useForm<FormData>();
   const [errorMessage, setErrorMessage] = useState<string>("");
+
+  useEffect(() => {
+    // set the initial values for the form
+    if (profile?.engineerProfile) {
+      setAvatarImage(profile.engineerProfile.avatar);
+    }
+    // set for fields controlled by react-hook-form
+    reset({
+      firstName: profile?.firstName,
+      lastName: profile?.lastName,
+      email: profile?.email,
+    });
+  }, [reset, profile]);
+
+  const handleCapture = (event: any) => {
+    console.log("clicked");
+
+    console.log(event.target.files);
+    const newImg = event.target.files[0];
+    setAvatarImage(newImg);
+    uploadAvatar(newImg);
+  };
 
   const onSubmit = async (data: FormData): Promise<void> => {
     console.log(data);
     // send form data to API
     try {
-      const resp = await createUser(
-        data.firstName,
-        data.lastName,
-        data.email,
-        data.password
-      );
-      // now log the user in if creation successful
+      const resp = await editProfile(data.firstName, data.lastName, data.email);
       if (!resp.ok) {
         setErrorMessage("API connection error. Please try again later.");
-      } else {
-        try {
-          const user = await authCtx.login(data.email, data.password);
-          if (user.status === 401) {
-            setErrorMessage("Invalid login credentials");
-          }
-        } catch (error: any) {
-          console.error(error);
-          // TODO: actually parse api 400 error messages
-          setErrorMessage(error.message);
-        }
       }
     } catch (error: any) {
       console.error(error);
@@ -62,7 +71,7 @@ export default function SignUp() {
     }
   };
 
-  if (!authCtx.loading && authCtx.isAuthenticated) Router.push("/");
+  console.log(avatarImage);
 
   return (
     <Box
@@ -73,12 +82,34 @@ export default function SignUp() {
         alignItems: "center",
       }}
     >
-      <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-        <LockOutlinedIcon />
-      </Avatar>
       <Typography component="h1" variant="h5">
-        Sign up
+        Edit Profile
       </Typography>
+      <Stack direction="row" alignItems="center" spacing={2}>
+        <Avatar
+          sx={{ m: 1, bgcolor: "secondary.main", width: 56, height: 56 }}
+          alt={profile?.firstName}
+          src={avatarImage}
+        />
+
+        <label htmlFor="avatar-image">
+          <Input
+            accept="image/*"
+            id="avatar-image"
+            name="avatar-image"
+            type="file"
+            onChange={handleCapture}
+          />
+          <Button
+            variant="contained"
+            component="span"
+            startIcon={<PhotoCamera />}
+          >
+            Change Profile Image
+          </Button>
+        </label>
+      </Stack>
+
       <Box
         component="form"
         noValidate
@@ -89,6 +120,7 @@ export default function SignUp() {
           <Grid item xs={12} sm={6}>
             <Controller
               name="firstName"
+              //defaultValue={authCtx.user?.firstName}
               control={control}
               rules={{ required: true }}
               render={({ field: { onChange, value } }) => (
@@ -146,29 +178,6 @@ export default function SignUp() {
             />
             <Box sx={{ color: "error.main" }}>{errors.email?.message}</Box>
           </Grid>
-          <Grid item xs={12}>
-            <Controller
-              name="password"
-              control={control}
-              rules={{ required: true, minLength: 8 }}
-              render={({ field: { onChange, value } }) => (
-                <TextField
-                  fullWidth
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                  onChange={onChange}
-                  value={value}
-                />
-              )}
-            />
-            <Box sx={{ color: "error.main" }}>
-              {errors.password?.type === "required" && "Password is required"}
-              {errors.password?.type === "minLength" &&
-                "Password must be at least 8 characters"}
-            </Box>
-          </Grid>
         </Grid>
         <Button
           type="submit"
@@ -176,16 +185,9 @@ export default function SignUp() {
           variant="contained"
           sx={{ mt: 3, mb: 2 }}
         >
-          Sign Up
+          Save Profile
         </Button>
         <Box sx={{ color: "error.main" }}>{errorMessage}</Box>
-        <Grid container justifyContent="flex-end">
-          <Grid item>
-            <Link href="#" variant="body2">
-              Already have an account? Sign in
-            </Link>
-          </Grid>
-        </Grid>
       </Box>
     </Box>
   );

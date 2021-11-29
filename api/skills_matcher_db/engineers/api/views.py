@@ -1,11 +1,10 @@
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import ReadOnlyModelViewSet
 
 # local imports
 from ..models import Engineer
-from .serializers import EngineerSerializer
+from ...users.api.serializers import UserSerializer
 
 
-class EngineerViewSet(ModelViewSet):
+class EngineerViewSet(ReadOnlyModelViewSet):
     queryset = Engineer.objects.all()
-    serializer_class = EngineerSerializer
-    # lookup_field = "username"
+    serializer_class = UserSerializer

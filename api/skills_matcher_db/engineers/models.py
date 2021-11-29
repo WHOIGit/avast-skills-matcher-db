@@ -10,7 +10,11 @@ from ..skills.models import Skill
 class EngineerManager(BaseUserManager):
     # custom manager for Engineer model
     def get_queryset(self, *args, **kwargs):
-        return super().get_queryset(*args, **kwargs).filter(type=User.Types.ENGINEER)
+        return (
+            super()
+            .get_queryset(*args, **kwargs)
+            .filter(user_type__contains=[User.Types.ENGINEER])
+        )
 
 
 class Engineer(User):
@@ -27,12 +31,14 @@ class Engineer(User):
 
     @property
     def profile(self):
-        return self.engineerprofile
+        return self.engineer_profile
 
 
 class EngineerProfile(models.Model):
     # Engineer specific fields
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    experience = models.TextField(null=True)
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, related_name="engineer_profile"
+    )
+    experience = models.TextField(null=True, blank=True)
     skills = TreeManyToManyField(Skill, related_name="engineers", blank=True)
-    avatar = models.ImageField(upload_to="avatars", null=True)
+    avatar = models.ImageField(upload_to="avatars", null=True, blank=True)
