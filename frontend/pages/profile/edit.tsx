@@ -81,7 +81,7 @@ export default function EditForm() {
       }}
     >
       <Typography component="h1" variant="h5">
-        Edit Profile
+        Edit Account
       </Typography>
       <Stack direction="row" alignItems="center" spacing={2}>
         <Avatar
