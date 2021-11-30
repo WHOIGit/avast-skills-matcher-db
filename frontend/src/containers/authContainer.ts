@@ -19,7 +19,7 @@ export type User = {
 
 type TokenResponse = {
   access: string;
-  access_expires: number;
+  accessExpires: number;
 };
 
 const makeUrl = (endpoint: string): string => {
@@ -130,7 +130,8 @@ export const useAuth = (): AuthContainerProps => {
 
   const handleNewToken = (data: TokenResponse): void => {
     setAccessToken(data.access);
-    const expiryInt = data.access_expires * 1000;
+    const expiryInt = data.accessExpires * 1000;
+
     setAccessTokenExpiry(expiryInt);
     setIsAuthenticated(true);
     setLoading(false);
@@ -158,12 +159,6 @@ export const useAuth = (): AuthContainerProps => {
     console.log("Getting access token..");
     if (accessTokenIsValid()) {
       console.log("Getting access token.. existing token still valid");
-      return Promise.resolve(accessToken);
-    } else if (loading) {
-      while (loading) {
-        console.log("Getting access token.. waiting for token to be refreshed");
-      }
-      // Assume this means the token is in the middle of refreshing
       return Promise.resolve(accessToken);
     } else {
       console.log("Getting access token.. getting a new token");

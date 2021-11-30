@@ -1,5 +1,9 @@
-const API_BASE = process.env.NEXT_PUBLIC_API_HOST;
+import { useState } from "react";
+import useSWR from "swr";
 import Auth from "../containers/authContainer";
+
+const API_BASE = process.env.NEXT_PUBLIC_API_HOST;
+const profileUrl = `${API_BASE}/api/users/me/`;
 
 const makeUrl = (endpoint: string): string => {
   return API_BASE + endpoint;
@@ -7,6 +11,18 @@ const makeUrl = (endpoint: string): string => {
 
 const useProfile = () => {
   const authCtx = Auth.useContainer();
+
+  // async fetcher function for useSWR hook using token from auth Context
+  const fetcherWithToken = async (url: string) => {
+    return fetch(url, {
+      headers: {
+        Authorization: `Bearer ${await authCtx.getToken()}`,
+      },
+    }).then((r) => r.json());
+  };
+
+  const { data, mutate, error } = useSWR(profileUrl, fetcherWithToken);
+  console.log(data);
 
   const createUser = async (
     firstName: string,
@@ -63,6 +79,8 @@ const useProfile = () => {
 
     if (resp.ok) {
       const data = await resp.json();
+      // refresh the useSWR profile API data
+      mutate(profileUrl);
       console.log(data);
     } else {
       const error = await resp.json();
@@ -85,6 +103,8 @@ const useProfile = () => {
 
     if (resp.ok) {
       const data = await resp.json();
+      // refresh the useSWR profile API data
+      mutate(profileUrl);
       console.log(data);
     } else {
       const error = await resp.json();
@@ -94,7 +114,7 @@ const useProfile = () => {
   };
 
   return {
-    profile: authCtx.user,
+    profile: data,
     createUser: createUser,
     editProfile: editProfile,
     uploadAvatar: uploadAvatar,

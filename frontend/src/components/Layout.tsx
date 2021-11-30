@@ -8,16 +8,19 @@ import InputBase from "@mui/material/InputBase";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
+import { Button } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
+
 import { NextLinkComposed } from "./Link";
 import SkillsFilter from "./SkillsFilter";
 import Engineers from "../containers/engineersContainer";
 import Auth from "../containers/authContainer";
-import { Button } from "@mui/material";
+import AccountMenu from "./AccountMenu";
+
 const drawerWidth = 240;
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
@@ -154,24 +157,13 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             {authCtx.isAuthenticated ? (
-              <IconButton
-                size="large"
-                edge="end"
-                aria-label="account of current user"
-                component={NextLinkComposed}
-                to={{
-                  pathname: "/me",
-                }}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
+              <AccountMenu />
             ) : (
               <Button
                 color="inherit"
                 component={NextLinkComposed}
                 to={{
-                  pathname: "/signin",
+                  pathname: "/login",
                 }}
               >
                 Login

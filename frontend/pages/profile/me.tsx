@@ -4,13 +4,13 @@ import { useRouter } from "next/router";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import EditIcon from "@mui/icons-material/Edit";
-import { NextLinkComposed } from "../src/components/Link";
-import Auth from "../src/containers/authContainer";
+import { NextLinkComposed } from "../../src/components/Link";
+import Auth from "../../src/containers/authContainer";
 
 const Me = (): React.ReactElement => {
   const router = useRouter();
   const authCtx = Auth.useContainer();
-  console.log(authCtx.user);
+  console.log(authCtx.user, authCtx.loading, authCtx.getToken());
 
   if (authCtx.loading) {
     return (

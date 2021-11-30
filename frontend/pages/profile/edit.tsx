@@ -2,7 +2,6 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { styled } from "@mui/material/styles";
-import Router from "next/router";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -39,6 +38,7 @@ export default function EditForm() {
     profile?.avatar && setAvatarImage(profile?.avatar);
 
     // set for fields controlled by react-hook-form
+
     reset({
       firstName: profile?.firstName,
       lastName: profile?.lastName,
@@ -51,7 +51,6 @@ export default function EditForm() {
 
     console.log(event.target.files);
     const newImg = event.target.files[0];
-    setAvatarImage(newImg);
     uploadAvatar(newImg);
   };
 
@@ -70,7 +69,7 @@ export default function EditForm() {
     }
   };
 
-  console.log(avatarImage);
+  console.log(profile, avatarImage);
 
   return (
     <Box
@@ -119,7 +118,7 @@ export default function EditForm() {
           <Grid item xs={12} sm={6}>
             <Controller
               name="firstName"
-              defaultValue={profile?.firstName}
+              defaultValue=""
               control={control}
               rules={{ required: true }}
               render={({ field: { onChange, value } }) => (
@@ -128,6 +127,7 @@ export default function EditForm() {
                   onChange={onChange}
                   value={value}
                   label={"First Name"}
+                  variant="outlined"
                 />
               )}
             />
@@ -138,13 +138,12 @@ export default function EditForm() {
           <Grid item xs={12} sm={6}>
             <Controller
               name="lastName"
-              defaultValue={profile?.lastName}
+              defaultValue=""
               control={control}
               rules={{ required: true }}
               render={({ field: { onChange, value } }) => (
                 <TextField
                   fullWidth
-                  id="lastName"
                   label="Last Name"
                   onChange={onChange}
                   value={value}
@@ -158,7 +157,7 @@ export default function EditForm() {
           <Grid item xs={12}>
             <Controller
               name="email"
-              defaultValue={profile?.email}
+              defaultValue=""
               control={control}
               rules={{
                 required: true,

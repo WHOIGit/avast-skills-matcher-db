@@ -11,19 +11,15 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Auth from "../src/containers/authContainer";
-import useProfile from "../src/hooks/useProfile";
 
 type FormData = {
-  firstName: string;
-  lastName: string;
   email: string;
   password: string;
 };
 
-export default function SignUp() {
+export default function Login() {
   const router = useRouter();
   const authCtx = Auth.useContainer();
-  const { createUser } = useProfile();
   const {
     handleSubmit,
     control,
@@ -33,28 +29,10 @@ export default function SignUp() {
 
   const onSubmit = async (data: FormData): Promise<void> => {
     console.log(data);
-    // send form data to API
     try {
-      const resp = await createUser(
-        data.firstName,
-        data.lastName,
-        data.email,
-        data.password
-      );
-      // now log the user in if creation successful
-      if (!resp.ok) {
-        setErrorMessage("API connection error. Please try again later.");
-      } else {
-        try {
-          const user = await authCtx.login(data.email, data.password);
-          if (user.status === 401) {
-            setErrorMessage("Invalid login credentials");
-          }
-        } catch (error: any) {
-          console.error(error);
-          // TODO: actually parse api 400 error messages
-          setErrorMessage(error.message);
-        }
+      const user = await authCtx.login(data.email, data.password);
+      if (user.status === 401) {
+        setErrorMessage("Invalid login credentials");
       }
     } catch (error: any) {
       console.error(error);
@@ -63,7 +41,7 @@ export default function SignUp() {
     }
   };
 
-  if (!authCtx.loading && authCtx.isAuthenticated) router.push("/");
+  if (!authCtx.loading && authCtx.isAuthenticated) router.push("/profile/me");
 
   return (
     <Box
@@ -78,7 +56,7 @@ export default function SignUp() {
         <LockOutlinedIcon />
       </Avatar>
       <Typography component="h1" variant="h5">
-        Sign up
+        Sign in
       </Typography>
       <Box
         component="form"
@@ -87,43 +65,6 @@ export default function SignUp() {
         sx={{ mt: 3 }}
       >
         <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
-            <Controller
-              name="firstName"
-              control={control}
-              rules={{ required: true }}
-              render={({ field: { onChange, value } }) => (
-                <TextField
-                  fullWidth
-                  onChange={onChange}
-                  value={value}
-                  label={"First Name"}
-                />
-              )}
-            />
-            <Box sx={{ color: "error.main" }}>
-              {errors.firstName && "First name is required"}
-            </Box>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Controller
-              name="lastName"
-              control={control}
-              rules={{ required: true }}
-              render={({ field: { onChange, value } }) => (
-                <TextField
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  onChange={onChange}
-                  value={value}
-                />
-              )}
-            />
-            <Box sx={{ color: "error.main" }}>
-              {errors.lastName && "Last name is required"}
-            </Box>
-          </Grid>
           <Grid item xs={12}>
             <Controller
               name="email"
@@ -151,7 +92,7 @@ export default function SignUp() {
             <Controller
               name="password"
               control={control}
-              rules={{ required: true, minLength: 8 }}
+              rules={{ required: true }}
               render={({ field: { onChange, value } }) => (
                 <TextField
                   fullWidth
@@ -166,8 +107,6 @@ export default function SignUp() {
             />
             <Box sx={{ color: "error.main" }}>
               {errors.password?.type === "required" && "Password is required"}
-              {errors.password?.type === "minLength" &&
-                "Password must be at least 8 characters"}
             </Box>
           </Grid>
         </Grid>
@@ -180,10 +119,15 @@ export default function SignUp() {
           Sign Up
         </Button>
         <Box sx={{ color: "error.main" }}>{errorMessage}</Box>
-        <Grid container justifyContent="flex-end">
-          <Grid item>
+        <Grid container>
+          <Grid item xs>
             <Link href="#" variant="body2">
-              Already have an account? Sign in
+              Forgot password?
+            </Link>
+          </Grid>
+          <Grid item>
+            <Link href="/signup" variant="body2">
+              {"Don't have an account? Sign Up"}
             </Link>
           </Grid>
         </Grid>

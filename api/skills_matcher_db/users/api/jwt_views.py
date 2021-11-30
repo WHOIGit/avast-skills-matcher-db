@@ -46,10 +46,12 @@ class RefreshToken(TokenViewBaseWithCookie):
 
 
 class Logout(APIView):
+    permission_classes = ()
+    authentication_classes = ()
+
     def post(self, *args, **kwargs):
         resp = Response({})
         token = self.request.COOKIES.get(settings.JWT_COOKIE_NAME)
-        print(token, settings.JWT_COOKIE_NAME)
         refresh = RefreshTokenModel(token)
         refresh.blacklist()
         resp.delete_cookie(settings.JWT_COOKIE_NAME)
