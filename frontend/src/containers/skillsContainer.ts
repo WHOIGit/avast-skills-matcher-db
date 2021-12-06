@@ -6,7 +6,7 @@ const API_BASE = process.env.NEXT_PUBLIC_API_HOST;
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
 export type Skill = {
-  id: string;
+  id: number;
   name: string;
   url: string;
   parent: string;

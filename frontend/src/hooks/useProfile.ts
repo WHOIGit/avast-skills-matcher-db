@@ -15,7 +15,8 @@ type HookData = {
     firstName: string,
     lastName: string,
     email: string,
-    password: string
+    password: string,
+    userTypeId: string
   ) => Promise<Response>;
   editProfile: (
     firstName: string,
@@ -46,12 +47,14 @@ const useProfile = (): HookData => {
     firstName: string,
     lastName: string,
     email: string,
-    password: string
+    password: string,
+    userTypeId: string
   ): Promise<Response> => {
     const url = makeUrl("/api/users/");
     // default the Django username to use their email
     const username = email;
-
+    // convert userType to array to match backend API field
+    const userType = [userTypeId];
     const resp = await fetch(url, {
       method: "POST",
       body: JSON.stringify({
@@ -60,6 +63,7 @@ const useProfile = (): HookData => {
         username,
         password,
         email,
+        userType,
       }),
       headers: {
         Accept: "application/json",

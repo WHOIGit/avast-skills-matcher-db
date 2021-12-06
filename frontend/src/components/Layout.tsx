@@ -118,7 +118,7 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
   const authCtx = Auth.useContainer();
 
   const handleDrawerOpen = () => {

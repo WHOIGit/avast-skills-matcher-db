@@ -66,13 +66,19 @@ class UserViewSet(viewsets.ModelViewSet):
                 {"status": "no profile exists"}, status=status.HTTP_400_BAD_REQUEST
             )
 
-        print(user.engineer_profile)
-        print(request.data)
+        # make sure User is also an Engineer user_type
+        if not user.user_type:
+            user.user_type = [User.Types.ENGINEER]
+            user.save()
+        elif User.Types.ENGINEER not in user.user_type:
+            user.user_type.append(User.Types.ENGINEER)
+            user.save()
+
+        # send data to Serializer
         serializer = EngineerProfileSerializer(user.engineer_profile, data=request.data)
 
         if serializer.is_valid():
             serializer.save()
-            print(serializer)
             return Response({"status": "profile updated"})
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

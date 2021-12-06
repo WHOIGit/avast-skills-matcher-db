@@ -11,6 +11,7 @@ import Auth from "../../src/containers/authContainer";
 import useProfile from "../../src/hooks/useProfile";
 import Stack from "@mui/material/Stack";
 import { Divider, Avatar } from "@mui/material";
+import ProfileTabs from "../../src/components/ProfileTabs";
 
 const Me = (): React.ReactElement => {
   const router = useRouter();
@@ -74,36 +75,53 @@ const Me = (): React.ReactElement => {
       </Box>
       <Divider variant="middle" />
       <Box sx={{ alignItems: "center", maxWidth: 600, py: 2 }}>
-        <Typography
-          variant="body1"
-          align="center"
-          color="text.secondary"
-          paragraph
-        >
-          Want to make your skills available to the WHOI community? <br />
-          Create an &quot;Engineer Profile&quot;, and you will be listed in the
-          Skills Matcher DB.
-        </Typography>
+        {!profile?.userType?.includes("ENGINEER") && (
+          <Typography
+            variant="body1"
+            align="center"
+            color="text.secondary"
+            paragraph
+          >
+            Want to make your skills available to the WHOI community? <br />
+            Create an &quot;Engineer Profile&quot;, and you will be listed in
+            the Skills Matcher DB.
+          </Typography>
+        )}
 
-        <Typography
-          variant="body1"
-          align="center"
-          color="text.secondary"
-          paragraph
-        >
-          Want to contact an Engineer listed on our site? <br />
-          Create a &quot;Project&quot; that you can request assistance with from
-          one of our users.
-        </Typography>
+        {!profile?.userType?.includes("PROJECT OWNER") && (
+          <Typography
+            variant="body1"
+            align="center"
+            color="text.secondary"
+            paragraph
+          >
+            Want to contact an Engineer listed on our site? <br />
+            Create a &quot;Project&quot; that you can request assistance with
+            from one of our users.
+          </Typography>
+        )}
       </Box>
       <Stack sx={{ pt: 0 }} direction="row" spacing={2} justifyContent="center">
-        <Button variant="contained" startIcon={<AddIcon />}>
-          Create Engineer Profile
+        <Button
+          variant="contained"
+          startIcon={
+            profile?.userType?.includes("ENGINEER") ? <EditIcon /> : <AddIcon />
+          }
+          component={NextLinkComposed}
+          to={{
+            pathname: "/profile/edit_profile",
+          }}
+        >
+          {profile?.userType?.includes("ENGINEER") ? "Edit" : "Create"} Engineer
+          Profile
         </Button>
         <Button variant="outlined" startIcon={<AddIcon />}>
           Create Project
         </Button>
       </Stack>
+      <Box sx={{ mt: 2 }}>
+        <ProfileTabs profile={profile} />
+      </Box>
     </Box>
   );
 };

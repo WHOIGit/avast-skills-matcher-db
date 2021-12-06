@@ -36,7 +36,7 @@ const SkillsFilter: React.FC = () => {
   };
 
   return (
-    <Box>
+    <Box sx={{ px: 2 }}>
       {skillsCtx.skills &&
         skillsCtx.skills.map((skill: Skill) => renderSkillsList(skill))}
     </Box>

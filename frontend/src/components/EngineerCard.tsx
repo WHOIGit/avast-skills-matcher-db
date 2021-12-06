@@ -11,8 +11,11 @@ import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import StarsIcon from "@mui/icons-material/Stars";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import TextTruncate from "react-text-truncate";
 import { User } from "../containers/authContainer";
 
 interface ExpandMoreProps extends IconButtonProps {
@@ -42,7 +45,7 @@ export default function EngineerCard({ engineer }: CardProps) {
   };
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 380, maxHeight: 400 }}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -55,17 +58,23 @@ export default function EngineerCard({ engineer }: CardProps) {
           </IconButton>
         }
         title={`${engineer.firstName} ${engineer.lastName}`}
-        subheader="September 14, 2016"
+        subheader={engineer.title}
       />
 
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          {engineer.engineerProfile?.experience}
+          <TextTruncate
+            line={7}
+            element="span"
+            truncateText="..."
+            text={engineer.engineerProfile?.experience}
+            textTruncateChild={<a href="#">Read on</a>}
+          />
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
+          <StarsIcon />
         </IconButton>
         <IconButton aria-label="share">
           <ShareIcon />

@@ -20,7 +20,21 @@ type FormData = {
   password: string;
 };
 
-export default function SignUp() {
+type ComponentProps = {
+  userTypeId: string;
+};
+
+export const getServerSideProps = (context: any) => {
+  console.log(context.query);
+  //you can make DB queries using the data in context.query
+  return {
+    props: {
+      userTypeId: context.query.userTypeId, //pass it to the page props
+    },
+  };
+};
+
+export default function SignUp(props: ComponentProps) {
   const router = useRouter();
   const authCtx = Auth.useContainer();
   const { createUser } = useProfile();
@@ -39,7 +53,8 @@ export default function SignUp() {
         data.firstName,
         data.lastName,
         data.email,
-        data.password
+        data.password,
+        props.userTypeId
       );
       // now log the user in if creation successful
       if (!resp.ok) {
@@ -63,7 +78,7 @@ export default function SignUp() {
     }
   };
 
-  if (!authCtx.loading && authCtx.isAuthenticated) router.push("/");
+  if (!authCtx.loading && authCtx.isAuthenticated) router.push("/profile/me");
 
   return (
     <Box

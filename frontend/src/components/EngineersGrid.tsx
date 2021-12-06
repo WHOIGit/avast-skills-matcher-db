@@ -26,10 +26,10 @@ const EngineersGrid = () => {
         // get flat array of just IDs
         const skillList = skillsCtx.selectedSkills.map(
           (skill: Skill) => skill.id
-        ) as string[];
+        ) as number[];
 
         const engineerList = engineersCtx.engineers.filter((engineer: User) => {
-          return skillList.some((id: string) =>
+          return skillList.some((id) =>
             engineer.engineerProfile.skills.includes(id)
           );
         }) as User[];
