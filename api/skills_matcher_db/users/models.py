@@ -44,3 +44,4 @@ class User(AbstractUser):
         blank=True,
     )
     avatar = models.ImageField(upload_to="avatars", null=True, blank=True)
+    title = models.CharField(null=True, blank=True, max_length=255)

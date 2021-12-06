@@ -14,6 +14,7 @@ export type User = {
   lastName: string;
   username: string;
   avatar: string;
+  title: string;
   engineerProfile: Profile;
 };
 

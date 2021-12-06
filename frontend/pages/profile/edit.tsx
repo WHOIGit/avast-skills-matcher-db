@@ -16,6 +16,7 @@ type FormData = {
   firstName: string;
   lastName: string;
   email: string;
+  title: string;
 };
 
 const Input = styled("input")({
@@ -43,6 +44,7 @@ export default function EditForm() {
       firstName: profile?.firstName,
       lastName: profile?.lastName,
       email: profile?.email,
+      title: profile?.title,
     });
   }, [reset, profile]);
 
@@ -58,7 +60,12 @@ export default function EditForm() {
     console.log(data);
     // send form data to API
     try {
-      const resp = await editProfile(data.firstName, data.lastName, data.email);
+      const resp = await editProfile(
+        data.firstName,
+        data.lastName,
+        data.email,
+        data.title
+      );
       if (!resp.ok) {
         setErrorMessage("API connection error. Please try again later.");
       }
@@ -171,6 +178,23 @@ export default function EditForm() {
                   fullWidth
                   id="email"
                   label="Email Address"
+                  onChange={onChange}
+                  value={value}
+                />
+              )}
+            />
+            <Box sx={{ color: "error.main" }}>{errors.email?.message}</Box>
+          </Grid>
+          <Grid item xs={12}>
+            <Controller
+              name="title"
+              defaultValue=""
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <TextField
+                  fullWidth
+                  id="title"
+                  label="Title"
                   onChange={onChange}
                   value={value}
                 />

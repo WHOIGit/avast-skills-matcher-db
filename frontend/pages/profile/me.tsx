@@ -56,7 +56,7 @@ const Me = (): React.ReactElement => {
         </Typography>
 
         <Typography component="div" variant="subtitle1">
-          {profile?.email}
+          {profile?.title}
         </Typography>
 
         <Button

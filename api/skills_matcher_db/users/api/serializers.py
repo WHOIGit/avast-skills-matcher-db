@@ -1,4 +1,4 @@
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, login
 from django.conf import settings
 from rest_framework import serializers
 from rest_framework.reverse import reverse
@@ -28,6 +28,7 @@ class UserSerializer(serializers.ModelSerializer):
             "user_type",
             "password",
             "avatar",
+            "title",
             "engineer_profile",
         ]
 

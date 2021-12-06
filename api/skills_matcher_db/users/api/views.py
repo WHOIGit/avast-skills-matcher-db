@@ -59,8 +59,28 @@ class UserViewSet(viewsets.ModelViewSet):
         return Response(status=status.HTTP_200_OK, data=serializer.data)
 
     @action(detail=True, methods=["patch"])
+    def update_engineer_profile(self, request, pk=None):
+        user = self.get_object()
+        if not user.engineer_profile:
+            return Response(
+                {"status": "no profile exists"}, status=status.HTTP_400_BAD_REQUEST
+            )
+
+        print(user.engineer_profile)
+        print(request.data)
+        serializer = EngineerProfileSerializer(user.engineer_profile, data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            print(serializer)
+            return Response({"status": "profile updated"})
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(detail=True, methods=["patch"])
     def set_avatar(self, request, pk=None):
         user = self.get_object()
+
         serializer = AvatarSerializer(user, data=request.data)
         """ try:
             eng = Engineer.objects.get(pk=pk)
