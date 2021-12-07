@@ -64,7 +64,7 @@ export default function Index() {
               </Box>
             )}
 
-            {!profile?.userType?.includes("PROJECT OWNER") && (
+            {!profile?.userType?.includes("PROJECT_OWNER") && (
               <Box sx={{ textAlign: "center" }}>
                 <Typography
                   variant="body1"

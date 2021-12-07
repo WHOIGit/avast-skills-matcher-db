@@ -75,21 +75,40 @@ const Me = (): React.ReactElement => {
           >
             Edit Account
           </Button>
+          {profile?.userType?.includes("ENGINEER") && (
+            <Button
+              variant="contained"
+              size="small"
+              startIcon={
+                profile?.engineerProfile?.experience ? (
+                  <EditIcon />
+                ) : (
+                  <AddIcon />
+                )
+              }
+              component={NextLinkComposed}
+              to={{
+                pathname: "/profile/edit_profile",
+              }}
+            >
+              {profile?.engineerProfile?.experience ? "Edit" : "Create"}{" "}
+              Engineer Profile
+            </Button>
+          )}
 
-          <Button
-            variant="contained"
-            size="small"
-            startIcon={
-              profile?.engineerProfile?.experience ? <EditIcon /> : <AddIcon />
-            }
-            component={NextLinkComposed}
-            to={{
-              pathname: "/profile/edit_profile",
-            }}
-          >
-            {profile?.engineerProfile?.experience ? "Edit" : "Create"} Engineer
-            Profile
-          </Button>
+          {profile?.userType?.includes("PROJECT_OWNER") && (
+            <Button
+              variant="contained"
+              size="small"
+              startIcon={<AddIcon />}
+              component={NextLinkComposed}
+              to={{
+                pathname: "/profile/add_project",
+              }}
+            >
+              {profile?.engineerProfile?.experience ? "Edit" : "Create"} Project
+            </Button>
+          )}
         </Stack>
       </Box>
       <Divider variant="middle" />
@@ -120,8 +139,14 @@ const Me = (): React.ReactElement => {
         <ProfileTabs profile={profile} />
       </Box>
 
-      {!profile?.userType?.includes("PROJECT OWNER") && (
-        <Box sx={{ alignItems: "center", maxWidth: 600, py: 2 }}>
+      {!profile?.userType?.includes("PROJECT_OWNER") && (
+        <Box
+          sx={{
+            maxWidth: 600,
+            py: 2,
+            textAlign: "center",
+          }}
+        >
           <Typography
             variant="body1"
             align="center"
@@ -135,6 +160,38 @@ const Me = (): React.ReactElement => {
 
           <Button variant="outlined" startIcon={<AddIcon />}>
             Create Project
+          </Button>
+        </Box>
+      )}
+
+      {!profile?.userType?.includes("ENGINEER") && (
+        <Box
+          sx={{
+            maxWidth: 600,
+            py: 2,
+            textAlign: "center",
+          }}
+        >
+          <Typography
+            variant="body1"
+            align="center"
+            color="text.secondary"
+            paragraph
+          >
+            Want to make your skills available to the WHOI community? Create an
+            &quot;Engineer Profile&quot;, and you will be listed in the Skills
+            Matcher DB.
+          </Typography>
+
+          <Button
+            variant="outlined"
+            startIcon={<AddIcon />}
+            component={NextLinkComposed}
+            to={{
+              pathname: "/profile/edit_profile",
+            }}
+          >
+            Create Engineer Profile
           </Button>
         </Box>
       )}
