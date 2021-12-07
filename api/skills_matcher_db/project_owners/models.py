@@ -15,7 +15,7 @@ class ProjectOwnerManager(BaseUserManager):
 class ProjectOwner(User):
     """
     Project Owner Proxy User model set up.
-    Client type user will use the app to find Engineers that have skills matching their project needs
+    Project Owner type user will use the app to find Engineers that have skills matching their project needs
     """
 
     base_type = User.Types.CLIENT
@@ -24,3 +24,21 @@ class ProjectOwner(User):
     class Meta:
         proxy = True
         verbose_name = "Project Owner"
+
+
+class Project(models.Model):
+    """
+    Projects to request help with
+    """
+
+    title = models.CharField(blank=True, max_length=255)
+    description = models.TextField(null=True, blank=True)
+    project_owner = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="projects_owned"
+    )
+    engineers = models.ManyToManyField(
+        User, related_name="projects_assigned", blank=True
+    )
+
+    def __str__(self):
+        return self.title

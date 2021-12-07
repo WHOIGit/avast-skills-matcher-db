@@ -43,3 +43,6 @@ class EngineerProfile(models.Model):
     )
     experience = models.TextField(null=True, blank=True)
     skills = TreeManyToManyField(Skill, related_name="engineers", blank=True)
+
+    def __str__(self):
+        return f"{self.user.username} Profile"

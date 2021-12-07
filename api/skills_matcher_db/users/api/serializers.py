@@ -7,6 +7,7 @@ from rest_framework_simplejwt.settings import api_settings as jwt_settings
 from rest_framework_simplejwt.tokens import RefreshToken
 from skills_matcher_db.engineers.api.serializers import EngineerProfileSerializer
 from skills_matcher_db.engineers.models import EngineerProfile
+from skills_matcher_db.project_owners.api.serializers import ProjectSerializer
 
 User = get_user_model()
 
@@ -14,6 +15,7 @@ User = get_user_model()
 class UserSerializer(serializers.ModelSerializer):
     url = serializers.SerializerMethodField()
     engineer_profile = EngineerProfileSerializer(required=False)
+    projects_owned = ProjectSerializer(required=False, many=True)
     avatar = serializers.SerializerMethodField("get_avatar_url")
 
     class Meta:
@@ -30,6 +32,7 @@ class UserSerializer(serializers.ModelSerializer):
             "avatar",
             "title",
             "engineer_profile",
+            "projects_owned",
         ]
 
         extra_kwargs = {
