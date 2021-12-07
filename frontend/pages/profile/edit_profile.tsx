@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
+import { useRouter } from "next/router";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -21,6 +22,7 @@ type FormData = {
 };
 
 export default function EditProfileForm() {
+  const router = useRouter();
   const skillsCtx = Skills.useContainer();
   const { profile, editProfile, editEngineerProfile } = useProfile();
   const {
@@ -47,6 +49,10 @@ export default function EditProfileForm() {
       const resp = await editEngineerProfile(data.experience, data.skills);
       if (!resp.ok) {
         setErrorMessage("API connection error. Please try again later.");
+      } else {
+        setErrorMessage("");
+        // redirect to user profile
+        router.push("/profile/me");
       }
     } catch (error: any) {
       console.error(error);

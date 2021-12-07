@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useEffect } from "react";
-import { useRouter } from "next/router";
+
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -14,7 +14,6 @@ import { Divider, Avatar } from "@mui/material";
 import ProfileTabs from "../../src/components/ProfileTabs";
 
 const Me = (): React.ReactElement => {
-  const router = useRouter();
   const authCtx = Auth.useContainer();
   const { profile } = useProfile();
 
@@ -59,36 +58,70 @@ const Me = (): React.ReactElement => {
         <Typography component="div" variant="subtitle1">
           {profile?.title}
         </Typography>
-
-        <Button
+        <Stack
           sx={{ mt: 1 }}
-          variant="contained"
-          size="small"
-          startIcon={<EditIcon />}
-          component={NextLinkComposed}
-          to={{
-            pathname: "/profile/edit",
-          }}
+          direction="row"
+          spacing={2}
+          justifyContent="center"
         >
-          Edit Account
-        </Button>
+          <Button
+            variant="contained"
+            size="small"
+            startIcon={<EditIcon />}
+            component={NextLinkComposed}
+            to={{
+              pathname: "/profile/edit",
+            }}
+          >
+            Edit Account
+          </Button>
+
+          <Button
+            variant="contained"
+            size="small"
+            startIcon={
+              profile?.engineerProfile?.experience ? <EditIcon /> : <AddIcon />
+            }
+            component={NextLinkComposed}
+            to={{
+              pathname: "/profile/edit_profile",
+            }}
+          >
+            {profile?.engineerProfile?.experience ? "Edit" : "Create"} Engineer
+            Profile
+          </Button>
+        </Stack>
       </Box>
       <Divider variant="middle" />
       <Box sx={{ alignItems: "center", maxWidth: 600, py: 2 }}>
-        {!profile?.userType?.includes("ENGINEER") && (
-          <Typography
-            variant="body1"
-            align="center"
-            color="text.secondary"
-            paragraph
-          >
-            Want to make your skills available to the WHOI community? <br />
-            Create an &quot;Engineer Profile&quot;, and you will be listed in
-            the Skills Matcher DB.
-          </Typography>
-        )}
+        {profile?.userType?.includes("ENGINEER") &&
+          !profile?.engineerProfile?.experience && (
+            <Typography
+              variant="body1"
+              align="center"
+              color="text.secondary"
+              paragraph
+            >
+              Welcome to the AVAST Skills Matcher DB! You're now registered as
+              an Engineer on our site. Complete your{" "}
+              <NextLinkComposed
+                to={{
+                  pathname: "/profile/edit_profile",
+                }}
+              >
+                Engineer Profile
+              </NextLinkComposed>{" "}
+              and you are all set.
+            </Typography>
+          )}
+      </Box>
 
-        {!profile?.userType?.includes("PROJECT OWNER") && (
+      <Box sx={{ mt: 1 }}>
+        <ProfileTabs profile={profile} />
+      </Box>
+
+      {!profile?.userType?.includes("PROJECT OWNER") && (
+        <Box sx={{ alignItems: "center", maxWidth: 600, py: 2 }}>
           <Typography
             variant="body1"
             align="center"
@@ -99,29 +132,12 @@ const Me = (): React.ReactElement => {
             Create a &quot;Project&quot; that you can request assistance with
             from one of our users.
           </Typography>
-        )}
-      </Box>
-      <Stack sx={{ pt: 0 }} direction="row" spacing={2} justifyContent="center">
-        <Button
-          variant="contained"
-          startIcon={
-            profile?.userType?.includes("ENGINEER") ? <EditIcon /> : <AddIcon />
-          }
-          component={NextLinkComposed}
-          to={{
-            pathname: "/profile/edit_profile",
-          }}
-        >
-          {profile?.userType?.includes("ENGINEER") ? "Edit" : "Create"} Engineer
-          Profile
-        </Button>
-        <Button variant="outlined" startIcon={<AddIcon />}>
-          Create Project
-        </Button>
-      </Stack>
-      <Box sx={{ mt: 2 }}>
-        <ProfileTabs profile={profile} />
-      </Box>
+
+          <Button variant="outlined" startIcon={<AddIcon />}>
+            Create Project
+          </Button>
+        </Box>
+      )}
     </Box>
   );
 };

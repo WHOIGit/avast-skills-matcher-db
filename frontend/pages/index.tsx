@@ -17,11 +17,11 @@ export default function Index() {
       <Box
         sx={{
           bgcolor: "background.paper",
-          pt: 4,
-          pb: 4,
+          pt: 3,
+          pb: 3,
         }}
       >
-        <Container maxWidth="sm">
+        <Container maxWidth="md">
           <Typography
             component="h1"
             variant="h4"
@@ -31,61 +31,65 @@ export default function Index() {
           >
             Welcome to the AVAST Skills Matcher DB
           </Typography>
-          <Box sx={{ alignItems: "center", maxWidth: 600, py: 2 }}>
+
+          <Stack
+            sx={{ mt: 3 }}
+            direction="row"
+            spacing={4}
+            justifyContent="center"
+          >
             {!profile?.userType?.includes("ENGINEER") && (
-              <Typography
-                variant="body1"
-                align="center"
-                color="text.secondary"
-                paragraph
-              >
-                Want to make your skills available to the WHOI community? <br />
-                Create an &quot;Engineer Profile&quot;, and you will be listed
-                in the Skills Matcher DB.
-              </Typography>
+              <Box sx={{ textAlign: "center" }}>
+                <Typography
+                  variant="body1"
+                  align="center"
+                  color="text.secondary"
+                  paragraph
+                >
+                  Want to make your skills available to the WHOI community?{" "}
+                  Create an &quot;Engineer Profile&quot;, and you will be listed
+                  in the Skills Matcher DB.
+                </Typography>
+                <Button
+                  variant="contained"
+                  startIcon={<AddIcon />}
+                  component={NextLinkComposed}
+                  to={{
+                    pathname: "/signup",
+                    query: { userTypeId: "ENGINEER" },
+                  }}
+                >
+                  Create Engineer Profile
+                </Button>{" "}
+              </Box>
             )}
 
             {!profile?.userType?.includes("PROJECT OWNER") && (
-              <Typography
-                variant="body1"
-                align="center"
-                color="text.secondary"
-                paragraph
-              >
-                Want to contact an Engineer listed on our site? <br />
-                Create a &quot;Project&quot; that you can request assistance
-                with from one of our users.
-              </Typography>
+              <Box sx={{ textAlign: "center" }}>
+                <Typography
+                  variant="body1"
+                  align="center"
+                  color="text.secondary"
+                  paragraph
+                >
+                  Want to contact an Engineer listed on our site? Create a
+                  &quot;Project&quot; that you can request assistance with from
+                  one of our users.
+                </Typography>
+
+                <Button
+                  variant="outlined"
+                  startIcon={<AddIcon />}
+                  component={NextLinkComposed}
+                  to={{
+                    pathname: "/signup",
+                    query: { userTypeId: "PROJECT OWNER" },
+                  }}
+                >
+                  Create Project
+                </Button>
+              </Box>
             )}
-          </Box>
-          <Stack
-            sx={{ pt: 0 }}
-            direction="row"
-            spacing={2}
-            justifyContent="center"
-          >
-            <Button
-              variant="contained"
-              startIcon={<AddIcon />}
-              component={NextLinkComposed}
-              to={{
-                pathname: "/signup",
-                query: { userTypeId: "ENGINEER" },
-              }}
-            >
-              Create Engineer Profile
-            </Button>
-            <Button
-              variant="outlined"
-              startIcon={<AddIcon />}
-              component={NextLinkComposed}
-              to={{
-                pathname: "/signup",
-                query: { userTypeId: "PROJECT OWNER" },
-              }}
-            >
-              Create Project
-            </Button>
           </Stack>
         </Container>
       </Box>

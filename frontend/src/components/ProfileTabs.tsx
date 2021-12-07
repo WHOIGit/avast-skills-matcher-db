@@ -64,36 +64,43 @@ export default function ProfileTabs({ profile }: ComponentProps) {
   }
 
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box
+      sx={{
+        width: "100%",
+      }}
+    >
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
           value={value}
           onChange={handleChange}
           aria-label="basic tabs example"
         >
-          <Tab label="Engineer Profile" {...a11yProps(0)} />
+          {profile.engineerProfile?.experience && (
+            <Tab label="Engineer Profile" {...a11yProps(0)} />
+          )}
           {profile.projects && <Tab label="Your Projects" {...a11yProps(1)} />}
         </Tabs>
       </Box>
-      <TabPanel value={value} index={0}>
-        <Box sx={{ mb: 2 }}>
+      {profile.engineerProfile?.experience && (
+        <TabPanel value={value} index={0}>
+          <Box sx={{ mb: 2 }}>
+            <Typography component="h6" variant="h6">
+              Your Skills
+            </Typography>
+            <Stack direction="row" spacing={2}>
+              {profile.engineerProfile?.skills.map((id: number) => {
+                return renderSelectedSkills(id);
+              })}
+            </Stack>
+          </Box>
           <Typography component="h6" variant="h6">
-            Skills Selected
+            Experience
           </Typography>
-          <Stack direction="row" spacing={2}>
-            {profile.engineerProfile?.skills.map((id: number) => {
-              return renderSelectedSkills(id);
-            })}
-          </Stack>
-        </Box>
-        <Typography component="h6" variant="h6">
-          Experience
-        </Typography>
-        <Typography component="p" variant="body1" paragraph>
-          {profile.engineerProfile?.experience}
-        </Typography>
-      </TabPanel>
-
+          <Typography component="p" variant="body1" paragraph>
+            {profile.engineerProfile?.experience}
+          </Typography>
+        </TabPanel>
+      )}
       <TabPanel value={value} index={1}>
         Item Two
       </TabPanel>

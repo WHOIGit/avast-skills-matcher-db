@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
+import { useRouter } from "next/router";
 import { styled } from "@mui/material/styles";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -24,6 +25,7 @@ const Input = styled("input")({
 });
 
 export default function EditForm() {
+  const router = useRouter();
   const { profile, editProfile, uploadAvatar } = useProfile();
   const [avatarImage, setAvatarImage] = useState<string>("");
   const {
@@ -68,6 +70,10 @@ export default function EditForm() {
       );
       if (!resp.ok) {
         setErrorMessage("API connection error. Please try again later.");
+      } else {
+        setErrorMessage("");
+        // redirect to user profile
+        router.push("/profile/me");
       }
     } catch (error: any) {
       console.error(error);
