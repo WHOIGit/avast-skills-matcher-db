@@ -26,6 +26,7 @@ type HookData = {
   ) => Promise<Response>;
   uploadAvatar: (image: string) => Promise<Response>;
   editEngineerProfile: (experience: string, skills: []) => Promise<Response>;
+  createProject: (title: string, description: string) => Promise<Response>;
 };
 
 const useProfile = (): HookData => {
@@ -70,13 +71,7 @@ const useProfile = (): HookData => {
         "Content-Type": "application/json",
       },
     });
-    if (resp.ok) {
-      const data = await resp.json();
-      console.log(data);
-    } else {
-      const error = await resp.json();
-      console.log(error);
-    }
+
     return resp;
   };
 
@@ -102,13 +97,9 @@ const useProfile = (): HookData => {
     });
 
     if (resp.ok) {
-      const data = await resp.json();
+      // const data = await resp.json();
       // refresh the useSWR profile API data
       mutate(profileUrl);
-      console.log(data);
-    } else {
-      const error = await resp.json();
-      console.log(error);
     }
     return resp;
   };
@@ -134,13 +125,8 @@ const useProfile = (): HookData => {
     });
 
     if (resp.ok) {
-      const data = await resp.json();
       // refresh the useSWR profile API data
       mutate(profileUrl);
-      console.log(data);
-    } else {
-      const error = await resp.json();
-      console.log(error);
     }
     return resp;
   };
@@ -158,13 +144,33 @@ const useProfile = (): HookData => {
     });
 
     if (resp.ok) {
-      const data = await resp.json();
       // refresh the useSWR profile API data
       mutate(profileUrl);
-      console.log(data);
-    } else {
-      const error = await resp.json();
-      console.log(error);
+    }
+    return resp;
+  };
+
+  const createProject = async (
+    title: string,
+    description: string
+  ): Promise<Response> => {
+    const url = makeUrl(`/api/projects/`);
+    const resp = await fetch(url, {
+      method: "POST",
+      body: JSON.stringify({
+        title,
+        description,
+      }),
+      headers: {
+        Authorization: `Bearer ${await authCtx.getToken()}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (resp.ok) {
+      // const data = await resp.json();
+      // refresh the useSWR profile API data
+      mutate(profileUrl);
     }
     return resp;
   };
@@ -175,6 +181,7 @@ const useProfile = (): HookData => {
     editProfile: editProfile,
     uploadAvatar: uploadAvatar,
     editEngineerProfile: editEngineerProfile,
+    createProject: createProject,
   };
 };
 

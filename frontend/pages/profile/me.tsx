@@ -10,7 +10,7 @@ import { NextLinkComposed } from "../../src/components/Link";
 import Auth from "../../src/containers/authContainer";
 import useProfile from "../../src/hooks/useProfile";
 import Stack from "@mui/material/Stack";
-import { Divider, Avatar } from "@mui/material";
+import { Avatar } from "@mui/material";
 import ProfileTabs from "../../src/components/ProfileTabs";
 
 const Me = (): React.ReactElement => {
@@ -95,23 +95,9 @@ const Me = (): React.ReactElement => {
               Engineer Profile
             </Button>
           )}
-
-          {profile?.userType?.includes("PROJECT_OWNER") && (
-            <Button
-              variant="contained"
-              size="small"
-              startIcon={<AddIcon />}
-              component={NextLinkComposed}
-              to={{
-                pathname: "/profile/add_project",
-              }}
-            >
-              {profile?.engineerProfile?.experience ? "Edit" : "Create"} Project
-            </Button>
-          )}
         </Stack>
       </Box>
-      <Divider variant="middle" />
+
       <Box sx={{ alignItems: "center", maxWidth: 600, py: 2 }}>
         {profile?.userType?.includes("ENGINEER") &&
           !profile?.engineerProfile?.experience && (
@@ -121,8 +107,8 @@ const Me = (): React.ReactElement => {
               color="text.secondary"
               paragraph
             >
-              Welcome to the AVAST Skills Matcher DB! You're now registered as
-              an Engineer on our site. Complete your{" "}
+              Welcome to the AVAST Skills Matcher DB! You&rsquo;re now
+              registered as an Engineer on our site. Complete your{" "}
               <NextLinkComposed
                 to={{
                   pathname: "/profile/edit_profile",
@@ -135,8 +121,8 @@ const Me = (): React.ReactElement => {
           )}
       </Box>
 
-      <Box sx={{ mt: 1 }}>
-        <ProfileTabs profile={profile} />
+      <Box sx={{ mt: 1, width: "100%" }}>
+        {profile && <ProfileTabs profile={profile} />}
       </Box>
 
       {!profile?.userType?.includes("PROJECT_OWNER") && (

@@ -17,6 +17,7 @@ export type User = {
   title: string;
   userType: string[];
   engineerProfile: Profile;
+  projectsOwned: [];
 };
 
 type TokenResponse = {

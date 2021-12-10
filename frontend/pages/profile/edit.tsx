@@ -51,8 +51,6 @@ export default function EditForm() {
   }, [reset, profile]);
 
   const handleCapture = (event: any) => {
-    console.log("clicked");
-
     console.log(event.target.files);
     const newImg = event.target.files[0];
     uploadAvatar(newImg);

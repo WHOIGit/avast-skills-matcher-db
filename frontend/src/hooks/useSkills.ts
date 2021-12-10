@@ -3,13 +3,13 @@ import useSWR from "swr";
 const API_BASE = process.env.NEXT_PUBLIC_API_HOST;
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
-export interface Skill {
-  id: string;
+export type Skill = {
+  id: number;
   name: string;
   url: string;
   parent: string;
   children: [];
-}
+};
 
 export interface Data {
   skills: Skill[];

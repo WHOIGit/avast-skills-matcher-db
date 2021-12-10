@@ -1,12 +1,25 @@
 import * as React from "react";
+import { useRouter } from "next/router";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Skills from "../containers/skillsContainer";
 import Chip from "@mui/material/Chip";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import IconButton from "@mui/material/IconButton";
+import CommentIcon from "@mui/icons-material/Comment";
+import DeleteIcon from "@mui/icons-material/Delete";
+import AddIcon from "@mui/icons-material/Add";
+import { NextLinkComposed } from "./Link";
 import { User } from "../containers/authContainer";
+
 type TabPanelProps = {
   children?: React.ReactNode;
   index: number;
@@ -45,18 +58,46 @@ function a11yProps(index: number) {
 }
 
 export default function ProfileTabs({ profile }: ComponentProps) {
+  const router = useRouter();
   const skillsCtx = Skills.useContainer();
-  const [value, setValue] = React.useState(0);
-  console.log(skillsCtx);
+  //const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState(
+    profile.userType?.includes("PROJECT_OWNER") ? 1 : 0
+  );
+  console.log(value);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
   const renderSelectedSkills = (id: number) => {
-    console.log(id);
     const skill = skillsCtx.skills.find((skill) => skill.id == id);
     return <Chip key={id} label={skill.name} />;
+  };
+
+  const handleEdit = (pid: number) => {
+    router.push(`/profile/projects/edit/${pid}`);
+  };
+
+  const renderProjectList = (project) => {
+    return (
+      <ListItem
+        key={project.id}
+        secondaryAction={
+          <IconButton edge="end" aria-label="delete">
+            <DeleteIcon />
+          </IconButton>
+        }
+        disablePadding
+      >
+        <ListItemButton onClick={() => handleEdit(project.id)} dense>
+          <ListItemIcon>
+            <CommentIcon />
+          </ListItemIcon>
+          <ListItemText id={project.id} primary={project.title} />
+        </ListItemButton>
+      </ListItem>
+    );
   };
 
   if (!profile) {
@@ -70,18 +111,14 @@ export default function ProfileTabs({ profile }: ComponentProps) {
       }}
     >
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="basic tabs example"
-        >
-          {profile.engineerProfile?.experience && (
-            <Tab label="Engineer Profile" {...a11yProps(0)} />
-          )}
-          {profile.projects && <Tab label="Your Projects" {...a11yProps(1)} />}
+        <Tabs value={value} onChange={handleChange} aria-label="profile tabs">
+          <Tab label="Engineer Profile" {...a11yProps(0)} />
+
+          <Tab label="Your Projects" {...a11yProps(1)} />
         </Tabs>
       </Box>
-      {profile.engineerProfile?.experience && (
+
+      {profile.userType?.includes("ENGINEER") && (
         <TabPanel value={value} index={0}>
           <Box sx={{ mb: 2 }}>
             <Typography component="h6" variant="h6">
@@ -101,8 +138,25 @@ export default function ProfileTabs({ profile }: ComponentProps) {
           </Typography>
         </TabPanel>
       )}
+
       <TabPanel value={value} index={1}>
-        Item Two
+        <Button
+          variant="contained"
+          size="small"
+          startIcon={<AddIcon />}
+          component={NextLinkComposed}
+          to={{
+            pathname: "/profile/projects/add",
+          }}
+        >
+          Add Project
+        </Button>
+
+        <List>
+          {profile.projectsOwned.map((project) => {
+            return renderProjectList(project);
+          })}
+        </List>
       </TabPanel>
     </Box>
   );
