@@ -17,12 +17,15 @@ export interface Data {
   isError: string;
 }
 
-const useSkills = (): Data => {
-  const { data, error } = useSWR(`${API_BASE}/api/skills/`, fetcher);
+const useSkills = (pid?: number): Data => {
+  const { data: skillsData, error } = useSWR(
+    `${API_BASE}/api/skills/`,
+    fetcher
+  );
 
   return {
-    skills: data,
-    isLoading: !error && !data,
+    skills: skillsData,
+    isLoading: !error && !skillsData,
     isError: error,
   };
 };

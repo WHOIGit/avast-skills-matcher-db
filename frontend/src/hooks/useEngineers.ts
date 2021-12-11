@@ -33,5 +33,4 @@ const useEngineers = (pid?: any): HookData => {
   };
 };
 
-const Engineers = createContainer(useEngineers);
-export default Engineers;
+export default useEngineers;

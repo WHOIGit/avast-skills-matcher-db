@@ -49,7 +49,6 @@ const useProfile = (pid?: any): HookData => {
     pid ? `${API_BASE}/api/projects/${pid}` : null,
     fetcherWithToken
   );
-  console.log(dataProject);
 
   const createProject = async (
     title: string,
