@@ -4,8 +4,9 @@ import Skills, { Skill } from "../containers/skillsContainer";
 
 type Props = {
   skillId: number;
+  size: string;
 };
-export default function SkillChip({ skillId }: Props) {
+export default function SkillChip({ skillId, size = "medium" }: Props) {
   const skillsCtx = Skills.useContainer();
 
   // recursive search through the Skills array of nested objects to match the ID
@@ -39,5 +40,5 @@ export default function SkillChip({ skillId }: Props) {
 
   if (!skillsCtx.skills) return null;
 
-  return <Chip key={skillId} label={skill?.name} />;
+  return <Chip label={skill?.name} size={size} />;
 }

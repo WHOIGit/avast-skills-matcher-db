@@ -7,7 +7,6 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Skills from "../containers/skillsContainer";
-import Chip from "@mui/material/Chip";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -19,6 +18,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import { NextLinkComposed } from "./Link";
 import { User } from "../containers/authContainer";
+import SkillChip from "./SkillChip";
 
 type TabPanelProps = {
   children?: React.ReactNode;
@@ -68,11 +68,6 @@ export default function ProfileTabs({ profile }: ComponentProps) {
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
-  };
-
-  const renderSelectedSkills = (id: number) => {
-    const skill = skillsCtx.skills.find((skill) => skill.id == id);
-    return <Chip key={id} label={skill.name} />;
   };
 
   const handleEdit = (pid: number) => {
@@ -126,7 +121,7 @@ export default function ProfileTabs({ profile }: ComponentProps) {
             </Typography>
             <Stack direction="row" spacing={2}>
               {profile.engineerProfile?.skills.map((id: number) => {
-                return renderSelectedSkills(id);
+                return <SkillChip key={id} skillId={id} />;
               })}
             </Stack>
           </Box>
@@ -153,7 +148,7 @@ export default function ProfileTabs({ profile }: ComponentProps) {
         </Button>
 
         <List>
-          {profile.projectsOwned.map((project) => {
+          {profile.projectsOwned?.map((project) => {
             return renderProjectList(project);
           })}
         </List>

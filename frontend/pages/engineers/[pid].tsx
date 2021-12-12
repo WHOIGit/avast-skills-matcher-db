@@ -5,14 +5,13 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
-import SendIcon from "@mui/icons-material/Send";
+import ContactDialog from "../../src/components/ContactDialog";
 import { NextLinkComposed } from "../../src/components/Link";
 import Auth from "../../src/containers/authContainer";
-import Skills, { Skill } from "../../src/containers/skillsContainer";
+import Skills from "../../src/containers/skillsContainer";
 import useEngineers from "../../src/hooks/useEngineers";
-import useSkills from "../../src/hooks/useSkills";
 import Stack from "@mui/material/Stack";
-import { Avatar, Chip } from "@mui/material";
+import { Avatar } from "@mui/material";
 import SkillChip from "../../src/components/SkillChip";
 
 export default function EngineerDetail() {
@@ -21,11 +20,6 @@ export default function EngineerDetail() {
   const authCtx = Auth.useContainer();
   const skillsCtx = Skills.useContainer();
   const { engineer } = useEngineers(pid);
-
-  const renderSelectedSkills = (id: number) => {
-    console.log(authCtx.isAuthenticated);
-    return <SkillChip skillId={id} />;
-  };
 
   if (!engineer) {
     return null;
@@ -57,15 +51,9 @@ export default function EngineerDetail() {
 
       {authCtx.isAuthenticated &&
         authCtx.user?.userType.includes("PROJECT_OWNER") && (
-          <Button
-            sx={{ my: 2 }}
-            variant="contained"
-            size="small"
-            startIcon={<SendIcon />}
-          >
-            Contact Engineer
-          </Button>
+          <ContactDialog engineer={engineer} />
         )}
+
       <Box sx={{ mt: 1, width: "100%" }}>
         {skillsCtx.skills && (
           <Box sx={{ mb: 2 }}>
@@ -74,7 +62,7 @@ export default function EngineerDetail() {
             </Typography>
             <Stack direction="row" spacing={2}>
               {engineer.engineerProfile?.skills?.map((id: number) => {
-                return renderSelectedSkills(id);
+                return <SkillChip key={id} skillId={id} size="medium" />;
               })}
             </Stack>
           </Box>
@@ -88,7 +76,8 @@ export default function EngineerDetail() {
         </Typography>
       </Box>
 
-      {!authCtx.isAuthenticated && (
+      {!authCtx.isAuthenticated ||
+      !authCtx.user?.userType.includes("PROJECT_OWNER") ? (
         <Box
           sx={{
             maxWidth: 600,
@@ -119,7 +108,7 @@ export default function EngineerDetail() {
             Create Project
           </Button>
         </Box>
-      )}
+      ) : null}
     </Box>
   );
 }

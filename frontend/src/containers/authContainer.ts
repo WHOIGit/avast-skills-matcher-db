@@ -7,6 +7,13 @@ export type Profile = {
   experience: string;
   skills: number[];
 };
+
+export type Project = {
+  id: number;
+  title: string;
+  description: string;
+};
+
 export type User = {
   id: string;
   email: string;
@@ -17,7 +24,7 @@ export type User = {
   title: string;
   userType: string[];
   engineerProfile: Profile;
-  projectsOwned: [];
+  projectsOwned: Project[];
 };
 
 type TokenResponse = {
@@ -174,6 +181,7 @@ export const useAuth = (): AuthContainerProps => {
     setAccessToken("");
     setAccessTokenExpiry(null);
     setNotAuthenticated();
+    setUser(null);
     const url = makeUrl("/token/logout/");
     fetch(url, {
       method: "POST",
