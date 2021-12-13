@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import Copyright from "../src/components/Copyright";
 import EngineersGrid from "../src/components/EngineersGrid";
 import Container from "@mui/material/Container";
-import { Button, Stack } from "@mui/material";
+import { Button, Stack, Divider } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import useProfile from "../src/hooks/useProfile";
 import { NextLinkComposed } from "../src/components/Link";
@@ -35,8 +35,9 @@ export default function Index() {
           <Stack
             sx={{ mt: 3 }}
             direction="row"
-            spacing={4}
+            spacing={6}
             justifyContent="center"
+            divider={<Divider orientation="vertical" flexItem />}
           >
             {!profile?.userType?.includes("ENGINEER") && (
               <Box sx={{ textAlign: "center" }}>

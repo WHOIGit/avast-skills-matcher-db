@@ -18,6 +18,7 @@ type HookData = {
   skills: any;
   selectedSkills: Skill[];
   changeSelectStatus: (skill: Skill, checked: boolean) => void;
+  clearSelectStatus: () => void;
   isLoading: boolean;
   isError: any;
 };
@@ -37,10 +38,15 @@ const useSkills = (): HookData => {
     }
   };
 
+  const clearSelectStatus = () => {
+    setSelectedSkills([]);
+  };
+
   return {
     skills: data,
     selectedSkills: selectedSkills,
     changeSelectStatus: changeSelectStatus,
+    clearSelectStatus: clearSelectStatus,
     isLoading: !error && !data,
     isError: error,
   };

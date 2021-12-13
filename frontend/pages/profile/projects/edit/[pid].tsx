@@ -8,6 +8,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import useProjects from "../../../../src/hooks/useProjects";
+import InnerNav from "../../../../src/components/InnerNav";
 
 type FormData = {
   title: string;
@@ -57,77 +58,80 @@ export default function EditProject() {
   };
 
   return (
-    <Box
-      sx={{
-        marginTop: 8,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
-      <Typography component="h1" variant="h5">
-        Edit Project
-      </Typography>
-
+    <>
+      <InnerNav />
       <Box
-        component="form"
-        noValidate
-        onSubmit={handleSubmit(onSubmit)}
-        sx={{ mt: 3, width: 600 }}
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
       >
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <Controller
-              name="title"
-              defaultValue=""
-              control={control}
-              rules={{ required: true }}
-              render={({ field: { onChange, value } }) => (
-                <TextField
-                  fullWidth
-                  label="Project Title"
-                  onChange={onChange}
-                  value={value}
-                />
-              )}
-            />
-            <Box sx={{ color: "error.main" }}>
-              {errors.title && "Title is required"}
-            </Box>
-          </Grid>
-          <Grid item xs={12}>
-            <Controller
-              name="description"
-              defaultValue=""
-              control={control}
-              rules={{ required: true }}
-              render={({ field: { onChange, value } }) => (
-                <TextField
-                  fullWidth
-                  multiline
-                  rows={8}
-                  onChange={onChange}
-                  value={value}
-                  label={"Describe your project"}
-                  variant="outlined"
-                />
-              )}
-            />
-            <Box sx={{ color: "error.main" }}>
-              {errors.description && "Field is required"}
-            </Box>
-          </Grid>
-        </Grid>
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          sx={{ mt: 3, mb: 2 }}
+        <Typography component="h1" variant="h5">
+          Edit Project
+        </Typography>
+
+        <Box
+          component="form"
+          noValidate
+          onSubmit={handleSubmit(onSubmit)}
+          sx={{ mt: 3, width: 600 }}
         >
-          Save Project
-        </Button>
-        <Box sx={{ color: "error.main" }}>{errorMessage}</Box>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <Controller
+                name="title"
+                defaultValue=""
+                control={control}
+                rules={{ required: true }}
+                render={({ field: { onChange, value } }) => (
+                  <TextField
+                    fullWidth
+                    label="Project Title"
+                    onChange={onChange}
+                    value={value}
+                  />
+                )}
+              />
+              <Box sx={{ color: "error.main" }}>
+                {errors.title && "Title is required"}
+              </Box>
+            </Grid>
+            <Grid item xs={12}>
+              <Controller
+                name="description"
+                defaultValue=""
+                control={control}
+                rules={{ required: true }}
+                render={({ field: { onChange, value } }) => (
+                  <TextField
+                    fullWidth
+                    multiline
+                    rows={8}
+                    onChange={onChange}
+                    value={value}
+                    label={"Describe your project"}
+                    variant="outlined"
+                  />
+                )}
+              />
+              <Box sx={{ color: "error.main" }}>
+                {errors.description && "Field is required"}
+              </Box>
+            </Grid>
+          </Grid>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Save Project
+          </Button>
+          <Box sx={{ color: "error.main" }}>{errorMessage}</Box>
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 }

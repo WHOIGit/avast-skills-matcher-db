@@ -1,9 +1,10 @@
 import { useState } from "react";
-import useSWR from "swr";
+import useSWR, { useSWRConfig } from "swr";
 import Auth, { User } from "../containers/authContainer";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_HOST;
 const profileUrl = `${API_BASE}/api/users/me/`;
+const engineersUrl = `${API_BASE}/api/engineers/`;
 
 const makeUrl = (endpoint: string): string => {
   return API_BASE + endpoint;
@@ -31,6 +32,8 @@ type HookData = {
 
 const useProfile = (): HookData => {
   const authCtx = Auth.useContainer();
+  // use global mutate function for multiple SWR endpoints
+  const { mutate } = useSWRConfig();
 
   // async fetcher function for useSWR hook using token from auth Context
   const fetcherWithToken = async (url: string) => {
@@ -41,7 +44,7 @@ const useProfile = (): HookData => {
     }).then((r) => r.json());
   };
 
-  const { data, mutate, error } = useSWR(profileUrl, fetcherWithToken);
+  const { data, error } = useSWR(profileUrl, fetcherWithToken);
   console.log(data);
 
   const createUser = async (
@@ -100,6 +103,7 @@ const useProfile = (): HookData => {
       // const data = await resp.json();
       // refresh the useSWR profile API data
       mutate(profileUrl);
+      mutate(engineersUrl);
     }
     return resp;
   };
@@ -127,6 +131,7 @@ const useProfile = (): HookData => {
     if (resp.ok) {
       // refresh the useSWR profile API data
       mutate(profileUrl);
+      mutate(engineersUrl);
     }
     return resp;
   };
@@ -146,6 +151,7 @@ const useProfile = (): HookData => {
     if (resp.ok) {
       // refresh the useSWR profile API data
       mutate(profileUrl);
+      mutate(engineersUrl);
     }
     return resp;
   };

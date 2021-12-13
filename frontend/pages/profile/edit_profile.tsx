@@ -15,6 +15,7 @@ import FormLabel from "@mui/material/FormLabel";
 import FormGroup from "@mui/material/FormGroup";
 import useProfile from "../../src/hooks/useProfile";
 import Skills, { Skill } from "../../src/containers/skillsContainer";
+import InnerNav from "../../src/components/InnerNav";
 
 type FormData = {
   experience: string;
@@ -24,7 +25,7 @@ type FormData = {
 export default function EditProfileForm() {
   const router = useRouter();
   const skillsCtx = Skills.useContainer();
-  const { profile, editProfile, editEngineerProfile } = useProfile();
+  const { profile, editEngineerProfile } = useProfile();
   const {
     handleSubmit,
     control,
@@ -112,89 +113,92 @@ export default function EditProfileForm() {
   }
 
   return (
-    <Box
-      sx={{
-        marginTop: 8,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
-      <Typography component="h1" variant="h5">
-        Edit Engineer Profile
-      </Typography>
-
-      <Avatar
-        sx={{ m: 1, bgcolor: "secondary.main", width: 112, height: 112 }}
-        alt={profile?.firstName}
-        src={profile?.avatar}
-      />
-
-      <Typography component="h1" variant="h4">
-        {profile?.firstName} {profile?.lastName}
-      </Typography>
-
+    <>
+      <InnerNav />
       <Box
-        component="form"
-        noValidate
-        onSubmit={handleSubmit(onSubmit)}
-        sx={{ mt: 3, width: 600 }}
+        sx={{
+          marginTop: 1,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
       >
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <Controller
-              name="experience"
-              defaultValue=""
-              control={control}
-              rules={{ required: true }}
-              render={({ field: { onChange, value } }) => (
-                <TextField
-                  fullWidth
-                  multiline
-                  rows={8}
-                  onChange={onChange}
-                  value={value}
-                  label={"Describe your skills and experience"}
-                  variant="outlined"
-                />
-              )}
-            />
-            <Box sx={{ color: "error.main" }}>
-              {errors.experience && "Field is required"}
-            </Box>
-          </Grid>
-          <Grid item xs={12}>
-            <FormControl component="fieldset" variant="standard">
-              <FormLabel component="legend">Skills</FormLabel>
-              <FormGroup>
-                <Controller
-                  name="skills"
-                  defaultValue={[]}
-                  control={control}
-                  //rules={{ required: true }}
-                  render={({ field }) => (
-                    <>
-                      {skillsCtx.skills &&
-                        skillsCtx.skills.map((skill: Skill) =>
-                          renderSkillsList(skill, field)
-                        )}
-                    </>
-                  )}
-                />
-              </FormGroup>
-            </FormControl>
-          </Grid>
-        </Grid>
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          sx={{ mt: 3, mb: 2 }}
+        <Typography component="h1" variant="h5">
+          Edit Engineer Profile
+        </Typography>
+
+        <Avatar
+          sx={{ m: 1, bgcolor: "secondary.main", width: 112, height: 112 }}
+          alt={profile?.firstName}
+          src={profile?.avatar}
+        />
+
+        <Typography component="h1" variant="h4">
+          {profile?.firstName} {profile?.lastName}
+        </Typography>
+
+        <Box
+          component="form"
+          noValidate
+          onSubmit={handleSubmit(onSubmit)}
+          sx={{ mt: 3, width: 600 }}
         >
-          Save Profile
-        </Button>
-        <Box sx={{ color: "error.main" }}>{errorMessage}</Box>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <Controller
+                name="experience"
+                defaultValue=""
+                control={control}
+                rules={{ required: true }}
+                render={({ field: { onChange, value } }) => (
+                  <TextField
+                    fullWidth
+                    multiline
+                    rows={8}
+                    onChange={onChange}
+                    value={value}
+                    label={"Describe your skills and experience"}
+                    variant="outlined"
+                  />
+                )}
+              />
+              <Box sx={{ color: "error.main" }}>
+                {errors.experience && "Field is required"}
+              </Box>
+            </Grid>
+            <Grid item xs={12}>
+              <FormControl component="fieldset" variant="standard">
+                <FormLabel component="legend">Skills</FormLabel>
+                <FormGroup>
+                  <Controller
+                    name="skills"
+                    defaultValue={[]}
+                    control={control}
+                    //rules={{ required: true }}
+                    render={({ field }) => (
+                      <>
+                        {skillsCtx.skills &&
+                          skillsCtx.skills.map((skill: Skill) =>
+                            renderSkillsList(skill, field)
+                          )}
+                      </>
+                    )}
+                  />
+                </FormGroup>
+              </FormControl>
+            </Grid>
+          </Grid>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Save Profile
+          </Button>
+          <Box sx={{ color: "error.main" }}>{errorMessage}</Box>
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 }

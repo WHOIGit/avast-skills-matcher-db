@@ -1,4 +1,5 @@
 import * as React from "react";
+import Image from "next/image";
 import { styled, useTheme, alpha } from "@mui/material/styles";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -13,13 +14,13 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import SearchIcon from "@mui/icons-material/Search";
-import AccountCircle from "@mui/icons-material/AccountCircle";
 
-import { NextLinkComposed } from "./Link";
+import Link, { NextLinkComposed } from "./Link";
 import SkillsFilter from "./SkillsFilter";
 import Engineers from "../containers/engineersContainer";
 import Auth from "../containers/authContainer";
 import AccountMenu from "./AccountMenu";
+import logoImg from "../../public/WHOI-logo-notext.png";
 
 const drawerWidth = 240;
 
@@ -132,7 +133,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <Box sx={{ display: "flex" }}>
       <AppBar position="fixed" open={open}>
-        <Toolbar>
+        <Toolbar sx={{ bgcolor: "primary.dark" }}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -142,9 +143,17 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            AVAST Skills Matcher
-          </Typography>
+
+          <Box sx={{ px: 2, mt: 0.5 }}>
+            <Link href="/">
+              <Image src={logoImg} alt="WHOI Logo" />
+            </Link>
+          </Box>
+          <Link href="/" underline="none" sx={{ color: "white" }}>
+            <Typography variant="h6" noWrap component="div">
+              AVAST Skills Matcher DB
+            </Typography>
+          </Link>
           <Search>
             <SearchIconWrapper>
               <SearchIcon />

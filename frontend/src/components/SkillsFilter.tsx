@@ -1,5 +1,10 @@
 import * as React from "react";
-import { Box, List, ListItem, Checkbox, FormControlLabel } from "@mui/material";
+import { Box, Checkbox, FormControlLabel, Button } from "@mui/material";
+import FormLabel from "@mui/material/FormLabel";
+import FormControl from "@mui/material/FormControl";
+import FormGroup from "@mui/material/FormGroup";
+import Switch from "@mui/material/Switch";
+import ClearAllIcon from "@mui/icons-material/ClearAll";
 //import useSkills, { Skill } from "../hooks/useSkills";
 import Skills, { Skill } from "../containers/skillsContainer";
 
@@ -7,7 +12,11 @@ const SkillsFilter: React.FC = () => {
   const skillsCtx = Skills.useContainer();
   const selectedIDs = skillsCtx.selectedSkills.map((skill) => skill.id);
   console.log(selectedIDs);
-
+  const [filterInclusive, setFilterInclusive] = React.useState(true);
+  const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(event.target.checked);
+    setFilterInclusive(event.target.checked);
+  };
   const renderSkillsList = (skill: Skill) => {
     let hasChildren = false;
     if (skill.children.length) {
@@ -39,6 +48,32 @@ const SkillsFilter: React.FC = () => {
     <Box sx={{ px: 2 }}>
       {skillsCtx.skills &&
         skillsCtx.skills.map((skill: Skill) => renderSkillsList(skill))}
+
+      <FormControl component="fieldset" variant="standard" sx={{ my: 2 }}>
+        <FormLabel component="legend">Filter Type</FormLabel>
+        <FormGroup>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={filterInclusive}
+                onChange={handleFilterChange}
+                name="filterType"
+              />
+            }
+            label="Inclusive"
+          />
+        </FormGroup>
+      </FormControl>
+
+      <Button
+        variant="contained"
+        sx={{ mb: 2 }}
+        size="small"
+        startIcon={<ClearAllIcon />}
+        onClick={skillsCtx.clearSelectStatus}
+      >
+        Clear Filter
+      </Button>
     </Box>
   );
 };

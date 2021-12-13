@@ -12,6 +12,7 @@ import Box from "@mui/material/Box";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import Typography from "@mui/material/Typography";
 import useProfile from "../../src/hooks/useProfile";
+import InnerNav from "../../src/components/InnerNav";
 
 type FormData = {
   firstName: string;
@@ -83,140 +84,143 @@ export default function EditForm() {
   console.log(profile, avatarImage);
 
   return (
-    <Box
-      sx={{
-        marginTop: 8,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
-      <Typography component="h1" variant="h5">
-        Edit Account
-      </Typography>
-      <Stack direction="row" alignItems="center" spacing={2}>
-        <Avatar
-          sx={{ m: 1, bgcolor: "secondary.main", width: 56, height: 56 }}
-          alt={profile?.firstName}
-          src={avatarImage}
-        />
-
-        <label htmlFor="avatar-image">
-          <Input
-            accept="image/*"
-            id="avatar-image"
-            name="avatar-image"
-            type="file"
-            onChange={handleCapture}
-          />
-          <Button
-            variant="contained"
-            component="span"
-            startIcon={<PhotoCamera />}
-          >
-            Change Profile Image
-          </Button>
-        </label>
-      </Stack>
-
+    <>
+      <InnerNav />
       <Box
-        component="form"
-        noValidate
-        onSubmit={handleSubmit(onSubmit)}
-        sx={{ mt: 3 }}
+        sx={{
+          marginTop: 1,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
       >
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
-            <Controller
-              name="firstName"
-              defaultValue=""
-              control={control}
-              rules={{ required: true }}
-              render={({ field: { onChange, value } }) => (
-                <TextField
-                  fullWidth
-                  onChange={onChange}
-                  value={value}
-                  label={"First Name"}
-                  variant="outlined"
-                />
-              )}
+        <Typography component="h1" variant="h5">
+          Edit Account
+        </Typography>
+        <Stack direction="row" alignItems="center" spacing={2}>
+          <Avatar
+            sx={{ m: 1, bgcolor: "secondary.main", width: 56, height: 56 }}
+            alt={profile?.firstName}
+            src={avatarImage}
+          />
+
+          <label htmlFor="avatar-image">
+            <Input
+              accept="image/*"
+              id="avatar-image"
+              name="avatar-image"
+              type="file"
+              onChange={handleCapture}
             />
-            <Box sx={{ color: "error.main" }}>
-              {errors.firstName && "First name is required"}
-            </Box>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Controller
-              name="lastName"
-              defaultValue=""
-              control={control}
-              rules={{ required: true }}
-              render={({ field: { onChange, value } }) => (
-                <TextField
-                  fullWidth
-                  label="Last Name"
-                  onChange={onChange}
-                  value={value}
-                />
-              )}
-            />
-            <Box sx={{ color: "error.main" }}>
-              {errors.lastName && "Last name is required"}
-            </Box>
-          </Grid>
-          <Grid item xs={12}>
-            <Controller
-              name="email"
-              defaultValue=""
-              control={control}
-              rules={{
-                required: true,
-                pattern: {
-                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                  message: "Invalid email address",
-                },
-              }}
-              render={({ field: { onChange, value } }) => (
-                <TextField
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  onChange={onChange}
-                  value={value}
-                />
-              )}
-            />
-            <Box sx={{ color: "error.main" }}>{errors.email?.message}</Box>
-          </Grid>
-          <Grid item xs={12}>
-            <Controller
-              name="title"
-              defaultValue=""
-              control={control}
-              render={({ field: { onChange, value } }) => (
-                <TextField
-                  fullWidth
-                  id="title"
-                  label="Title"
-                  onChange={onChange}
-                  value={value}
-                />
-              )}
-            />
-            <Box sx={{ color: "error.main" }}>{errors.email?.message}</Box>
-          </Grid>
-        </Grid>
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          sx={{ mt: 3, mb: 2 }}
+            <Button
+              variant="contained"
+              component="span"
+              startIcon={<PhotoCamera />}
+            >
+              Change Profile Image
+            </Button>
+          </label>
+        </Stack>
+
+        <Box
+          component="form"
+          noValidate
+          onSubmit={handleSubmit(onSubmit)}
+          sx={{ mt: 3 }}
         >
-          Save Profile
-        </Button>
-        <Box sx={{ color: "error.main" }}>{errorMessage}</Box>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6}>
+              <Controller
+                name="firstName"
+                defaultValue=""
+                control={control}
+                rules={{ required: true }}
+                render={({ field: { onChange, value } }) => (
+                  <TextField
+                    fullWidth
+                    onChange={onChange}
+                    value={value}
+                    label={"First Name"}
+                    variant="outlined"
+                  />
+                )}
+              />
+              <Box sx={{ color: "error.main" }}>
+                {errors.firstName && "First name is required"}
+              </Box>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Controller
+                name="lastName"
+                defaultValue=""
+                control={control}
+                rules={{ required: true }}
+                render={({ field: { onChange, value } }) => (
+                  <TextField
+                    fullWidth
+                    label="Last Name"
+                    onChange={onChange}
+                    value={value}
+                  />
+                )}
+              />
+              <Box sx={{ color: "error.main" }}>
+                {errors.lastName && "Last name is required"}
+              </Box>
+            </Grid>
+            <Grid item xs={12}>
+              <Controller
+                name="email"
+                defaultValue=""
+                control={control}
+                rules={{
+                  required: true,
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                    message: "Invalid email address",
+                  },
+                }}
+                render={({ field: { onChange, value } }) => (
+                  <TextField
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    onChange={onChange}
+                    value={value}
+                  />
+                )}
+              />
+              <Box sx={{ color: "error.main" }}>{errors.email?.message}</Box>
+            </Grid>
+            <Grid item xs={12}>
+              <Controller
+                name="title"
+                defaultValue=""
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <TextField
+                    fullWidth
+                    id="title"
+                    label="Title"
+                    onChange={onChange}
+                    value={value}
+                  />
+                )}
+              />
+              <Box sx={{ color: "error.main" }}>{errors.email?.message}</Box>
+            </Grid>
+          </Grid>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Save Profile
+          </Button>
+          <Box sx={{ color: "error.main" }}>{errorMessage}</Box>
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 }

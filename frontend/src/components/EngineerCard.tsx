@@ -8,7 +8,6 @@ import Collapse from "@mui/material/Collapse";
 import Avatar from "@mui/material/Avatar";
 import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import { red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
@@ -21,6 +20,7 @@ import { User } from "../containers/authContainer";
 import Link, { NextLinkComposed } from "./Link";
 import SkillChip from "./SkillChip";
 import Stack from "@mui/material/Stack";
+import theme from "../theme";
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -49,11 +49,11 @@ export default function EngineerCard({ engineer }: CardProps) {
   };
 
   return (
-    <Card sx={{ maxWidth: 420, maxHeight: 450 }}>
+    <Card sx={{ maxWidth: 420, height: 350 }}>
       <CardHeader
         avatar={
           <Avatar
-            sx={{ bgcolor: red[500] }}
+            sx={{ bgcolor: "secondary.main" }}
             aria-label="Engineer"
             component={NextLinkComposed}
             to={{
@@ -74,10 +74,7 @@ export default function EngineerCard({ engineer }: CardProps) {
           </IconButton>
         }
         title={
-          <Link
-            href={`/engineers/${engineer.id}`}
-            sx={{ textDecoration: "none" }}
-          >
+          <Link href={`/engineers/${engineer.id}`} underline="hover">
             {`${engineer.firstName} ${engineer.lastName}`}
           </Link>
         }

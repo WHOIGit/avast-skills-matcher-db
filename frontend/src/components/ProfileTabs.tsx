@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/router";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -41,11 +42,7 @@ function TabPanel(props: TabPanelProps) {
       aria-labelledby={`profile-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
+      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
     </div>
   );
 }
@@ -64,7 +61,12 @@ export default function ProfileTabs({ profile }: ComponentProps) {
   const [value, setValue] = React.useState(
     profile.userType?.includes("PROJECT_OWNER") ? 1 : 0
   );
+  console.log(profile);
+
   console.log(value);
+  useEffect(() => {
+    setValue(profile.userType?.includes("PROJECT_OWNER") ? 1 : 0);
+  }, [profile]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -107,32 +109,46 @@ export default function ProfileTabs({ profile }: ComponentProps) {
     >
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs value={value} onChange={handleChange} aria-label="profile tabs">
-          <Tab label="Engineer Profile" {...a11yProps(0)} />
+          <Tab
+            label="Engineer Profile"
+            {...a11yProps(0)}
+            sx={{
+              display: profile.userType?.includes("ENGINEER")
+                ? "block"
+                : "none",
+            }}
+          />
 
-          <Tab label="Your Projects" {...a11yProps(1)} />
+          <Tab
+            label="Your Projects"
+            {...a11yProps(1)}
+            sx={{
+              display: profile.userType?.includes("PROJECT_OWNER")
+                ? "block"
+                : "none",
+            }}
+          />
         </Tabs>
       </Box>
 
-      {profile.userType?.includes("ENGINEER") && (
-        <TabPanel value={value} index={0}>
-          <Box sx={{ mb: 2 }}>
-            <Typography component="h6" variant="h6">
-              Your Skills
-            </Typography>
-            <Stack direction="row" spacing={2}>
-              {profile.engineerProfile?.skills.map((id: number) => {
-                return <SkillChip key={id} skillId={id} />;
-              })}
-            </Stack>
-          </Box>
+      <TabPanel value={value} index={0}>
+        <Box sx={{ mb: 2 }}>
           <Typography component="h6" variant="h6">
-            Experience
+            Your Skills
           </Typography>
-          <Typography component="p" variant="body1" paragraph>
-            {profile.engineerProfile?.experience}
-          </Typography>
-        </TabPanel>
-      )}
+          <Stack direction="row" spacing={2}>
+            {profile.engineerProfile?.skills.map((id: number) => {
+              return <SkillChip key={id} skillId={id} />;
+            })}
+          </Stack>
+        </Box>
+        <Typography component="h6" variant="h6">
+          Experience
+        </Typography>
+        <Typography component="p" variant="body1" paragraph>
+          {profile.engineerProfile?.experience}
+        </Typography>
+      </TabPanel>
 
       <TabPanel value={value} index={1}>
         <Button
