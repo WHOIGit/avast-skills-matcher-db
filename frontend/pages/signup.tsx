@@ -5,12 +5,12 @@ import { useRouter } from "next/router";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Auth from "../src/containers/authContainer";
+import Link from "../src/components/Link";
 import useProfile from "../src/hooks/useProfile";
 
 type FormData = {
@@ -197,7 +197,7 @@ export default function SignUp(props: ComponentProps) {
         <Box sx={{ color: "error.main" }}>{errorMessage}</Box>
         <Grid container justifyContent="flex-end">
           <Grid item>
-            <Link href="#" variant="body2">
+            <Link href="/login" variant="body2">
               Already have an account? Sign in
             </Link>
           </Grid>
