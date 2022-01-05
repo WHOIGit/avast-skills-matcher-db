@@ -124,7 +124,7 @@ export default function EditProfileForm() {
         }}
       >
         <Typography component="h1" variant="h5">
-          Edit Engineer Profile
+          Edit SME Profile
         </Typography>
 
         <Avatar

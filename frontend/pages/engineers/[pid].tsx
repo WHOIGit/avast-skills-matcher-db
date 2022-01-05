@@ -94,7 +94,7 @@ export default function EngineerDetail() {
               color="text.secondary"
               paragraph
             >
-              Want to contact an Engineer listed on our site? <br />
+              Want to contact a SME listed on our site? <br />
               Create a &quot;Project&quot; that you can request assistance with
               from one of our users.
             </Typography>

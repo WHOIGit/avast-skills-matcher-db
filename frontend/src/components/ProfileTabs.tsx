@@ -110,7 +110,7 @@ export default function ProfileTabs({ profile }: ComponentProps) {
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs value={value} onChange={handleChange} aria-label="profile tabs">
           <Tab
-            label="Engineer Profile"
+            label="SME Profile"
             {...a11yProps(0)}
             sx={{
               display: profile.userType?.includes("ENGINEER")

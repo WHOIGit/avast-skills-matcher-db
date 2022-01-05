@@ -91,8 +91,8 @@ const Me = (): React.ReactElement => {
                 pathname: "/profile/edit_profile",
               }}
             >
-              {profile?.engineerProfile?.experience ? "Edit" : "Create"}{" "}
-              Engineer Profile
+              {profile?.engineerProfile?.experience ? "Edit" : "Create"} SME
+              Profile
             </Button>
           )}
         </Stack>
@@ -108,13 +108,13 @@ const Me = (): React.ReactElement => {
               paragraph
             >
               Welcome to the AVAST Skills Matcher DB! You&rsquo;re now
-              registered as an Engineer on our site. Complete your{" "}
+              registered as a SME on our site. Complete your{" "}
               <NextLinkComposed
                 to={{
                   pathname: "/profile/edit_profile",
                 }}
               >
-                Engineer Profile
+                SME Profile
               </NextLinkComposed>{" "}
               and you are all set.
             </Typography>
@@ -139,7 +139,7 @@ const Me = (): React.ReactElement => {
             color="text.secondary"
             paragraph
           >
-            Want to contact an Engineer listed on our site? <br />
+            Want to contact a SME listed on our site? <br />
             Create a &quot;Project&quot; that you can request assistance with
             from one of our users.
           </Typography>
@@ -164,8 +164,8 @@ const Me = (): React.ReactElement => {
             color="text.secondary"
             paragraph
           >
-            Want to make your skills available to the WHOI community? Create an
-            &quot;Engineer Profile&quot;, and you will be listed in the Skills
+            Want to make your skills available to the WHOI community? Create a
+            &quot;SME Profile&quot;, and you will be listed in the Skills
             Matcher DB.
           </Typography>
 
@@ -177,7 +177,7 @@ const Me = (): React.ReactElement => {
               pathname: "/profile/edit_profile",
             }}
           >
-            Create Engineer Profile
+            Create SME Profile
           </Button>
         </Box>
       )}

@@ -58,7 +58,7 @@ export default function ContactDialog({ engineer }: Props) {
         size="small"
         startIcon={<SendIcon />}
       >
-        Contact Engineer
+        Contact SME
       </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>
@@ -66,10 +66,10 @@ export default function ContactDialog({ engineer }: Props) {
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            To contact this Engineer, select one of your Projects that
-            you&rsquo;d like to work with them on, and add an optional personal
-            message. We will send them your Project details and notify you if
-            they&rsquo;re interested.
+            To contact this SME, select one of your Projects that you&rsquo;d
+            like to work with them on, and add an optional personal message. We
+            will send them your Project details and notify you if they&rsquo;re
+            interested.
           </DialogContentText>
 
           <List

@@ -48,8 +48,8 @@ export default function Index() {
                   paragraph
                 >
                   Want to make your skills available to the WHOI community?{" "}
-                  Create an &quot;Engineer Profile&quot;, and you will be listed
-                  in the Skills Matcher DB.
+                  Create a &quot;SME Profile&quot;, and you will be listed in
+                  the Skills Matcher DB.
                 </Typography>
                 <Button
                   variant="contained"
@@ -60,7 +60,7 @@ export default function Index() {
                     query: { userTypeId: "ENGINEER" },
                   }}
                 >
-                  Create Engineer Profile
+                  Create SME Profile
                 </Button>{" "}
               </Box>
             )}
@@ -73,7 +73,7 @@ export default function Index() {
                   color="text.secondary"
                   paragraph
                 >
-                  Want to contact an Engineer listed on our site? Create a
+                  Want to contact an SME listed on our site? Create a
                   &quot;Project&quot; that you can request assistance with from
                   one of our users.
                 </Typography>
