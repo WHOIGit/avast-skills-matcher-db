@@ -20,6 +20,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { NextLinkComposed } from "./Link";
 import { User } from "../containers/authContainer";
 import SkillChip from "./SkillChip";
+import { Project } from "../hooks/useProjects";
 
 type TabPanelProps = {
   children?: React.ReactNode;
@@ -76,7 +77,7 @@ export default function ProfileTabs({ profile }: ComponentProps) {
     router.push(`/profile/projects/edit/${pid}`);
   };
 
-  const renderProjectList = (project) => {
+  const renderProjectList = (project: Project) => {
     return (
       <ListItem
         key={project.id}
@@ -91,7 +92,7 @@ export default function ProfileTabs({ profile }: ComponentProps) {
           <ListItemIcon>
             <CommentIcon />
           </ListItemIcon>
-          <ListItemText id={project.id} primary={project.title} />
+          <ListItemText id={project.id.toString()} primary={project.title} />
         </ListItemButton>
       </ListItem>
     );

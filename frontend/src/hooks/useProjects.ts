@@ -8,7 +8,7 @@ const makeUrl = (endpoint: string): string => {
   return API_BASE + endpoint;
 };
 
-type Project = {
+export type Project = {
   id: number;
   title: string;
   description: string;

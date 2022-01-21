@@ -1,17 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { createContainer } from "unstated-next";
+import { Project } from "../hooks/useProjects";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_HOST;
 
 export type Profile = {
   experience: string;
   skills: number[];
-};
-
-export type Project = {
-  id: number;
-  title: string;
-  description: string;
 };
 
 export type User = {
@@ -75,7 +70,7 @@ type AuthContainerProps = {
   user: User | null;
   login: (username: string, password: string) => Promise<Response>;
   logout: () => void;
-  getToken: () => Promise<string>;
+  getToken: () => Promise<string | void>;
 };
 
 export const useAuth = (): AuthContainerProps => {
@@ -97,7 +92,7 @@ export const useAuth = (): AuthContainerProps => {
     if (accessToken === "") {
       return false;
     }
-    const expiry = new Date(accessTokenExpiry);
+    const expiry = new Date(accessTokenExpiry as any);
     console.log("Checking token expiry:", expiry);
     return expiry.getTime() > Date.now();
   };
@@ -123,7 +118,7 @@ export const useAuth = (): AuthContainerProps => {
     setUser(user);
   };
 
-  const refreshToken = async (): Promise<string> => {
+  const refreshToken = async (): Promise<void> => {
     setLoading(true);
     const resp = await fetchNewToken();
     if (!resp.ok) {
@@ -165,7 +160,7 @@ export const useAuth = (): AuthContainerProps => {
     return resp;
   };
 
-  const getToken = async (): Promise<string> => {
+  const getToken = async (): Promise<void | string> => {
     // Returns an access token if there's one or refetches a new one
     console.log("Getting access token..");
     if (accessTokenIsValid()) {

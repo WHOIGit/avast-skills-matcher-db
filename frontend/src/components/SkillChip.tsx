@@ -1,10 +1,10 @@
 import * as React from "react";
-import Chip from "@mui/material/Chip";
+import Chip, { ChipProps } from "@mui/material/Chip";
 import Skills, { Skill } from "../containers/skillsContainer";
 
 type Props = {
   skillId: number;
-  size: string;
+  size?: ChipProps["size"];
 };
 export default function SkillChip({ skillId, size = "medium" }: Props) {
   const skillsCtx = Skills.useContainer();

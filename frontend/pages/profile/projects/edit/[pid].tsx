@@ -17,8 +17,8 @@ type FormData = {
 
 export default function EditProject() {
   const router = useRouter();
-  const { pid } = router.query;
-
+  //const { pid } = router.query;
+  const pid = parseInt(router.query.pid as string);
   const { project, editProject } = useProjects(pid);
   console.log(project);
 

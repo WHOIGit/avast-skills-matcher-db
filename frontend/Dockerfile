@@ -11,7 +11,7 @@ FROM node:16-alpine AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN npm run build
+RUN npm run build && npm install --production --ignore-scripts --prefer-offline
 
 # Production image, copy all the files and run next
 FROM node:16-alpine AS runner
@@ -41,6 +41,6 @@ ENV PORT 3000
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
 # Uncomment the following line in case you want to disable telemetry.
-# ENV NEXT_TELEMETRY_DISABLED 1
+ENV NEXT_TELEMETRY_DISABLED 1
 
-CMD ["node", "server.js"]
+CMD ["npm", "run", "start"]
