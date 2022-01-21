@@ -68,6 +68,7 @@ async function fetchUser(token: string): Promise<Response> {
     },
   });
 }
+
 type AuthContainerProps = {
   isAuthenticated: boolean;
   loading: boolean;
