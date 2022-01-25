@@ -1,0 +1,64 @@
+version: '3.9'
+
+volumes:
+  production_postgres_data: {}
+  production_postgres_data_backups: {}
+  media_volume: {}
+
+services:
+  skills_django: &skills_django
+    image: ghcr.io/whoigit/avast-skillsmatcher-api:stable
+    container_name: skills_django
+    #network_mode: "host" # <-- to send email from container with local smtp
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - media_volume:/app/media  # <-- bind the media files
+    env_file:
+      - ./.envs/.production/.django
+      - ./.envs/.production/.postgres
+    ports:
+      - "5000:5000"
+    extra_hosts: # <-- to send email from container with local smtp
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+    command: /start
+
+  postgres:
+    image: ghcr.io/whoigit/postgres-docker-scripts:13.5
+    container_name: postgres
+    volumes:
+      - production_postgres_data:/var/lib/postgresql/data
+      - production_postgres_data_backups:/backups
+    env_file:
+      - ./.envs/.production/.postgres
+    restart: unless-stopped
+
+  redis:
+    image: redis:6
+    restart: unless-stopped
+  
+  skills_frontend:
+    container_name: skills_frontend
+    image: ghcr.io/whoigit/avast-skillsmatcher-frontend:stable
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+
+  nginx:
+    image: nginx:1.21.5
+    container_name: nginx
+    depends_on:
+      - skills_django
+    volumes:
+      - ./nginx/log:/var/log/nginx # logs
+      - ./nginx:/etc/nginx/conf.d:ro
+      - /etc/ssl/whoi_certs:/etc/ssl/certs:ro # bind a local directory with the WHOI SSL certs
+    ports:
+      - "0.0.0.0:80:80"
+      - "0.0.0.0:443:443"
+    restart: unless-stopped
+
+

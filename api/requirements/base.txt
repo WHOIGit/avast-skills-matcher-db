@@ -23,3 +23,4 @@ djangorestframework-camel-case==1.2.0
 # Project specific
 django-mptt==0.13.4
 django-mptt-admin==2.1.0
+django-filter==21.1

@@ -75,6 +75,7 @@ THIRD_PARTY_APPS = [
     "corsheaders",
     "mptt",
     "django_mptt_admin",
+    "django_filters",
 ]
 
 LOCAL_APPS = [
@@ -296,6 +297,7 @@ REST_FRAMEWORK = {
         "djangorestframework_camel_case.parser.CamelCaseJSONParser",
         # Any other parsers
     ),
+    "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
     # "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
 }
 
