@@ -9,6 +9,7 @@ import createEmotionCache from "../src/utils/createEmotionCache";
 import Layout from "../src/components/Layout";
 import Auth from "../src/containers/authContainer";
 import Skills from "../src/containers/skillsContainer";
+import Engineers from "../src/containers/engineersContainer";
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 
@@ -27,11 +28,13 @@ const MyApp = (props: IAppProps) => {
       <ThemeProvider theme={theme}>
         <Auth.Provider>
           <Skills.Provider>
-            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-            <CssBaseline />
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
+            <Engineers.Provider>
+              {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+              <CssBaseline />
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </Engineers.Provider>
           </Skills.Provider>
         </Auth.Provider>
       </ThemeProvider>

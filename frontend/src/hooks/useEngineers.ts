@@ -1,6 +1,8 @@
-import useSWR from "swr";
-import { createContainer } from "unstated-next";
+import * as React from "react";
+import useSWR, { useSWRConfig } from "swr";
+import Engineers from "../containers/engineersContainer";
 import { User } from "../containers/authContainer";
+
 const API_BASE = process.env.NEXT_PUBLIC_API_HOST;
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
@@ -9,27 +11,49 @@ type HookData = {
   engineers: User[];
   isLoading: boolean;
   isError: any;
+  reset: () => void;
 };
 
-const useEngineers = (pid?: any): HookData => {
-  // get array of all Engineers
-  const { data: dataEngineers, error: errorEngineers } = useSWR(
-    `${API_BASE}/api/engineers/`,
-    fetcher
-  );
+const useEngineers = (pid?: any, searchTerms?: string): HookData => {
+  let engineersCtx = Engineers.useContainer();
+  let { mutate } = useSWRConfig();
+  console.log(searchTerms);
 
   // get single Engineer by pid if requested
-  const { data: dataEngineer, error: errorEngineer } = useSWR(
+  let { data: dataEngineer, error: errorEngineer } = useSWR(
     pid ? `${API_BASE}/api/engineers/${pid}` : null,
     fetcher
   );
-  console.log(dataEngineer);
+
+  // search Engineers by search term
+  let { data: dataEngineerSearch, error: errorEngineerSearch } = useSWR(
+    searchTerms ? `${API_BASE}/api/engineers/?q=${searchTerms}` : null,
+    fetcher
+  );
+  console.log(dataEngineerSearch);
+
+  if (dataEngineerSearch) {
+    engineersCtx.setEngineers(dataEngineerSearch);
+  }
+
+  async function reset() {
+    // reset to full list of Engineers
+    try {
+      let data = await mutate(`${API_BASE}/api/engineers/`);
+      console.log(data);
+
+      engineersCtx.setEngineers(data);
+    } catch (error) {
+      // Handle an error while updating the user here
+    }
+  }
 
   return {
     engineer: dataEngineer,
-    engineers: dataEngineers,
-    isLoading: !dataEngineers && !dataEngineers,
-    isError: errorEngineers,
+    engineers: engineersCtx.engineers,
+    isLoading: !engineersCtx.isError && !engineersCtx.engineers,
+    isError: engineersCtx.isError,
+    reset: reset,
   };
 };
 
