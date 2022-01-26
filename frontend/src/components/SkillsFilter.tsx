@@ -12,11 +12,7 @@ const SkillsFilter: React.FC = () => {
   const skillsCtx = Skills.useContainer();
   const selectedIDs = skillsCtx.selectedSkills.map((skill) => skill.id);
   console.log(selectedIDs);
-  const [filterInclusive, setFilterInclusive] = React.useState(true);
-  const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.checked);
-    setFilterInclusive(event.target.checked);
-  };
+
   const renderSkillsList = (skill: Skill) => {
     let hasChildren = false;
     if (skill.children.length) {
@@ -55,8 +51,10 @@ const SkillsFilter: React.FC = () => {
           <FormControlLabel
             control={
               <Switch
-                checked={filterInclusive}
-                onChange={handleFilterChange}
+                checked={skillsCtx.filterInclusive}
+                onChange={(event) =>
+                  skillsCtx.setFilterInclusive(event.target.checked)
+                }
                 name="filterType"
               />
             }

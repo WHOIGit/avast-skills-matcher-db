@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import useSWR from "swr";
 import { createContainer } from "unstated-next";
 
@@ -19,15 +19,16 @@ type HookData = {
   selectedSkills: Skill[];
   changeSelectStatus: (skill: Skill, checked: boolean) => void;
   clearSelectStatus: () => void;
+  filterInclusive: boolean;
+  setFilterInclusive: Dispatch<SetStateAction<boolean>>;
   isLoading: boolean;
   isError: any;
 };
 
 const useSkills = (): HookData => {
   const { data, error } = useSWR(`${API_BASE}/api/skills/`, fetcher);
-  //const [skills, setSkills] = useState<Skill[]>([]);
   const [selectedSkills, setSelectedSkills] = useState<Skill[]>([]);
-  console.log(selectedSkills);
+  const [filterInclusive, setFilterInclusive] = useState(true);
 
   const changeSelectStatus = (skill: Skill, checked: boolean): void => {
     const skillList = selectedSkills;
@@ -47,6 +48,8 @@ const useSkills = (): HookData => {
     selectedSkills: selectedSkills,
     changeSelectStatus: changeSelectStatus,
     clearSelectStatus: clearSelectStatus,
+    filterInclusive: filterInclusive,
+    setFilterInclusive: setFilterInclusive,
     isLoading: !error && !data,
     isError: error,
   };

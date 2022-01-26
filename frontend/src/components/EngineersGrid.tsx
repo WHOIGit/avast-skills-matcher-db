@@ -13,7 +13,6 @@ const EngineersGrid = () => {
   const [matchingEngineers, setMatchingEngineers] = React.useState(
     engineersCtx.engineers
   );
-  console.log(matchingEngineers);
 
   React.useEffect(() => {
     // filter all Engineers against the selected skills
@@ -29,15 +28,25 @@ const EngineersGrid = () => {
         ) as number[];
 
         const engineerList = engineersCtx.engineers.filter((engineer: User) => {
-          return skillList.some((id) =>
-            engineer.engineerProfile.skills.includes(id)
-          );
+          if (skillsCtx.filterInclusive) {
+            return skillList.some((id) =>
+              engineer.engineerProfile.skills.includes(id)
+            );
+          } else {
+            return skillList.every((id) =>
+              engineer.engineerProfile.skills.includes(id)
+            );
+          }
         }) as User[];
 
         setMatchingEngineers(engineerList);
       }
     }
-  }, [engineersCtx.engineers, skillsCtx.selectedSkills]);
+  }, [
+    engineersCtx.engineers,
+    skillsCtx.filterInclusive,
+    skillsCtx.selectedSkills,
+  ]);
 
   if (!matchingEngineers) {
     return null;

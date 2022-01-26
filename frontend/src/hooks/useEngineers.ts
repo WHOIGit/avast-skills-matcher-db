@@ -17,7 +17,11 @@ type HookData = {
 const useEngineers = (pid?: any, searchTerms?: string): HookData => {
   let engineersCtx = Engineers.useContainer();
   let { mutate } = useSWRConfig();
-  console.log(searchTerms);
+
+  let params;
+  if (searchTerms) {
+    params = new URLSearchParams({ q: searchTerms });
+  }
 
   // get single Engineer by pid if requested
   let { data: dataEngineer, error: errorEngineer } = useSWR(
@@ -27,10 +31,9 @@ const useEngineers = (pid?: any, searchTerms?: string): HookData => {
 
   // search Engineers by search term
   let { data: dataEngineerSearch, error: errorEngineerSearch } = useSWR(
-    searchTerms ? `${API_BASE}/api/engineers/?q=${searchTerms}` : null,
+    searchTerms ? `${API_BASE}/api/engineers/?${params}` : null,
     fetcher
   );
-  console.log(dataEngineerSearch);
 
   if (dataEngineerSearch) {
     engineersCtx.setEngineers(dataEngineerSearch);
