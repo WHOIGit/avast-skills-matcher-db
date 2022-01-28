@@ -14,6 +14,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Checkbox from "@mui/material/Checkbox";
 import Auth, { User } from "../containers/authContainer";
+import useProfile from "../hooks/useProfile";
 
 type Props = {
   engineer: User;
@@ -21,8 +22,11 @@ type Props = {
 export default function ContactDialog({ engineer }: Props) {
   const authCtx = Auth.useContainer();
   const projects = authCtx.user?.projectsOwned;
+  const { contactEngineer } = useProfile();
+  const textRef = React.useRef() as React.MutableRefObject<HTMLInputElement>;
   const [open, setOpen] = React.useState(false);
   const [checked, setChecked] = React.useState([0]);
+  console.log(checked);
 
   const handleToggle = (value: number) => () => {
     const currentIndex = checked.indexOf(value);
@@ -46,6 +50,8 @@ export default function ContactDialog({ engineer }: Props) {
   };
 
   const handleSend = () => {
+    console.log(textRef.current.value);
+    contactEngineer(engineer.id, textRef.current.value, checked);
     setOpen(false);
   };
 
@@ -109,6 +115,7 @@ export default function ContactDialog({ engineer }: Props) {
             rows={6}
             label={"Message"}
             variant="outlined"
+            inputRef={textRef}
           />
         </DialogContent>
         <DialogActions>

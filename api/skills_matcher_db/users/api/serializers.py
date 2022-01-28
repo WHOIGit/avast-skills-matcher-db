@@ -8,8 +8,15 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from skills_matcher_db.engineers.api.serializers import EngineerProfileSerializer
 from skills_matcher_db.engineers.models import EngineerProfile
 from skills_matcher_db.project_owners.api.serializers import ProjectSerializer
+from skills_matcher_db.users.models import Favorite
 
 User = get_user_model()
+
+
+class FavoriteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Favorite
+        fields = ["id", "user", "engineer"]
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -17,6 +24,8 @@ class UserSerializer(serializers.ModelSerializer):
     engineer_profile = EngineerProfileSerializer(required=False)
     projects_owned = ProjectSerializer(required=False, many=True)
     avatar = serializers.SerializerMethodField("get_avatar_url")
+    favorites = FavoriteSerializer(read_only=True, many=True, required=False)
+    favored_by = FavoriteSerializer(read_only=True, many=True, required=False)
 
     class Meta:
         model = User
@@ -33,6 +42,8 @@ class UserSerializer(serializers.ModelSerializer):
             "title",
             "engineer_profile",
             "projects_owned",
+            "favorites",
+            "favored_by",
         ]
 
         extra_kwargs = {

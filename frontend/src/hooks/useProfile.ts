@@ -28,6 +28,11 @@ type HookData = {
   uploadAvatar: (image: string) => Promise<Response>;
   editEngineerProfile: (experience: string, skills: []) => Promise<Response>;
   createProject: (title: string, description: string) => Promise<Response>;
+  contactEngineer: (
+    engineerId: string,
+    message: string,
+    checked: number[]
+  ) => Promise<Response>;
 };
 
 const useProfile = (): HookData => {
@@ -181,6 +186,30 @@ const useProfile = (): HookData => {
     return resp;
   };
 
+  const contactEngineer = async (
+    engineerId: string,
+    message: string,
+    checked: number[]
+  ): Promise<Response> => {
+    const payload = {
+      engineerId,
+      message,
+      checked,
+    };
+
+    const url = makeUrl(`/api/users/${authCtx.user?.id}/contact_engineer/`);
+    const resp = await fetch(url, {
+      method: "POST",
+      body: JSON.stringify(payload),
+      headers: {
+        Authorization: `Bearer ${await authCtx.getToken()}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    return resp;
+  };
+
   return {
     profile: data,
     createUser: createUser,
@@ -188,6 +217,7 @@ const useProfile = (): HookData => {
     uploadAvatar: uploadAvatar,
     editEngineerProfile: editEngineerProfile,
     createProject: createProject,
+    contactEngineer: contactEngineer,
   };
 };
 

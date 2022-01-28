@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 
 from skills_matcher_db.users.forms import UserChangeForm, UserCreationForm
+from skills_matcher_db.users.models import Engagement, Favorite
 
 User = get_user_model()
 
@@ -44,3 +45,13 @@ class UserAdmin(auth_admin.UserAdmin):
     )
     list_display = ["username", "first_name", "last_name", "is_superuser"]
     search_fields = ["last_name"]
+
+
+@admin.register(Favorite)
+class FavoriteAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Engagement)
+class EngagementAdmin(admin.ModelAdmin):
+    pass

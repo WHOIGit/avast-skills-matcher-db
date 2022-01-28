@@ -3,6 +3,7 @@ from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django import forms
 from django.utils.translation import gettext_lazy as _
+from django.utils import timezone
 
 
 class ChoiceArrayField(ArrayField):
@@ -45,6 +46,61 @@ class User(AbstractUser):
     )
     avatar = models.ImageField(upload_to="avatars", null=True, blank=True)
     title = models.CharField(null=True, blank=True, max_length=255)
+    # field to save "starred" Engineers for future use
+    # favorites = models.ManyToManyField("self", related_name="favored_by")
 
     class Meta:
         ordering = ("last_name", "first_name")
+
+
+class Engagement(models.Model):
+    """
+    Model to track requests for work from Project Owner -> Engineer
+    """
+
+    class Responses(models.TextChoices):
+        ACCEPTED = "ACCEPTED", "Accepted"
+        DECLINED = "DECLINED", "Declined"
+        NO_RESPONSE = "NO_RESPONSE", "No Response"
+
+    date_created = models.DateTimeField(default=timezone.now)
+    date_responded = models.DateTimeField(null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
+    project_owner = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        related_name="project_owner_engagements",
+        null=True,
+    )
+    engineer = models.ForeignKey(
+        User, on_delete=models.SET_NULL, related_name="engineer_engagements", null=True
+    )
+    projects = models.ManyToManyField(
+        "project_owners.Project", related_name="engagements", blank=True
+    )
+    response = models.CharField(
+        max_length=20, choices=Responses.choices, default=Responses.NO_RESPONSE
+    )
+
+    def __str__(self):
+        return self.project_owner.last_name
+
+
+class Favorite(models.Model):
+    """
+    Model to save "starred" Engineers for future use
+    """
+
+    date_created = models.DateTimeField(default=timezone.now)
+    user = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        related_name="favorites",
+        null=True,
+    )
+    engineer = models.ForeignKey(
+        User, on_delete=models.SET_NULL, related_name="favored_by", null=True
+    )
+
+    def __str__(self):
+        return self.engineer.last_name

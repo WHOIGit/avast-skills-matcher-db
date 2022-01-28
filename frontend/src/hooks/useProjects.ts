@@ -26,7 +26,7 @@ type HookData = {
   ) => Promise<Response>;
 };
 
-const useProfile = (pid?: any): HookData => {
+const useProjects = (pid?: any): HookData => {
   const authCtx = Auth.useContainer();
   // standard no Auth fetcher
   const fetcher = (url: string) => fetch(url).then((r) => r.json());
@@ -109,4 +109,4 @@ const useProfile = (pid?: any): HookData => {
   };
 };
 
-export default useProfile;
+export default useProjects;

@@ -99,9 +99,17 @@ class UserViewSet(viewsets.ModelViewSet):
 
         if serializer.is_valid():
             serializer.save()
-            return Response({"status": "avatar set"})
+            return Response(status=200)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(detail=True, methods=["post"])
+    def contact_engineer(self, request, pk=None):
+        user = self.get_object()
+        print(user)
+        print(request.data)
+
+        return Response(status=200)
 
 
 class Ping(GenericAPIView):
