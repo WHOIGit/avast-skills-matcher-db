@@ -1,52 +1,37 @@
 import * as React from "react";
-import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
-import Collapse from "@mui/material/Collapse";
 import Avatar from "@mui/material/Avatar";
 import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import ReadMoreIcon from "@mui/icons-material/ReadMore";
 import StarsIcon from "@mui/icons-material/Stars";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import TextTruncate from "react-text-truncate";
-import { User } from "../containers/authContainer";
+
 import Link, { NextLinkComposed } from "./Link";
 import SkillChip from "./SkillChip";
 import Stack from "@mui/material/Stack";
-import theme from "../theme";
-
-interface ExpandMoreProps extends IconButtonProps {
-  expand: boolean;
-}
-
-const ExpandMore = styled((props: ExpandMoreProps) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
-  marginLeft: "auto",
-  transition: theme.transitions.create("transform", {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
-
+import { User } from "../containers/authContainer";
+import useFavorite from "../hooks/useFavorite";
 type CardProps = {
   engineer: User;
 };
 
 export default function EngineerCard({ engineer }: CardProps) {
-  const [expanded, setExpanded] = React.useState(false);
+  const { isFavorite, toggleFavorite } = useFavorite(engineer);
+  const [starColor, setStarColor] =
+    React.useState<IconButtonProps["color"]>("default");
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
+  React.useEffect(() => {
+    if (isFavorite) {
+      setStarColor("secondary");
+    } else {
+      setStarColor("default");
+    }
+  }, [isFavorite]);
 
   return (
     <Card sx={{ maxWidth: 420, height: 350 }}>
@@ -98,7 +83,11 @@ export default function EngineerCard({ engineer }: CardProps) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
+        <IconButton
+          aria-label="add to favorites"
+          color={starColor}
+          onClick={toggleFavorite}
+        >
           <StarsIcon />
         </IconButton>
         <IconButton aria-label="share">

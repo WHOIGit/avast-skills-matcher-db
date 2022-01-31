@@ -9,8 +9,14 @@ export type Profile = {
   skills: number[];
 };
 
+export type Favorite = {
+  id: number;
+  user: number;
+  engineer: number;
+};
+
 export type User = {
-  id: string;
+  id: number;
   email: string;
   firstName: string;
   lastName: string;
@@ -20,6 +26,8 @@ export type User = {
   userType: string[];
   engineerProfile: Profile;
   projectsOwned: Project[];
+  favorites: Favorite[];
+  favoredBy: Favorite[];
 };
 
 type TokenResponse = {

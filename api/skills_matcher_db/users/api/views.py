@@ -13,7 +13,8 @@ from rest_framework.mixins import (
 from rest_framework.response import Response
 from rest_framework import viewsets
 
-from .serializers import UserSerializer, AvatarSerializer
+from ..models import Favorite
+from .serializers import FavoriteSerializer, UserSerializer, AvatarSerializer
 from ...engineers.models import Engineer
 from ...engineers.api.serializers import EngineerProfileSerializer
 
@@ -88,14 +89,6 @@ class UserViewSet(viewsets.ModelViewSet):
         user = self.get_object()
 
         serializer = AvatarSerializer(user, data=request.data)
-        """ try:
-            eng = Engineer.objects.get(pk=pk)
-            profile = eng.profile
-            serializer = AvatarSerializer(profile, data=request.data)
-        except Exception as e:
-            return Response(
-                {"error": "no profile exists"}, status=status.HTTP_400_BAD_REQUEST
-            )"""
 
         if serializer.is_valid():
             serializer.save()
@@ -111,9 +104,42 @@ class UserViewSet(viewsets.ModelViewSet):
 
         return Response(status=200)
 
+    @action(detail=True, methods=["post"])
+    def add_favorite(self, request, pk=None):
+        user = self.get_object()
+        data = {"user": user.id, "engineer": request.data["engineer"]}
+        serializer = FavoriteSerializer(data=data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=200)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class Ping(GenericAPIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, *args, **kwargs):
         return response.Response({"now": timezone.now().isoformat()})
+
+
+class FavoriteViewSet(viewsets.ModelViewSet):
+    queryset = Favorite.objects.all()
+    serializer_class = FavoriteSerializer
+    permission_classes = [IsAuthenticated]
+    # lookup_field = "username"
+
+    def get_queryset(self, *args, **kwargs):
+        return self.queryset.filter(user_id=self.request.user.id)
+
+    def create(self, request, *args, **kwargs):
+        # only allow the authoried user to create their own favorites
+        data = {"user": self.request.user.id, "engineer": request.data["engineer"]}
+        serializer = self.get_serializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(
+            serializer.data, status=status.HTTP_201_CREATED, headers=headers
+        )
