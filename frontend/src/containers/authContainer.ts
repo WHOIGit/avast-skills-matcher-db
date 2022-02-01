@@ -8,6 +8,7 @@ export type Profile = {
   experience: string;
   skills: number[];
   availability: string | null;
+  availabilityDisplay?: string | null;
   orcidId: string | null;
 };
 
@@ -15,6 +16,8 @@ export type Favorite = {
   id: number;
   user: number;
   engineer: number;
+  engineerFirstName?: string;
+  engineerLastName?: string;
 };
 
 export type User = {

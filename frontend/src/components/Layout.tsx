@@ -19,6 +19,7 @@ import Auth from "../containers/authContainer";
 import AccountMenu from "./AccountMenu";
 import logoImg from "../../public/WHOI-logo-notext.png";
 import SearchField from "./SearchField";
+import FavoritesList from "./FavoritesList";
 
 const drawerWidth = 240;
 
@@ -156,6 +157,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         <Divider />
         <SkillsFilter />
         <Divider />
+        <FavoritesList />
       </Drawer>
 
       <Main open={open}>

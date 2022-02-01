@@ -17,7 +17,9 @@ import IconButton from "@mui/material/IconButton";
 import CommentIcon from "@mui/icons-material/Comment";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
-import { NextLinkComposed } from "./Link";
+import Link, { NextLinkComposed } from "./Link";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+
 import { User } from "../containers/authContainer";
 import SkillChip from "./SkillChip";
 import { Project } from "../hooks/useProjects";
@@ -134,6 +136,11 @@ export default function ProfileTabs({ profile }: ComponentProps) {
 
       <TabPanel value={value} index={0}>
         <Box sx={{ mb: 2 }}>
+          <Typography component="p" variant="body1" paragraph>
+            This is the profile information that will be publicly displayed in
+            our searchable SME database.
+          </Typography>
+
           <Typography component="h6" variant="h6">
             Your Skills
           </Typography>
@@ -143,6 +150,28 @@ export default function ProfileTabs({ profile }: ComponentProps) {
             })}
           </Stack>
         </Box>
+
+        {profile.engineerProfile?.orcidId && (
+          <>
+            <Typography component="h6" variant="h6">
+              ORCID ID
+            </Typography>
+            <Typography component="p" variant="body1" paragraph>
+              <Link href={profile.engineerProfile?.orcidId} target="_blank">
+                {profile.engineerProfile?.orcidId}
+                <OpenInNewIcon />
+              </Link>
+            </Typography>
+          </>
+        )}
+
+        <Typography component="h6" variant="h6">
+          Availability
+        </Typography>
+        <Typography component="p" variant="body1" paragraph>
+          {profile.engineerProfile?.availabilityDisplay}
+        </Typography>
+
         <Typography component="h6" variant="h6">
           Experience
         </Typography>
@@ -152,6 +181,10 @@ export default function ProfileTabs({ profile }: ComponentProps) {
       </TabPanel>
 
       <TabPanel value={value} index={1}>
+        <Typography component="p" variant="body1" paragraph>
+          This is where you can create and manage Projects that you&rsquo;re
+          looking to get assistance with from a SME on the site.
+        </Typography>
         <Button
           variant="contained"
           size="small"

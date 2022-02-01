@@ -14,9 +14,18 @@ User = get_user_model()
 
 
 class FavoriteSerializer(serializers.ModelSerializer):
+    engineer_first_name = serializers.SerializerMethodField()
+    engineer_last_name = serializers.SerializerMethodField()
+
     class Meta:
         model = Favorite
-        fields = ["id", "user", "engineer"]
+        fields = ["id", "user", "engineer", "engineer_first_name", "engineer_last_name"]
+
+    def get_engineer_first_name(self, obj):
+        return obj.engineer.first_name
+
+    def get_engineer_last_name(self, obj):
+        return obj.engineer.last_name
 
 
 class UserSerializer(serializers.ModelSerializer):

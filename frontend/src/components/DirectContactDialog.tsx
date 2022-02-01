@@ -15,11 +15,12 @@ import ListItemText from "@mui/material/ListItemText";
 import Checkbox from "@mui/material/Checkbox";
 import Auth, { User } from "../containers/authContainer";
 import useProfile from "../hooks/useProfile";
+import { IconButton } from "@mui/material";
 
 type Props = {
   engineer: User;
 };
-export default function ContactDialog({ engineer }: Props) {
+export default function DirectContactDialog({ engineer }: Props) {
   const authCtx = Auth.useContainer();
   const projects = authCtx.user?.projectsOwned;
   const { contactEngineer } = useProfile();
@@ -57,15 +58,14 @@ export default function ContactDialog({ engineer }: Props) {
 
   return (
     <div>
-      <Button
-        sx={{ my: 2 }}
-        variant="contained"
+      <IconButton
+        aria-label="contact SME"
+        color="default"
         onClick={handleClickOpen}
-        size="small"
-        startIcon={<SendIcon />}
       >
-        Contact SME
-      </Button>
+        <SendIcon />
+      </IconButton>
+
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>
           Contact {engineer.firstName} {engineer.lastName}

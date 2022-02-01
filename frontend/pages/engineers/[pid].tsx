@@ -11,7 +11,8 @@ import Auth from "../../src/containers/authContainer";
 import Skills from "../../src/containers/skillsContainer";
 import useEngineers from "../../src/hooks/useEngineers";
 import Stack from "@mui/material/Stack";
-import { Avatar } from "@mui/material";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import { Avatar, Link } from "@mui/material";
 import SkillChip from "../../src/components/SkillChip";
 import InnerNav from "../../src/components/InnerNav";
 
@@ -51,11 +52,13 @@ export default function EngineerDetail() {
             {engineer?.title}
           </Typography>
         </Box>
-
-        {authCtx.isAuthenticated &&
-          authCtx.user?.userType.includes("PROJECT_OWNER") && (
-            <ContactDialog engineer={engineer} />
-          )}
+        {engineer?.engineerProfile?.orcidId && (
+          <Link href={engineer.engineerProfile?.orcidId} target="_blank">
+            {engineer.engineerProfile?.orcidId}
+            <OpenInNewIcon />
+          </Link>
+        )}
+        {authCtx.isAuthenticated && <ContactDialog engineer={engineer} />}
 
         <Box sx={{ mt: 1, width: "100%" }}>
           {skillsCtx.skills && (
@@ -70,6 +73,13 @@ export default function EngineerDetail() {
               </Stack>
             </Box>
           )}
+
+          <Typography component="h6" variant="h6">
+            Availability
+          </Typography>
+          <Typography component="p" variant="body1" paragraph>
+            {engineer.engineerProfile?.availabilityDisplay}
+          </Typography>
 
           <Typography component="h6" variant="h6">
             Experience

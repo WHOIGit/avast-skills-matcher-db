@@ -6,7 +6,7 @@ import CardActions from "@mui/material/CardActions";
 import Avatar from "@mui/material/Avatar";
 import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import ShareIcon from "@mui/icons-material/Share";
+import SendIcon from "@mui/icons-material/Send";
 import ReadMoreIcon from "@mui/icons-material/ReadMore";
 import StarsIcon from "@mui/icons-material/Stars";
 import TextTruncate from "react-text-truncate";
@@ -14,13 +14,16 @@ import TextTruncate from "react-text-truncate";
 import Link, { NextLinkComposed } from "./Link";
 import SkillChip from "./SkillChip";
 import Stack from "@mui/material/Stack";
-import { User } from "../containers/authContainer";
+import Auth, { User } from "../containers/authContainer";
 import useFavorite from "../hooks/useFavorite";
+import DirectContactDialog from "./DirectContactDialog";
+import UnauthContactDialog from "./UnauthContactDialog";
 type CardProps = {
   engineer: User;
 };
 
 export default function EngineerCard({ engineer }: CardProps) {
+  const authCtx = Auth.useContainer();
   const { isFavorite, toggleFavorite } = useFavorite(engineer);
   const [starColor, setStarColor] =
     React.useState<IconButtonProps["color"]>("default");
@@ -83,16 +86,20 @@ export default function EngineerCard({ engineer }: CardProps) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton
-          aria-label="add to favorites"
-          color={starColor}
-          onClick={toggleFavorite}
-        >
-          <StarsIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
+        {authCtx.isAuthenticated ? (
+          <>
+            <IconButton
+              aria-label="add to favorites"
+              color={starColor}
+              onClick={toggleFavorite}
+            >
+              <StarsIcon />
+            </IconButton>
+            <DirectContactDialog engineer={engineer} />
+          </>
+        ) : (
+          <UnauthContactDialog engineer={engineer} />
+        )}
       </CardActions>
     </Card>
   );
