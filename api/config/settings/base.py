@@ -84,6 +84,7 @@ LOCAL_APPS = [
     "skills_matcher_db.project_owners",
     "skills_matcher_db.engineers",
     "skills_matcher_db.skills",
+    "skills_matcher_db.experts",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

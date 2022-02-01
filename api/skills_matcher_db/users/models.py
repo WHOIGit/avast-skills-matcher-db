@@ -30,7 +30,7 @@ class User(AbstractUser):
     # Set up custom User type options
     # Custom User type proxy models in "engineers" and "project_owners" apps
     class Types(models.TextChoices):
-        CLIENT = "CLIENT", "Client"
+        EXPERT = "EXPERT", "Expert"
         ENGINEER = "ENGINEER", "Engineer"
         PROJECT_OWNER = "PROJECT_OWNER", "Project Owner"
 
@@ -72,8 +72,8 @@ class Engagement(models.Model):
         related_name="project_owner_engagements",
         null=True,
     )
-    engineer = models.ForeignKey(
-        User, on_delete=models.SET_NULL, related_name="engineer_engagements", null=True
+    expert = models.ForeignKey(
+        User, on_delete=models.SET_NULL, related_name="expert_engagements", null=True
     )
     projects = models.ManyToManyField(
         "project_owners.Project", related_name="engagements", blank=True
@@ -88,7 +88,7 @@ class Engagement(models.Model):
 
 class Favorite(models.Model):
     """
-    Model to save "starred" Engineers for future use
+    Model to save "starred" Experts for future use
     """
 
     date_created = models.DateTimeField(default=timezone.now)
@@ -98,9 +98,9 @@ class Favorite(models.Model):
         related_name="favorites",
         null=True,
     )
-    engineer = models.ForeignKey(
+    expert = models.ForeignKey(
         User, on_delete=models.SET_NULL, related_name="favored_by", null=True
     )
 
     def __str__(self):
-        return self.engineer.last_name
+        return self.expert.last_name

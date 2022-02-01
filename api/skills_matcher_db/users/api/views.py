@@ -1,6 +1,5 @@
 from django.contrib.auth import get_user_model
 from django.utils import timezone
-
 from rest_framework.permissions import IsAdminUser, BasePermission, IsAuthenticated
 from rest_framework import status, response
 from rest_framework.generics import GenericAPIView, CreateAPIView
@@ -15,8 +14,7 @@ from rest_framework import viewsets
 
 from ..models import Favorite
 from .serializers import FavoriteSerializer, UserSerializer, AvatarSerializer
-from ...engineers.models import Engineer
-from ...engineers.api.serializers import EngineerProfileSerializer
+from skills_matcher_db.experts.api.serializers import ExpertProfileSerializer
 
 User = get_user_model()
 
@@ -60,23 +58,23 @@ class UserViewSet(viewsets.ModelViewSet):
         return Response(status=status.HTTP_200_OK, data=serializer.data)
 
     @action(detail=True, methods=["patch"])
-    def update_engineer_profile(self, request, pk=None):
+    def update_expert_profile(self, request, pk=None):
         user = self.get_object()
-        if not user.engineer_profile:
+        if not user.expert_profile:
             return Response(
                 {"status": "no profile exists"}, status=status.HTTP_400_BAD_REQUEST
             )
 
-        # make sure User is also an Engineer user_type
+        # make sure User is also an Expert user_type
         if not user.user_type:
-            user.user_type = [User.Types.ENGINEER]
-            user.save()
-        elif User.Types.ENGINEER not in user.user_type:
-            user.user_type.append(User.Types.ENGINEER)
-            user.save()
+            user.user_type = [User.Types.EXPERT]
+        elif User.Types.EXPERT not in user.user_type:
+            user.user_type.append(User.Types.EXPERT)
+
+        user.save()
 
         # send data to Serializer
-        serializer = EngineerProfileSerializer(user.engineer_profile, data=request.data)
+        serializer = ExpertProfileSerializer(user.expert_profile, data=request.data)
 
         if serializer.is_valid():
             serializer.save()
@@ -97,24 +95,12 @@ class UserViewSet(viewsets.ModelViewSet):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     @action(detail=True, methods=["post"])
-    def contact_engineer(self, request, pk=None):
+    def contact_expert(self, request, pk=None):
         user = self.get_object()
         print(user)
         print(request.data)
 
         return Response(status=200)
-
-    @action(detail=True, methods=["post"])
-    def add_favorite(self, request, pk=None):
-        user = self.get_object()
-        data = {"user": user.id, "engineer": request.data["engineer"]}
-        serializer = FavoriteSerializer(data=data)
-
-        if serializer.is_valid():
-            serializer.save()
-            return Response(status=200)
-        else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class Ping(GenericAPIView):
@@ -135,7 +121,7 @@ class FavoriteViewSet(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         # only allow the authoried user to create their own favorites
-        data = {"user": self.request.user.id, "engineer": request.data["engineer"]}
+        data = {"user": self.request.user.id, "expert": request.data["expert"]}
         serializer = self.get_serializer(data=data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
