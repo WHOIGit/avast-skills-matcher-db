@@ -29,7 +29,7 @@ type HookData = {
   editEngineerProfile: (data: Profile) => Promise<Response>;
   createProject: (title: string, description: string) => Promise<Response>;
   contactEngineer: (
-    engineerId: string,
+    engineerId: number,
     message: string,
     checked: number[]
   ) => Promise<Response>;
@@ -187,7 +187,7 @@ const useProfile = (): HookData => {
   };
 
   const contactEngineer = async (
-    engineerId: string,
+    engineerId: number,
     message: string,
     checked: number[]
   ): Promise<Response> => {
