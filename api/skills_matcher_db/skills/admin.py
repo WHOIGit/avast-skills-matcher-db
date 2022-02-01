@@ -4,7 +4,7 @@ from .models import Skill
 
 
 class SkillAdmin(DjangoMpttAdmin):
-    pass
+    exclude = ("slug",)
 
 
 admin.site.register(Skill, SkillAdmin)
