@@ -13,14 +13,11 @@ import Checkbox from "@mui/material/Checkbox";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import FormGroup from "@mui/material/FormGroup";
+import FormHelperText from "@mui/material/FormHelperText";
 import useProfile from "../../src/hooks/useProfile";
 import Skills, { Skill } from "../../src/containers/skillsContainer";
 import InnerNav from "../../src/components/InnerNav";
-
-type FormData = {
-  experience: string;
-  skills: [];
-};
+import MenuItem from "@mui/material/MenuItem";
 
 export default function EditProfileForm() {
   const router = useRouter();
@@ -40,6 +37,8 @@ export default function EditProfileForm() {
     reset({
       experience: profile?.engineerProfile?.experience,
       skills: profile?.engineerProfile?.skills,
+      orcidId: profile?.engineerProfile?.orcidId,
+      availability: profile?.engineerProfile?.availability,
     });
   }, [reset, profile]);
 
@@ -47,7 +46,7 @@ export default function EditProfileForm() {
     console.log(data);
     // send form data to API
     try {
-      const resp = await editEngineerProfile(data.experience, data.skills);
+      const resp = await editEngineerProfile(data);
       if (!resp.ok) {
         setErrorMessage("API connection error. Please try again later.");
       } else {
@@ -67,7 +66,6 @@ export default function EditProfileForm() {
     if (skill.children.length) {
       hasChildren = true;
     }
-    console.log(field);
 
     if (!field.value) {
       return null;
@@ -165,6 +163,52 @@ export default function EditProfileForm() {
               <Box sx={{ color: "error.main" }}>
                 {errors.experience && "Field is required"}
               </Box>
+            </Grid>
+            <Grid item xs={12}>
+              <Controller
+                name="availability"
+                defaultValue=""
+                control={control}
+                rules={{ required: false }}
+                render={({ field: { onChange, value } }) => (
+                  <TextField
+                    select
+                    fullWidth
+                    onChange={onChange}
+                    value={value}
+                    label={"Your Availability"}
+                    variant="outlined"
+                  >
+                    <MenuItem key={0} value="WEEKS">
+                      Weeks to months
+                    </MenuItem>
+                    <MenuItem key={1} value="DAYS">
+                      Days to weeks
+                    </MenuItem>
+                    <MenuItem key={2} value="INCIDENTAL">
+                      Incidental advice
+                    </MenuItem>
+                  </TextField>
+                )}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Controller
+                name="orcidId"
+                defaultValue=""
+                control={control}
+                rules={{ required: false }}
+                render={({ field: { onChange, value } }) => (
+                  <TextField
+                    fullWidth
+                    onChange={onChange}
+                    value={value}
+                    label={"ORCID ID"}
+                    variant="outlined"
+                    helperText="ex: https://orcid.org/0000-0002-3843-3472"
+                  />
+                )}
+              />
             </Grid>
             <Grid item xs={12}>
               <FormControl component="fieldset" variant="standard">

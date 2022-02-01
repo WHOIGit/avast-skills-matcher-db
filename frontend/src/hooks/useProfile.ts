@@ -1,6 +1,6 @@
 import { useState } from "react";
 import useSWR, { useSWRConfig } from "swr";
-import Auth, { User } from "../containers/authContainer";
+import Auth, { User, Profile } from "../containers/authContainer";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_HOST;
 const profileUrl = `${API_BASE}/api/users/me/`;
@@ -26,7 +26,7 @@ type HookData = {
     title: string
   ) => Promise<Response>;
   uploadAvatar: (image: string) => Promise<Response>;
-  editEngineerProfile: (experience: string, skills: []) => Promise<Response>;
+  editEngineerProfile: (data: Profile) => Promise<Response>;
   createProject: (title: string, description: string) => Promise<Response>;
   contactEngineer: (
     engineerId: string,
@@ -113,13 +113,12 @@ const useProfile = (): HookData => {
     return resp;
   };
 
-  const editEngineerProfile = async (
-    experience: string,
-    skills: []
-  ): Promise<Response> => {
+  const editEngineerProfile = async (data: Profile): Promise<Response> => {
     const payload = {
-      experience: experience,
-      skills: skills,
+      experience: data.experience,
+      skills: data.skills,
+      orcidId: data.orcidId,
+      availability: data.availability,
     };
     const url = makeUrl(
       `/api/users/${authCtx.user?.id}/update_engineer_profile/`
@@ -132,6 +131,7 @@ const useProfile = (): HookData => {
         "Content-Type": "application/json",
       },
     });
+    console.log(resp);
 
     if (resp.ok) {
       // refresh the useSWR profile API data

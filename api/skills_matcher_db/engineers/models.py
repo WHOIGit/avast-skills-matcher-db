@@ -36,6 +36,12 @@ class Engineer(User):
 
 class EngineerProfile(models.Model):
     # Engineer specific fields
+
+    class AvailabilityChoices(models.TextChoices):
+        WEEKS = "WEEKS", "Weeks to months"
+        DAYS = "DAYS", "Days to weeks "
+        INCIDENTAL = "INCIDENTAL", "Incidental advice"
+
     user = models.OneToOneField(
         User,
         on_delete=models.CASCADE,
@@ -43,6 +49,11 @@ class EngineerProfile(models.Model):
     )
     experience = models.TextField(null=True, blank=True)
     skills = TreeManyToManyField(Skill, related_name="engineers", blank=True)
+    availability = models.CharField(
+        max_length=20, choices=AvailabilityChoices.choices, blank=True, null=True
+    )
+    # ORCID ID link https://info.orcid.org/what-does-an-orcid-identifier-look-like/
+    orcid_id = models.URLField(max_length=100, blank=True, null=True)
 
     def __str__(self):
         return f"{self.user.username} Profile"

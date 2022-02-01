@@ -7,4 +7,4 @@ from ..models import EngineerProfile
 class EngineerProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = EngineerProfile
-        fields = ["experience", "skills"]
+        fields = ["experience", "skills", "availability", "orcid_id"]
