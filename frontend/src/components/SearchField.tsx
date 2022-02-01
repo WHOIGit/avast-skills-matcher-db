@@ -3,9 +3,10 @@ import { styled, alpha } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
 // local import
-import useEngineers from "../hooks/useEngineers";
+import useExpertSearch from "../hooks/useExpertSearch";
+import Search from "../containers/searchContainer";
 
-const Search = styled("div")(({ theme }) => ({
+const SearchBox = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -46,25 +47,22 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function SearchField() {
-  let [searchTerms, setSearchTerms] = React.useState("");
-  // use custom hook to update global context
-  let { reset } = useEngineers(null, searchTerms);
+  const search = Search.useContainer();
 
   function handleSearchInput(
     event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) {
     let terms = event.target.value;
     if (terms.length > 2) {
-      setSearchTerms(terms);
+      search.setSearchTerms(terms);
       console.log(event.target.value);
     } else {
-      setSearchTerms("");
-      reset();
+      search.setSearchTerms("");
     }
   }
 
   return (
-    <Search>
+    <SearchBox>
       <SearchIconWrapper>
         <SearchIcon />
       </SearchIconWrapper>
@@ -73,6 +71,6 @@ export default function SearchField() {
         inputProps={{ "aria-label": "search" }}
         onChange={(event) => handleSearchInput(event)}
       />
-    </Search>
+    </SearchBox>
   );
 }

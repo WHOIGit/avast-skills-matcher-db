@@ -10,6 +10,7 @@ import Layout from "../src/components/Layout";
 import Auth from "../src/containers/authContainer";
 import Skills from "../src/containers/skillsContainer";
 import Engineers from "../src/containers/engineersContainer";
+import Search from "../src/containers/searchContainer";
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 
@@ -29,11 +30,14 @@ const MyApp = (props: IAppProps) => {
         <Auth.Provider>
           <Skills.Provider>
             <Engineers.Provider>
-              {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-              <CssBaseline />
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
+              <Search.Provider>
+                {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+                <CssBaseline />
+                <Layout>
+                  <Component {...pageProps} />
+                </Layout>
+                /
+              </Search.Provider>
             </Engineers.Provider>
           </Skills.Provider>
         </Auth.Provider>

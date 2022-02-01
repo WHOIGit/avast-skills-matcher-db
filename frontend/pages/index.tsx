@@ -2,7 +2,7 @@ import * as React from "react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Copyright from "../src/components/Copyright";
-import EngineersGrid from "../src/components/EngineersGrid";
+import ExpertsGrid from "../src/components/ExpertsGrid";
 import Container from "@mui/material/Container";
 import { Button, Stack, Divider } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
@@ -95,7 +95,7 @@ export default function Index() {
         </Container>
       </Box>
       <Box sx={{ my: 4 }}>
-        <EngineersGrid />
+        <ExpertsGrid />
       </Box>
     </>
   );

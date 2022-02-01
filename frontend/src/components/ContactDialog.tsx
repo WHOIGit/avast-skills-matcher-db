@@ -17,16 +17,15 @@ import Auth, { User } from "../containers/authContainer";
 import useProfile from "../hooks/useProfile";
 
 type Props = {
-  engineer: User;
+  expert: User;
 };
-export default function ContactDialog({ engineer }: Props) {
+export default function ContactDialog({ expert }: Props) {
   const authCtx = Auth.useContainer();
   const projects = authCtx.user?.projectsOwned;
-  const { contactEngineer } = useProfile();
+  const { contactExpert } = useProfile();
   const textRef = React.useRef() as React.MutableRefObject<HTMLInputElement>;
   const [open, setOpen] = React.useState(false);
   const [checked, setChecked] = React.useState([0]);
-  console.log(checked);
 
   const handleToggle = (value: number) => () => {
     const currentIndex = checked.indexOf(value);
@@ -51,7 +50,7 @@ export default function ContactDialog({ engineer }: Props) {
 
   const handleSend = () => {
     console.log(textRef.current.value);
-    contactEngineer(engineer.id, textRef.current.value, checked);
+    contactExpert(expert.id, textRef.current.value, checked);
     setOpen(false);
   };
 
@@ -68,7 +67,7 @@ export default function ContactDialog({ engineer }: Props) {
       </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>
-          Contact {engineer.firstName} {engineer.lastName}
+          Contact {expert.firstName} {expert.lastName}
         </DialogTitle>
         <DialogContent>
           <DialogContentText>

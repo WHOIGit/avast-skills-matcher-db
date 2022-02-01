@@ -6,7 +6,6 @@ import CardActions from "@mui/material/CardActions";
 import Avatar from "@mui/material/Avatar";
 import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import SendIcon from "@mui/icons-material/Send";
 import ReadMoreIcon from "@mui/icons-material/ReadMore";
 import StarsIcon from "@mui/icons-material/Stars";
 import TextTruncate from "react-text-truncate";
@@ -18,13 +17,14 @@ import Auth, { User } from "../containers/authContainer";
 import useFavorite from "../hooks/useFavorite";
 import DirectContactDialog from "./DirectContactDialog";
 import UnauthContactDialog from "./UnauthContactDialog";
+
 type CardProps = {
-  engineer: User;
+  expert: User;
 };
 
-export default function EngineerCard({ engineer }: CardProps) {
+export default function ExpertCard({ expert }: CardProps) {
   const authCtx = Auth.useContainer();
-  const { isFavorite, toggleFavorite } = useFavorite(engineer);
+  const { isFavorite, toggleFavorite } = useFavorite(expert);
   const [starColor, setStarColor] =
     React.useState<IconButtonProps["color"]>("default");
 
@@ -42,36 +42,36 @@ export default function EngineerCard({ engineer }: CardProps) {
         avatar={
           <Avatar
             sx={{ bgcolor: "secondary.main" }}
-            aria-label="Engineer"
+            aria-label="expert"
             component={NextLinkComposed}
             to={{
-              pathname: `/engineers/${engineer.id}`,
+              pathname: `/experts/${expert.id}`,
             }}
-            alt={engineer.firstName}
-            src={engineer.avatar}
+            alt={expert.firstName}
+            src={expert.avatar}
           />
         }
         action={
           <IconButton
             component={NextLinkComposed}
             to={{
-              pathname: `/engineers/${engineer.id}`,
+              pathname: `/experts/${expert.id}`,
             }}
           >
             <ReadMoreIcon />
           </IconButton>
         }
         title={
-          <Link href={`/engineers/${engineer.id}`} underline="hover">
-            {`${engineer.firstName} ${engineer.lastName}`}
+          <Link href={`/experts/${expert.id}`} underline="hover">
+            {`${expert.firstName} ${expert.lastName}`}
           </Link>
         }
-        subheader={engineer.title}
+        subheader={expert.title}
       />
 
       <CardContent>
         <Stack direction="row" spacing={1} sx={{ flexWrap: "wrap", mb: 2 }}>
-          {engineer.engineerProfile?.skills?.map((id: number) => {
+          {expert.expertProfile?.skills?.map((id: number) => {
             return <SkillChip key={id} skillId={id} size="small" />;
           })}
         </Stack>
@@ -80,7 +80,7 @@ export default function EngineerCard({ engineer }: CardProps) {
             line={7}
             element="span"
             truncateText="..."
-            text={engineer.engineerProfile?.experience}
+            text={expert.expertProfile?.experience}
             //textTruncateChild={<a href="#">Read on</a>}
           />
         </Typography>
@@ -95,10 +95,10 @@ export default function EngineerCard({ engineer }: CardProps) {
             >
               <StarsIcon />
             </IconButton>
-            <DirectContactDialog engineer={engineer} />
+            <DirectContactDialog expert={expert} />
           </>
         ) : (
-          <UnauthContactDialog engineer={engineer} />
+          <UnauthContactDialog expert={expert} />
         )}
       </CardActions>
     </Card>

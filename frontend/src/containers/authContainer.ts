@@ -15,9 +15,9 @@ export type Profile = {
 export type Favorite = {
   id: number;
   user: number;
-  engineer: number;
-  engineerFirstName?: string;
-  engineerLastName?: string;
+  expert: number;
+  expertFirstName?: string;
+  expertLastName?: string;
 };
 
 export type User = {
@@ -29,7 +29,7 @@ export type User = {
   avatar: string;
   title: string;
   userType: string[];
-  engineerProfile: Profile;
+  expertProfile: Profile;
   projectsOwned: Project[];
   favorites: Favorite[];
   favoredBy: Favorite[];

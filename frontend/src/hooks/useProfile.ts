@@ -28,8 +28,8 @@ type HookData = {
   uploadAvatar: (image: string) => Promise<Response>;
   editEngineerProfile: (data: Profile) => Promise<Response>;
   createProject: (title: string, description: string) => Promise<Response>;
-  contactEngineer: (
-    engineerId: number,
+  contactExpert: (
+    expertId: number,
     message: string,
     checked: number[]
   ) => Promise<Response>;
@@ -186,18 +186,18 @@ const useProfile = (): HookData => {
     return resp;
   };
 
-  const contactEngineer = async (
-    engineerId: number,
+  const contactExpert = async (
+    expertId: number,
     message: string,
     checked: number[]
   ): Promise<Response> => {
     const payload = {
-      engineerId,
+      expertId,
       message,
       checked,
     };
 
-    const url = makeUrl(`/api/users/${authCtx.user?.id}/contact_engineer/`);
+    const url = makeUrl(`/api/users/${authCtx.user?.id}/contact_expert/`);
     const resp = await fetch(url, {
       method: "POST",
       body: JSON.stringify(payload),
@@ -217,7 +217,7 @@ const useProfile = (): HookData => {
     uploadAvatar: uploadAvatar,
     editEngineerProfile: editEngineerProfile,
     createProject: createProject,
-    contactEngineer: contactEngineer,
+    contactExpert: contactExpert,
   };
 };
 

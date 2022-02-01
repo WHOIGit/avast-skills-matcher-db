@@ -11,9 +11,9 @@ import { User } from "../containers/authContainer";
 import { Box, IconButton } from "@mui/material";
 
 type Props = {
-  engineer: User;
+  expert: User;
 };
-export default function UnauthContactDialog({ engineer }: Props) {
+export default function UnauthContactDialog({ expert }: Props) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -36,7 +36,7 @@ export default function UnauthContactDialog({ engineer }: Props) {
 
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>
-          Contact {engineer.firstName} {engineer.lastName}
+          Contact {expert.firstName} {expert.lastName}
         </DialogTitle>
         <DialogContent>
           <DialogContentText>

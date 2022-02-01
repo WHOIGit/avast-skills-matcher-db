@@ -18,16 +18,15 @@ import useProfile from "../hooks/useProfile";
 import { IconButton } from "@mui/material";
 
 type Props = {
-  engineer: User;
+  expert: User;
 };
-export default function DirectContactDialog({ engineer }: Props) {
+export default function DirectContactDialog({ expert }: Props) {
   const authCtx = Auth.useContainer();
   const projects = authCtx.user?.projectsOwned;
-  const { contactEngineer } = useProfile();
+  const { contactExpert } = useProfile();
   const textRef = React.useRef() as React.MutableRefObject<HTMLInputElement>;
   const [open, setOpen] = React.useState(false);
   const [checked, setChecked] = React.useState([0]);
-  console.log(checked);
 
   const handleToggle = (value: number) => () => {
     const currentIndex = checked.indexOf(value);
@@ -52,7 +51,7 @@ export default function DirectContactDialog({ engineer }: Props) {
 
   const handleSend = () => {
     console.log(textRef.current.value);
-    contactEngineer(engineer.id, textRef.current.value, checked);
+    contactExpert(expert.id, textRef.current.value, checked);
     setOpen(false);
   };
 
@@ -68,7 +67,7 @@ export default function DirectContactDialog({ engineer }: Props) {
 
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>
-          Contact {engineer.firstName} {engineer.lastName}
+          Contact {expert.firstName} {expert.lastName}
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -82,8 +81,6 @@ export default function DirectContactDialog({ engineer }: Props) {
             sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
           >
             {projects?.map((project) => {
-              console.log(project);
-
               const labelId = `checkbox-list-label-${project.id}`;
 
               return (

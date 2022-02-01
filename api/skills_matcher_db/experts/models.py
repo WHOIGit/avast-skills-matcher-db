@@ -13,7 +13,7 @@ class ExpertManager(BaseUserManager):
         return (
             super()
             .get_queryset(*args, **kwargs)
-            .filter(user_type__contains=[User.Types.ENGINEER])
+            .filter(user_type__contains=[User.Types.EXPERT])
         )
 
 

@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useEffect } from "react";
 import { useRouter } from "next/router";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -9,21 +8,21 @@ import ContactDialog from "../../src/components/ContactDialog";
 import { NextLinkComposed } from "../../src/components/Link";
 import Auth from "../../src/containers/authContainer";
 import Skills from "../../src/containers/skillsContainer";
-import useEngineers from "../../src/hooks/useEngineers";
+import useExpert from "../../src/hooks/useExpert";
 import Stack from "@mui/material/Stack";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { Avatar, Link } from "@mui/material";
 import SkillChip from "../../src/components/SkillChip";
 import InnerNav from "../../src/components/InnerNav";
 
-export default function EngineerDetail() {
+export default function ExpertDetail() {
   const router = useRouter();
   const { pid } = router.query;
   const authCtx = Auth.useContainer();
   const skillsCtx = Skills.useContainer();
-  const { engineer } = useEngineers(pid);
+  const { expert } = useExpert(pid);
 
-  if (!engineer) {
+  if (!expert) {
     return null;
   }
 
@@ -40,25 +39,25 @@ export default function EngineerDetail() {
       >
         <Avatar
           sx={{ m: 1, bgcolor: "secondary.main", width: 112, height: 112 }}
-          alt={engineer?.firstName}
-          src={engineer?.avatar}
+          alt={expert?.firstName}
+          src={expert?.avatar}
         />
         <Box sx={{ textAlign: "center" }}>
           <Typography component="h1" variant="h4">
-            {engineer?.firstName} {engineer?.lastName}
+            {expert?.firstName} {expert?.lastName}
           </Typography>
 
           <Typography component="div" variant="subtitle1">
-            {engineer?.title}
+            {expert?.title}
           </Typography>
         </Box>
-        {engineer?.engineerProfile?.orcidId && (
-          <Link href={engineer.engineerProfile?.orcidId} target="_blank">
-            {engineer.engineerProfile?.orcidId}
+        {expert?.expertProfile?.orcidId && (
+          <Link href={expert.expertProfile?.orcidId} target="_blank">
+            {expert.expertProfile?.orcidId}
             <OpenInNewIcon />
           </Link>
         )}
-        {authCtx.isAuthenticated && <ContactDialog engineer={engineer} />}
+        {authCtx.isAuthenticated && <ContactDialog expert={expert} />}
 
         <Box sx={{ mt: 1, width: "100%" }}>
           {skillsCtx.skills && (
@@ -67,7 +66,7 @@ export default function EngineerDetail() {
                 Skills
               </Typography>
               <Stack direction="row" spacing={2}>
-                {engineer.engineerProfile?.skills?.map((id: number) => {
+                {expert.expertProfile?.skills?.map((id: number) => {
                   return <SkillChip key={id} skillId={id} size="medium" />;
                 })}
               </Stack>
@@ -78,14 +77,14 @@ export default function EngineerDetail() {
             Availability
           </Typography>
           <Typography component="p" variant="body1" paragraph>
-            {engineer.engineerProfile?.availabilityDisplay}
+            {expert.expertProfile?.availabilityDisplay}
           </Typography>
 
           <Typography component="h6" variant="h6">
             Experience
           </Typography>
           <Typography variant="body1" paragraph>
-            {engineer.engineerProfile?.experience}
+            {expert.expertProfile?.experience}
           </Typography>
         </Box>
 
