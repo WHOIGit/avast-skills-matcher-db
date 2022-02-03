@@ -4,12 +4,12 @@ import { AppProps } from "next/app";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { CacheProvider, EmotionCache } from "@emotion/react";
+// local imports
 import theme from "../src/theme";
 import createEmotionCache from "../src/utils/createEmotionCache";
 import Layout from "../src/components/Layout";
 import Auth from "../src/containers/authContainer";
 import Skills from "../src/containers/skillsContainer";
-import Engineers from "../src/containers/engineersContainer";
 import Search from "../src/containers/searchContainer";
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -29,16 +29,13 @@ const MyApp = (props: IAppProps) => {
       <ThemeProvider theme={theme}>
         <Auth.Provider>
           <Skills.Provider>
-            <Engineers.Provider>
-              <Search.Provider>
-                {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-                <CssBaseline />
-                <Layout>
-                  <Component {...pageProps} />
-                </Layout>
-                /
-              </Search.Provider>
-            </Engineers.Provider>
+            <Search.Provider>
+              {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+              <CssBaseline />
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </Search.Provider>
           </Skills.Provider>
         </Auth.Provider>
       </ThemeProvider>

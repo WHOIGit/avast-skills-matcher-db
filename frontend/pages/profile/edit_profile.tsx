@@ -13,16 +13,16 @@ import Checkbox from "@mui/material/Checkbox";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import FormGroup from "@mui/material/FormGroup";
-import FormHelperText from "@mui/material/FormHelperText";
+import MenuItem from "@mui/material/MenuItem";
+// local import
 import useProfile from "../../src/hooks/useProfile";
 import Skills, { Skill } from "../../src/containers/skillsContainer";
 import InnerNav from "../../src/components/InnerNav";
-import MenuItem from "@mui/material/MenuItem";
 
 export default function EditProfileForm() {
   const router = useRouter();
   const skillsCtx = Skills.useContainer();
-  const { profile, editEngineerProfile } = useProfile();
+  const { profile, editExpertProfile } = useProfile();
   const {
     handleSubmit,
     control,
@@ -35,10 +35,10 @@ export default function EditProfileForm() {
     // set the initial values for the form
     // set for fields controlled by react-hook-form
     reset({
-      experience: profile?.engineerProfile?.experience,
-      skills: profile?.engineerProfile?.skills,
-      orcidId: profile?.engineerProfile?.orcidId,
-      availability: profile?.engineerProfile?.availability,
+      experience: profile?.expertProfile?.experience,
+      skills: profile?.expertProfile?.skills,
+      orcidId: profile?.expertProfile?.orcidId,
+      availability: profile?.expertProfile?.availability,
     });
   }, [reset, profile]);
 
@@ -46,7 +46,7 @@ export default function EditProfileForm() {
     console.log(data);
     // send form data to API
     try {
-      const resp = await editEngineerProfile(data);
+      const resp = await editExpertProfile(data);
       if (!resp.ok) {
         setErrorMessage("API connection error. Please try again later.");
       } else {

@@ -4,7 +4,7 @@ import Auth, { User, Profile } from "../containers/authContainer";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_HOST;
 const profileUrl = `${API_BASE}/api/users/me/`;
-const engineersUrl = `${API_BASE}/api/engineers/`;
+const expertsUrl = `${API_BASE}/api/experts/`;
 
 const makeUrl = (endpoint: string): string => {
   return API_BASE + endpoint;
@@ -26,7 +26,7 @@ type HookData = {
     title: string
   ) => Promise<Response>;
   uploadAvatar: (image: string) => Promise<Response>;
-  editEngineerProfile: (data: Profile) => Promise<Response>;
+  editExpertProfile: (data: Profile) => Promise<Response>;
   createProject: (title: string, description: string) => Promise<Response>;
   contactExpert: (
     expertId: number,
@@ -108,12 +108,12 @@ const useProfile = (): HookData => {
       // const data = await resp.json();
       // refresh the useSWR profile API data
       mutate(profileUrl);
-      mutate(engineersUrl);
+      mutate(expertsUrl);
     }
     return resp;
   };
 
-  const editEngineerProfile = async (data: Profile): Promise<Response> => {
+  const editExpertProfile = async (data: Profile): Promise<Response> => {
     const payload = {
       experience: data.experience,
       skills: data.skills,
@@ -121,7 +121,7 @@ const useProfile = (): HookData => {
       availability: data.availability,
     };
     const url = makeUrl(
-      `/api/users/${authCtx.user?.id}/update_engineer_profile/`
+      `/api/users/${authCtx.user?.id}/update_expert_profile/`
     );
     const resp = await fetch(url, {
       method: "PATCH",
@@ -136,7 +136,7 @@ const useProfile = (): HookData => {
     if (resp.ok) {
       // refresh the useSWR profile API data
       mutate(profileUrl);
-      mutate(engineersUrl);
+      mutate(expertsUrl);
     }
     return resp;
   };
@@ -156,7 +156,7 @@ const useProfile = (): HookData => {
     if (resp.ok) {
       // refresh the useSWR profile API data
       mutate(profileUrl);
-      mutate(engineersUrl);
+      mutate(expertsUrl);
     }
     return resp;
   };
@@ -215,7 +215,7 @@ const useProfile = (): HookData => {
     createUser: createUser,
     editProfile: editProfile,
     uploadAvatar: uploadAvatar,
-    editEngineerProfile: editEngineerProfile,
+    editExpertProfile: editExpertProfile,
     createProject: createProject,
     contactExpert: contactExpert,
   };

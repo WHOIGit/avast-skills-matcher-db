@@ -17,9 +17,9 @@ import IconButton from "@mui/material/IconButton";
 import CommentIcon from "@mui/icons-material/Comment";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
-import Link, { NextLinkComposed } from "./Link";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-
+// local imports
+import Link, { NextLinkComposed } from "./Link";
 import { User } from "../containers/authContainer";
 import SkillChip from "./SkillChip";
 import { Project } from "../hooks/useProjects";
@@ -59,14 +59,10 @@ function a11yProps(index: number) {
 
 export default function ProfileTabs({ profile }: ComponentProps) {
   const router = useRouter();
-  const skillsCtx = Skills.useContainer();
-  //const [value, setValue] = React.useState(0);
   const [value, setValue] = React.useState(
     profile.userType?.includes("PROJECT_OWNER") ? 1 : 0
   );
-  console.log(profile);
 
-  console.log(value);
   useEffect(() => {
     setValue(profile.userType?.includes("PROJECT_OWNER") ? 1 : 0);
   }, [profile]);
@@ -116,9 +112,7 @@ export default function ProfileTabs({ profile }: ComponentProps) {
             label="SME Profile"
             {...a11yProps(0)}
             sx={{
-              display: profile.userType?.includes("ENGINEER")
-                ? "block"
-                : "none",
+              display: profile.userType?.includes("EXPERT") ? "block" : "none",
             }}
           />
 
@@ -145,20 +139,20 @@ export default function ProfileTabs({ profile }: ComponentProps) {
             Your Skills
           </Typography>
           <Stack direction="row" spacing={2}>
-            {profile.engineerProfile?.skills.map((id: number) => {
+            {profile.expertProfile?.skills.map((id: number) => {
               return <SkillChip key={id} skillId={id} />;
             })}
           </Stack>
         </Box>
 
-        {profile.engineerProfile?.orcidId && (
+        {profile.expertProfile?.orcidId && (
           <>
             <Typography component="h6" variant="h6">
               ORCID ID
             </Typography>
             <Typography component="p" variant="body1" paragraph>
-              <Link href={profile.engineerProfile?.orcidId} target="_blank">
-                {profile.engineerProfile?.orcidId}
+              <Link href={profile.expertProfile?.orcidId} target="_blank">
+                {profile.expertProfile?.orcidId}
                 <OpenInNewIcon />
               </Link>
             </Typography>
@@ -169,14 +163,14 @@ export default function ProfileTabs({ profile }: ComponentProps) {
           Availability
         </Typography>
         <Typography component="p" variant="body1" paragraph>
-          {profile.engineerProfile?.availabilityDisplay}
+          {profile.expertProfile?.availabilityDisplay}
         </Typography>
 
         <Typography component="h6" variant="h6">
           Experience
         </Typography>
         <Typography component="p" variant="body1" paragraph>
-          {profile.engineerProfile?.experience}
+          {profile.expertProfile?.experience}
         </Typography>
       </TabPanel>
 

@@ -1,36 +1,37 @@
 import * as React from "react";
 import useSWR, { useSWRConfig } from "swr";
+import Auth from "../containers/authContainer";
 import { User } from "../containers/authContainer";
+
 const API_BASE = process.env.NEXT_PUBLIC_API_HOST;
 const profileUrl = `${API_BASE}/api/users/me/`;
-const engineersUrl = `${API_BASE}/api/engineers/`;
+const expertsUrl = `${API_BASE}/api/experts/`;
 
 const makeUrl = (endpoint: string): string => {
   return API_BASE + endpoint;
 };
-import Auth from "../containers/authContainer";
 
 type HookData = {
   isFavorite: boolean;
   toggleFavorite: () => void;
 };
 
-export default function useFavorite(engineer: User): HookData {
+export default function useFavorite(expert: User): HookData {
   const authCtx = Auth.useContainer();
   const { mutate } = useSWRConfig();
   const [isFavorite, setIsFavorite] = React.useState(false);
   const [favoriteId, setFavoriteId] = React.useState(0);
 
   React.useEffect(() => {
-    // check if current user lists this engineer as a Favorite
+    // check if current user lists this expert as a Favorite
     if (authCtx.user) {
-      const favoredByList = engineer.favoredBy.map((item) => item.user);
+      const favoredByList = expert.favoredBy.map((item) => item.user);
       const favoriteStatus = favoredByList.includes(authCtx.user?.id);
       setIsFavorite(favoriteStatus);
 
       // get the Favorite object ID if available
       if (favoriteStatus) {
-        const favObj = engineer.favoredBy.find(
+        const favObj = expert.favoredBy.find(
           (item) => item.user === authCtx.user?.id
         );
         if (favObj) {
@@ -38,12 +39,12 @@ export default function useFavorite(engineer: User): HookData {
         }
       }
     }
-  }, [authCtx.user, engineer]);
+  }, [authCtx.user, expert]);
 
   // favorite a user
   async function addFavorite() {
     const payload = {
-      engineer: engineer.id,
+      expert: expert.id,
     };
 
     const url = makeUrl(`/api/favorites/`);
@@ -87,10 +88,8 @@ export default function useFavorite(engineer: User): HookData {
 
     if (resp?.ok) {
       // refresh the useSWR profile API data
-      console.log("MUTATE");
-
       mutate(profileUrl);
-      mutate(engineersUrl);
+      mutate(expertsUrl);
     }
   }
 

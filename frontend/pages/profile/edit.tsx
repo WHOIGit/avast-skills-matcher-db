@@ -11,6 +11,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import Typography from "@mui/material/Typography";
+// local imports
 import useProfile from "../../src/hooks/useProfile";
 import InnerNav from "../../src/components/InnerNav";
 

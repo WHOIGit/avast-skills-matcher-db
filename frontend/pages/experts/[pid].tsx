@@ -4,22 +4,21 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
-import ContactDialog from "../../src/components/ContactDialog";
-import { NextLinkComposed } from "../../src/components/Link";
-import Auth from "../../src/containers/authContainer";
-import Skills from "../../src/containers/skillsContainer";
-import useExpert from "../../src/hooks/useExpert";
 import Stack from "@mui/material/Stack";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { Avatar, Link } from "@mui/material";
+// local imports
 import SkillChip from "../../src/components/SkillChip";
 import InnerNav from "../../src/components/InnerNav";
+import ContactDialog from "../../src/components/ContactDialog";
+import { NextLinkComposed } from "../../src/components/Link";
+import Auth from "../../src/containers/authContainer";
+import useExpert from "../../src/hooks/useExpert";
 
 export default function ExpertDetail() {
   const router = useRouter();
   const { pid } = router.query;
   const authCtx = Auth.useContainer();
-  const skillsCtx = Skills.useContainer();
   const { expert } = useExpert(pid);
 
   if (!expert) {
@@ -60,18 +59,16 @@ export default function ExpertDetail() {
         {authCtx.isAuthenticated && <ContactDialog expert={expert} />}
 
         <Box sx={{ mt: 1, width: "100%" }}>
-          {skillsCtx.skills && (
-            <Box sx={{ mb: 2 }}>
-              <Typography component="h6" variant="h6">
-                Skills
-              </Typography>
-              <Stack direction="row" spacing={2}>
-                {expert.expertProfile?.skills?.map((id: number) => {
-                  return <SkillChip key={id} skillId={id} size="medium" />;
-                })}
-              </Stack>
-            </Box>
-          )}
+          <Box sx={{ mb: 2 }}>
+            <Typography component="h6" variant="h6">
+              Skills
+            </Typography>
+            <Stack direction="row" spacing={2}>
+              {expert.expertProfile?.skills?.map((id: number) => {
+                return <SkillChip key={id} skillId={id} size="medium" />;
+              })}
+            </Stack>
+          </Box>
 
           <Typography component="h6" variant="h6">
             Availability

@@ -1,19 +1,18 @@
 import * as React from "react";
-import { useEffect } from "react";
-
+import Stack from "@mui/material/Stack";
+import { Avatar } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import EditIcon from "@mui/icons-material/Edit";
 import AddIcon from "@mui/icons-material/Add";
+// local imports
 import { NextLinkComposed } from "../../src/components/Link";
 import Auth from "../../src/containers/authContainer";
 import useProfile from "../../src/hooks/useProfile";
-import Stack from "@mui/material/Stack";
-import { Avatar } from "@mui/material";
 import ProfileTabs from "../../src/components/ProfileTabs";
 
-const Me = (): React.ReactElement => {
+function Me(): React.ReactElement {
   const authCtx = Auth.useContainer();
   const { profile } = useProfile();
 
@@ -75,23 +74,19 @@ const Me = (): React.ReactElement => {
           >
             Edit Account
           </Button>
-          {profile?.userType?.includes("ENGINEER") && (
+          {profile?.userType?.includes("EXPERT") && (
             <Button
               variant="contained"
               size="small"
               startIcon={
-                profile?.engineerProfile?.experience ? (
-                  <EditIcon />
-                ) : (
-                  <AddIcon />
-                )
+                profile?.expertProfile?.experience ? <EditIcon /> : <AddIcon />
               }
               component={NextLinkComposed}
               to={{
                 pathname: "/profile/edit_profile",
               }}
             >
-              {profile?.engineerProfile?.experience ? "Edit" : "Create"} SME
+              {profile?.expertProfile?.experience ? "Edit" : "Create"} SME
               Profile
             </Button>
           )}
@@ -99,8 +94,8 @@ const Me = (): React.ReactElement => {
       </Box>
 
       <Box sx={{ alignItems: "center", maxWidth: 600, py: 2 }}>
-        {profile?.userType?.includes("ENGINEER") &&
-          !profile?.engineerProfile?.experience && (
+        {profile?.userType?.includes("EXPERT") &&
+          !profile?.expertProfile?.experience && (
             <Typography
               variant="body1"
               align="center"
@@ -150,7 +145,7 @@ const Me = (): React.ReactElement => {
         </Box>
       )}
 
-      {!profile?.userType?.includes("ENGINEER") && (
+      {!profile?.userType?.includes("EXPERT") && (
         <Box
           sx={{
             maxWidth: 600,
@@ -183,6 +178,6 @@ const Me = (): React.ReactElement => {
       )}
     </Box>
   );
-};
+}
 
 export default Me;

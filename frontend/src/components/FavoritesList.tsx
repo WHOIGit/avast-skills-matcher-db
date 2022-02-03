@@ -14,21 +14,20 @@ export default function FavoritesList() {
   const { profile } = useProfile();
   const router = useRouter();
 
-  function handleLink(engineerId: number) {
-    console.log(engineerId);
-    router.push("/engineers/" + engineerId);
+  function handleLink(expertId: number) {
+    router.push("/experts/" + expertId);
   }
 
   function renderFavoritesList(favorite: Favorite) {
     return (
       <ListItem key={favorite.id} disablePadding>
-        <ListItemButton onClick={() => handleLink(favorite.engineer)} dense>
+        <ListItemButton onClick={() => handleLink(favorite.expert)} dense>
           <ListItemIcon>
             <StarsIcon />
           </ListItemIcon>
           <ListItemText
             id={favorite.id.toString()}
-            primary={`${favorite.engineerFirstName} ${favorite.engineerLastName}`}
+            primary={`${favorite.expertFirstName} ${favorite.expertLastName}`}
           />
         </ListItemButton>
       </ListItem>

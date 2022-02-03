@@ -1,13 +1,14 @@
 import * as React from "react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import Copyright from "../src/components/Copyright";
-import ExpertsGrid from "../src/components/ExpertsGrid";
 import Container from "@mui/material/Container";
 import { Button, Stack, Divider } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import useProfile from "../src/hooks/useProfile";
+// local import
 import { NextLinkComposed } from "../src/components/Link";
+import Copyright from "../src/components/Copyright";
+import ExpertsGrid from "../src/components/ExpertsGrid";
 
 export default function Index() {
   const { profile } = useProfile();
@@ -39,7 +40,7 @@ export default function Index() {
             justifyContent="center"
             divider={<Divider orientation="vertical" flexItem />}
           >
-            {!profile?.userType?.includes("ENGINEER") && (
+            {!profile?.userType?.includes("EXPERT") && (
               <Box sx={{ textAlign: "center" }}>
                 <Typography
                   variant="body1"
@@ -57,7 +58,7 @@ export default function Index() {
                   component={NextLinkComposed}
                   to={{
                     pathname: "/signup",
-                    query: { userTypeId: "ENGINEER" },
+                    query: { userTypeId: "EXPERT" },
                   }}
                 >
                   Create SME Profile

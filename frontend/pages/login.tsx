@@ -129,7 +129,7 @@ export default function Login() {
             <Link
               href={{
                 pathname: "/signup",
-                query: { userTypeId: "ENGINEER" },
+                query: { userTypeId: "EXPERT" },
               }}
               variant="body2"
             >
