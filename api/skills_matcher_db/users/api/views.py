@@ -60,10 +60,12 @@ class UserViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=["patch"])
     def update_expert_profile(self, request, pk=None):
         user = self.get_object()
-        if not user.expert_profile:
-            return Response(
-                {"status": "no profile exists"}, status=status.HTTP_400_BAD_REQUEST
-            )
+
+        if not hasattr(user, "expert_profile"):
+            # create an ExpertProfile if it's missing
+            from skills_matcher_db.experts.models import ExpertProfile
+
+            ExpertProfile.objects.create(user=user)
 
         # make sure User is also an Expert user_type
         if not user.user_type:

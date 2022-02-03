@@ -205,7 +205,7 @@ export default function EditProfileForm() {
                     value={value}
                     label={"ORCID ID"}
                     variant="outlined"
-                    helperText="ex: https://orcid.org/0000-0002-3843-3472"
+                    helperText="ex: https://orcid.org/0000-0002-1111-2222"
                   />
                 )}
               />
