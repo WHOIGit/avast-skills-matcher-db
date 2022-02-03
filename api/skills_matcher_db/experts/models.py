@@ -3,8 +3,9 @@ from django.contrib.auth.base_user import BaseUserManager
 from mptt.models import TreeManyToManyField
 
 # local imports
-from ..users.models import User
-from ..skills.models import Skill
+from skills_matcher_db.utils.fields import ChoiceArrayField
+from skills_matcher_db.users.models import User
+from skills_matcher_db.skills.models import Skill
 
 
 class ExpertManager(BaseUserManager):
@@ -49,8 +50,13 @@ class ExpertProfile(models.Model):
     )
     experience = models.TextField(null=True, blank=True)
     skills = TreeManyToManyField(Skill, related_name="experts", blank=True)
-    availability = models.CharField(
-        max_length=20, choices=AvailabilityChoices.choices, blank=True, null=True
+    # availability can be multiple types
+    availability = ChoiceArrayField(
+        models.CharField(
+            max_length=25, blank=True, choices=AvailabilityChoices.choices
+        ),
+        null=True,
+        blank=True,
     )
     # ORCID ID link https://info.orcid.org/what-does-an-orcid-identifier-look-like/
     orcid_id = models.URLField(max_length=100, blank=True, null=True)

@@ -5,9 +5,7 @@ from ..models import ExpertProfile
 
 
 class ExpertProfileSerializer(serializers.ModelSerializer):
-    availability_display = serializers.CharField(
-        source="get_availability_display", read_only=True
-    )
+    availability_display = serializers.SerializerMethodField()
 
     class Meta:
         model = ExpertProfile
@@ -18,3 +16,12 @@ class ExpertProfileSerializer(serializers.ModelSerializer):
             "availability_display",
             "orcid_id",
         ]
+
+    def get_availability_display(self, obj):
+        if not obj.availability:
+            return []
+
+        av_display = [
+            ExpertProfile.AvailabilityChoices[av].label for av in obj.availability
+        ]
+        return av_display
