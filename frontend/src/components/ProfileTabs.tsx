@@ -7,7 +7,6 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
-import Skills from "../containers/skillsContainer";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -163,7 +162,7 @@ export default function ProfileTabs({ profile }: ComponentProps) {
           Availability
         </Typography>
         <Typography component="p" variant="body1" paragraph>
-          {profile.expertProfile?.availabilityDisplay}
+          {profile.expertProfile?.availabilityDisplay?.join(", ")}
         </Typography>
 
         <Typography component="h6" variant="h6">

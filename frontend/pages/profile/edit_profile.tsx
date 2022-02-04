@@ -13,11 +13,11 @@ import Checkbox from "@mui/material/Checkbox";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import FormGroup from "@mui/material/FormGroup";
-import MenuItem from "@mui/material/MenuItem";
 // local import
 import useProfile from "../../src/hooks/useProfile";
 import Skills, { Skill } from "../../src/containers/skillsContainer";
 import InnerNav from "../../src/components/InnerNav";
+import { availabilityChoices, avChoice } from "../../src/constants";
 
 export default function EditProfileForm() {
   const router = useRouter();
@@ -59,6 +59,32 @@ export default function EditProfileForm() {
       // TODO: actually parse api 400 error messages
       setErrorMessage(error.message);
     }
+  };
+
+  const renderAvailabilityList = (item: avChoice, field: any) => {
+    return (
+      <FormControlLabel
+        key={item.value}
+        label={item.label}
+        control={
+          <Checkbox
+            value={item.value}
+            checked={field.value.includes(item.value)}
+            onChange={(event, checked) => {
+              if (checked) {
+                field.onChange([...field.value, event.target.value]);
+              } else {
+                field.onChange(
+                  field.value.filter(
+                    (value: string) => value !== event.target.value
+                  )
+                );
+              }
+            }}
+          />
+        }
+      />
+    );
   };
 
   const renderSkillsList = (skill: Skill, field: any) => {
@@ -165,39 +191,38 @@ export default function EditProfileForm() {
               </Box>
             </Grid>
             <Grid item xs={12}>
-              <Controller
-                name="availability"
-                defaultValue=""
-                control={control}
-                rules={{ required: false }}
-                render={({ field: { onChange, value } }) => (
-                  <TextField
-                    select
-                    fullWidth
-                    onChange={onChange}
-                    value={value}
-                    label={"Your Availability"}
-                    variant="outlined"
-                  >
-                    <MenuItem key={0} value="WEEKS">
-                      Weeks to months
-                    </MenuItem>
-                    <MenuItem key={1} value="DAYS">
-                      Days to weeks
-                    </MenuItem>
-                    <MenuItem key={2} value="INCIDENTAL">
-                      Incidental advice
-                    </MenuItem>
-                  </TextField>
-                )}
-              />
+              <FormControl component="fieldset" variant="standard">
+                <FormLabel component="legend">Your Availability</FormLabel>
+                <FormGroup>
+                  <Controller
+                    name="availability"
+                    defaultValue={[]}
+                    control={control}
+                    //rules={{ required: true }}
+                    render={({ field }) => (
+                      <>
+                        {availabilityChoices &&
+                          availabilityChoices.map((item) =>
+                            renderAvailabilityList(item, field)
+                          )}
+                      </>
+                    )}
+                  />
+                </FormGroup>
+              </FormControl>
             </Grid>
             <Grid item xs={12}>
               <Controller
                 name="orcidId"
                 defaultValue=""
                 control={control}
-                rules={{ required: false }}
+                rules={{
+                  required: false,
+                  pattern: {
+                    value: /https:\/\/orcid.org/i,
+                    message: "Must be a valid ORCID URL",
+                  },
+                }}
                 render={({ field: { onChange, value } }) => (
                   <TextField
                     fullWidth
@@ -209,6 +234,9 @@ export default function EditProfileForm() {
                   />
                 )}
               />
+              <Box sx={{ color: "error.main" }}>
+                {errors.orcidId && "Must be a valid ORCID URL"}
+              </Box>
             </Grid>
             <Grid item xs={12}>
               <FormControl component="fieldset" variant="standard">

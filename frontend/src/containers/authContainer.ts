@@ -7,8 +7,8 @@ const API_BASE = process.env.NEXT_PUBLIC_API_HOST;
 export type Profile = {
   experience: string;
   skills: number[];
-  availability: string | null;
-  availabilityDisplay?: string | null;
+  availability: string[] | null;
+  availabilityDisplay?: string[] | null;
   orcidId: string | null;
 };
 

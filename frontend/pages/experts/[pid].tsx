@@ -74,7 +74,7 @@ export default function ExpertDetail() {
             Availability
           </Typography>
           <Typography component="p" variant="body1" paragraph>
-            {expert.expertProfile?.availabilityDisplay}
+            {expert.expertProfile?.availabilityDisplay?.join(", ")}
           </Typography>
 
           <Typography component="h6" variant="h6">
