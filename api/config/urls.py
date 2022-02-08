@@ -33,6 +33,7 @@ urlpatterns += [
     path("token/refresh/", jwt_views.RefreshToken.as_view(), name="token-refresh"),
     path("token/logout/", jwt_views.Logout.as_view(), name="logout"),
     path("ping/", Ping.as_view(), name="ping"),
+    path("oauth2/", include("django_auth_adfs.urls")),
 ]
 
 if settings.DEBUG:

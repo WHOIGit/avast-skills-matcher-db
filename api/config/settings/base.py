@@ -76,6 +76,7 @@ THIRD_PARTY_APPS = [
     "mptt",
     "django_mptt_admin",
     "django_filters",
+    "django_auth_adfs",
 ]
 
 LOCAL_APPS = [
@@ -100,13 +101,31 @@ MIGRATION_MODULES = {"sites": "skills_matcher_db.contrib.sites.migrations"}
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
     "allauth.account.auth_backends.AuthenticationBackend",
+    "django_auth_adfs.backend.AdfsAccessTokenBackend",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-user-model
 AUTH_USER_MODEL = "users.User"
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url
-LOGIN_REDIRECT_URL = "users:redirect"
-# https://docs.djangoproject.com/en/dev/ref/settings/#login-url
-LOGIN_URL = "account_login"
+
+# Configure django to redirect users to the right URL for login
+LOGIN_URL = "django_auth_adfs:login"
+LOGIN_REDIRECT_URL = "/"
+
+AUTH_ADFS = {
+    "AUDIENCE": env.str("CLIENT_ID"),
+    "CLIENT_ID": env.str("CLIENT_ID"),
+    "CLIENT_SECRET": env.str("CLIENT_SECRET"),
+    "CLAIM_MAPPING": {
+        "first_name": "given_name",
+        "last_name": "family_name",
+        "email": "upn",
+    },
+    "GROUPS_CLAIM": "roles",
+    "MIRROR_GROUPS": True,
+    "USERNAME_CLAIM": "upn",
+    "TENANT_ID": env.str("TENANT_ID"),
+    "RELYING_PARTY_ID": env.str("CLIENT_ID"),
+}
 
 # PASSWORDS
 # ------------------------------------------------------------------------------
