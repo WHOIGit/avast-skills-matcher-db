@@ -99,9 +99,10 @@ MIGRATION_MODULES = {"sites": "skills_matcher_db.contrib.sites.migrations"}
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#authentication-backends
 AUTHENTICATION_BACKENDS = [
+    "django_auth_adfs.backend.AdfsAuthCodeBackend",
+    "django_auth_adfs.backend.AdfsAccessTokenBackend",
     "django.contrib.auth.backends.ModelBackend",
     "allauth.account.auth_backends.AuthenticationBackend",
-    "django_auth_adfs.backend.AdfsAccessTokenBackend",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-user-model
 AUTH_USER_MODEL = "users.User"
@@ -125,6 +126,7 @@ AUTH_ADFS = {
     "USERNAME_CLAIM": "upn",
     "TENANT_ID": env.str("TENANT_ID"),
     "RELYING_PARTY_ID": env.str("CLIENT_ID"),
+    # "VERSION": "v2.0",
 }
 
 # PASSWORDS
