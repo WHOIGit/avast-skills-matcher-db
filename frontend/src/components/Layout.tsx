@@ -20,7 +20,7 @@ import AccountMenu from "./AccountMenu";
 import logoImg from "../../public/WHOI-logo-notext.png";
 import SearchField from "./SearchField";
 import FavoritesList from "./FavoritesList";
-
+import { SignInSignOutButton, WelcomeName } from "./AuthUi";
 const drawerWidth = 240;
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
@@ -116,6 +116,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           <SearchField />
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
+            <SignInSignOutButton />
+            <WelcomeName />
+            {/*
             {authCtx.isAuthenticated ? (
               <AccountMenu />
             ) : (
@@ -129,6 +132,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 Login
               </Button>
             )}
+              */}
           </Box>
         </Toolbar>
       </AppBar>
