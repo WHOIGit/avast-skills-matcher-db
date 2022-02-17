@@ -31,7 +31,7 @@ type HookData = {
   contactExpert: (
     expertId: number,
     message: string,
-    checked: number[]
+    projects: number[]
   ) => Promise<Response>;
 };
 
@@ -189,12 +189,12 @@ const useProfile = (): HookData => {
   const contactExpert = async (
     expertId: number,
     message: string,
-    checked: number[]
+    projects: number[]
   ): Promise<Response> => {
     const payload = {
       expertId,
       message,
-      checked,
+      projects,
     };
 
     const url = makeUrl(`/api/users/${authCtx.user?.id}/contact_expert/`);
