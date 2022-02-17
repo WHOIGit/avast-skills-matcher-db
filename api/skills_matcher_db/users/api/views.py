@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.utils import timezone
 from django.core.mail import send_mail
+
 from rest_framework.permissions import IsAdminUser, BasePermission, IsAuthenticated
 from rest_framework import status, response
 from rest_framework.generics import GenericAPIView, CreateAPIView
@@ -16,6 +17,7 @@ from rest_framework import viewsets
 from ..models import Favorite, Engagement
 from .serializers import FavoriteSerializer, UserSerializer, AvatarSerializer
 from skills_matcher_db.experts.api.serializers import ExpertProfileSerializer
+from skills_matcher_db.project_owners.models import Project
 
 User = get_user_model()
 
@@ -123,7 +125,7 @@ class UserViewSet(viewsets.ModelViewSet):
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
         if request.data["projects"]:
-            projects = Projects.objects.filter(id__in=request.data["projects"])
+            projects = Project.objects.filter(id__in=request.data["projects"])
             print(projects)
         print(request.data)
 
