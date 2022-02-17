@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.utils import timezone
+from django.core.mail import send_mail
 from rest_framework.permissions import IsAdminUser, BasePermission, IsAuthenticated
 from rest_framework import status, response
 from rest_framework.generics import GenericAPIView, CreateAPIView
@@ -12,11 +13,28 @@ from rest_framework.mixins import (
 from rest_framework.response import Response
 from rest_framework import viewsets
 
-from ..models import Favorite
+from ..models import Favorite, Engagement
 from .serializers import FavoriteSerializer, UserSerializer, AvatarSerializer
 from skills_matcher_db.experts.api.serializers import ExpertProfileSerializer
 
 User = get_user_model()
+
+
+def _send_email_expert(user, expert, projects=None):
+    """
+    send the initial email to an expert requesting support
+    """
+    try:
+        send_mail(
+            "Subject here",
+            "Here is the message.",
+            None,
+            ["to@example.com"],
+            fail_silently=False,
+        )
+    except Exception as e:
+        print(e)
+        return "Email failed"
 
 
 class IsAdminOrIsSelf(IsAdminUser):
@@ -99,8 +117,19 @@ class UserViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=["post"])
     def contact_expert(self, request, pk=None):
         user = self.get_object()
-        print(user)
+        try:
+            expert = User.objects.get(id=request.data["expert_id"])
+        except User.DoesNotExist:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        if request.data["projects"]:
+            projects = Projects.objects.filter(id__in=request.data["projects"])
+            print(projects)
         print(request.data)
+
+        if expert:
+            # send emails, and initiate Engagement tracking
+            _send_email_expert(user, expert, projects)
 
         return Response(status=200)
 
