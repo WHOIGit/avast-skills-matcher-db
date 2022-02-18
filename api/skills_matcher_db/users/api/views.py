@@ -77,9 +77,9 @@ class UserViewSet(viewsets.ModelViewSet):
         serializer = UserSerializer(request.user, context={"request": request})
         return Response(status=status.HTTP_200_OK, data=serializer.data)
 
-    @action(detail=True, methods=["patch"])
+    @action(detail=False, methods=["patch"])
     def update_expert_profile(self, request, pk=None):
-        user = self.get_object()
+        user = request.user
 
         if not hasattr(user, "expert_profile"):
             # create an ExpertProfile if it's missing

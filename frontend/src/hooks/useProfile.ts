@@ -4,6 +4,8 @@ import { useMsal, useAccount } from "@azure/msal-react";
 import Auth, { User, Profile } from "../containers/authContainer";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_HOST;
+const AZURE_SCOPE_ID = process.env.NEXT_PUBLIC_AZURE_SCOPE_ID;
+
 const profileUrl = `${API_BASE}/api/users/me/`;
 const expertsUrl = `${API_BASE}/api/experts/`;
 
@@ -42,25 +44,27 @@ const useProfile = (): HookData => {
   // use global mutate function for multiple SWR endpoints
   const { mutate } = useSWRConfig();
 
-  // async fetcher function for useSWR hook using token from auth Context
-  const fetcherWithToken = async (url: string) => {
+  async function getMsToken() {
     let accessToken;
+    console.log("SCOPE ID", AZURE_SCOPE_ID);
 
     if (!account) {
       throw Error("No active account! Verify a user has been signed in.");
     }
-
+    // get token from Azure AD for backen API
+    // required scope format: "<backend_applicationid>/read" (DON'T USE "api://" starter from MS docs)
     const response = await instance.acquireTokenSilent({
-      scopes: ["92b1a62d-d80c-4c3c-848f-b564ca55e5b9/read"],
+      scopes: [`${AZURE_SCOPE_ID}/read`],
     });
     accessToken = response.accessToken;
-    console.log(response);
+    return accessToken;
+  }
 
-    console.log("ACCESS TOKEN API", accessToken);
-
+  // async fetcher function for useSWR hook using token from auth Context
+  const fetcherWithToken = async (url: string) => {
     return fetch(url, {
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${await getMsToken()}`,
       },
     }).then((r) => r.json());
   };
@@ -136,14 +140,12 @@ const useProfile = (): HookData => {
       orcidId: data.orcidId,
       availability: data.availability,
     };
-    const url = makeUrl(
-      `/api/users/${account?.username}/update_expert_profile/`
-    );
+    const url = makeUrl(`/api/users/update_expert_profile/`);
     const resp = await fetch(url, {
       method: "PATCH",
       body: JSON.stringify(payload),
       headers: {
-        Authorization: `Bearer `,
+        Authorization: `Bearer ${await getMsToken()}`,
         "Content-Type": "application/json",
       },
     });
