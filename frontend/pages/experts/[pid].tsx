@@ -12,13 +12,13 @@ import SkillChip from "../../src/components/SkillChip";
 import InnerNav from "../../src/components/InnerNav";
 import ContactDialog from "../../src/components/ContactDialog";
 import { NextLinkComposed } from "../../src/components/Link";
-import Auth from "../../src/containers/authContainer";
+import useProfile from "../../src/hooks/useProfile";
 import useExpert from "../../src/hooks/useExpert";
 
 export default function ExpertDetail() {
   const router = useRouter();
   const { pid } = router.query;
-  const authCtx = Auth.useContainer();
+  const { profile } = useProfile();
   const { expert } = useExpert(pid);
 
   if (!expert) {
@@ -56,7 +56,7 @@ export default function ExpertDetail() {
             <OpenInNewIcon />
           </Link>
         )}
-        {authCtx.isAuthenticated && <ContactDialog expert={expert} />}
+        {profile && <ContactDialog expert={expert} />}
 
         <Box sx={{ mt: 1, width: "100%" }}>
           <Box sx={{ mb: 2 }}>
@@ -85,8 +85,7 @@ export default function ExpertDetail() {
           </Typography>
         </Box>
 
-        {!authCtx.isAuthenticated ||
-        !authCtx.user?.userType.includes("PROJECT_OWNER") ? (
+        {!profile || !profile.userType.includes("PROJECT_OWNER") ? (
           <Box
             sx={{
               maxWidth: 600,

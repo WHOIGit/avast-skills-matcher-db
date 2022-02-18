@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useIsAuthenticated } from "@azure/msal-react";
 import Stack from "@mui/material/Stack";
 import { Avatar } from "@mui/material";
 import Box from "@mui/material/Box";
@@ -9,16 +8,13 @@ import EditIcon from "@mui/icons-material/Edit";
 import AddIcon from "@mui/icons-material/Add";
 // local imports
 import { NextLinkComposed } from "../../src/components/Link";
-//import Auth from "../../src/containers/authContainer";
 import useProfile from "../../src/hooks/useProfile";
 import ProfileTabs from "../../src/components/ProfileTabs";
 
 function Me(): React.ReactElement {
-  const isAuthenticated = useIsAuthenticated();
-
   const { profile } = useProfile();
 
-  if (!isAuthenticated) {
+  if (!profile) {
     return (
       <Box
         sx={{
