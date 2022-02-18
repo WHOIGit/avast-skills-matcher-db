@@ -1,9 +1,8 @@
 import useSWR, { useSWRConfig } from "swr";
-import { useMsal, useAccount } from "@azure/msal-react";
+import { useMsal } from "@azure/msal-react";
 import { Project } from "./useProjects";
-
-const API_BASE = process.env.NEXT_PUBLIC_API_HOST;
-const AZURE_SCOPE_ID = process.env.NEXT_PUBLIC_AZURE_SCOPE_ID;
+import { fetcherWithToken, getMsToken } from "../utils/azureAuth";
+import { makeUrl, API_BASE } from "../utils/apiUtils";
 
 const profileUrl = `${API_BASE}/api/users/me/`;
 const expertsUrl = `${API_BASE}/api/experts/`;
@@ -39,10 +38,6 @@ export type User = {
   favoredBy: Favorite[];
 };
 
-const makeUrl = (endpoint: string): string => {
-  return API_BASE + endpoint;
-};
-
 type HookData = {
   profile: User;
   createUser: (
@@ -64,36 +59,11 @@ type HookData = {
 };
 
 const useProfile = (): HookData => {
-  const { instance, accounts, inProgress } = useMsal();
-  const account = useAccount(accounts[0] || {});
+  const { instance, inProgress } = useMsal();
   // use global mutate function for multiple SWR endpoints
   const { mutate } = useSWRConfig();
 
-  async function getMsToken() {
-    let accessToken;
-
-    if (!account) {
-      throw Error("No active account! Verify a user has been signed in.");
-    }
-    // get token from Azure AD for backen API
-    // required scope format: "<backend_applicationid>/read" (DON'T USE "api://" starter from MS docs)
-    const response = await instance.acquireTokenSilent({
-      scopes: [`${AZURE_SCOPE_ID}/read`],
-    });
-    accessToken = response.accessToken;
-    return accessToken;
-  }
-
-  // async fetcher function for useSWR hook using token from auth Context
-  async function fetcherWithToken(url: string) {
-    return fetch(url, {
-      headers: {
-        Authorization: `Bearer ${await getMsToken()}`,
-      },
-    }).then((r) => r.json());
-  }
-
-  const { data, error } = useSWR(profileUrl, fetcherWithToken);
+  const { data, error } = useSWR([profileUrl, instance], fetcherWithToken);
   console.log(data);
 
   const createUser = async (
@@ -135,7 +105,7 @@ const useProfile = (): HookData => {
         title,
       }),
       headers: {
-        Authorization: `Bearer ${await getMsToken()}`,
+        Authorization: `Bearer ${await getMsToken(instance)}`,
         "Content-Type": "application/json",
       },
     });
@@ -161,7 +131,7 @@ const useProfile = (): HookData => {
       method: "PATCH",
       body: JSON.stringify(payload),
       headers: {
-        Authorization: `Bearer ${await getMsToken()}`,
+        Authorization: `Bearer ${await getMsToken(instance)}`,
         "Content-Type": "application/json",
       },
     });
@@ -182,7 +152,7 @@ const useProfile = (): HookData => {
       method: "PATCH",
       body,
       headers: {
-        Authorization: `Bearer ${await getMsToken()}`,
+        Authorization: `Bearer ${await getMsToken(instance)}`,
       },
     });
 
@@ -206,7 +176,7 @@ const useProfile = (): HookData => {
         description,
       }),
       headers: {
-        Authorization: `Bearer ${await getMsToken()}`,
+        Authorization: `Bearer ${await getMsToken(instance)}`,
         "Content-Type": "application/json",
       },
     });
@@ -235,7 +205,7 @@ const useProfile = (): HookData => {
       method: "POST",
       body: JSON.stringify(payload),
       headers: {
-        Authorization: `Bearer ${await getMsToken()}`,
+        Authorization: `Bearer ${await getMsToken(instance)}`,
         "Content-Type": "application/json",
       },
     });

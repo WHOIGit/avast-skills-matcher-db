@@ -1,15 +1,12 @@
 import * as React from "react";
-import useSWR, { useSWRConfig } from "swr";
-import Auth from "../containers/authContainer";
-import { User } from "../containers/authContainer";
+import { useSWRConfig } from "swr";
+import { useMsal, useIsAuthenticated } from "@azure/msal-react";
+import { getMsToken } from "../utils/azureAuth";
+import { makeUrl, API_BASE } from "../utils/apiUtils";
+import useProfile, { User } from "./useProfile";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_HOST;
 const profileUrl = `${API_BASE}/api/users/me/`;
 const expertsUrl = `${API_BASE}/api/experts/`;
-
-const makeUrl = (endpoint: string): string => {
-  return API_BASE + endpoint;
-};
 
 type HookData = {
   isFavorite: boolean;
@@ -17,29 +14,30 @@ type HookData = {
 };
 
 export default function useFavorite(expert: User): HookData {
-  const authCtx = Auth.useContainer();
+  const { instance, inProgress } = useMsal();
+  const { profile } = useProfile();
   const { mutate } = useSWRConfig();
   const [isFavorite, setIsFavorite] = React.useState(false);
   const [favoriteId, setFavoriteId] = React.useState(0);
 
   React.useEffect(() => {
     // check if current user lists this expert as a Favorite
-    if (authCtx.user) {
+    if (profile) {
       const favoredByList = expert.favoredBy.map((item) => item.user);
-      const favoriteStatus = favoredByList.includes(authCtx.user?.id);
+      const favoriteStatus = favoredByList.includes(profile.id);
       setIsFavorite(favoriteStatus);
 
       // get the Favorite object ID if available
       if (favoriteStatus) {
         const favObj = expert.favoredBy.find(
-          (item) => item.user === authCtx.user?.id
+          (item) => item.user === profile.id
         );
         if (favObj) {
           setFavoriteId(favObj.id);
         }
       }
     }
-  }, [authCtx.user, expert]);
+  }, [profile, expert]);
 
   // favorite a user
   async function addFavorite() {
@@ -52,7 +50,7 @@ export default function useFavorite(expert: User): HookData {
       method: "POST",
       body: JSON.stringify(payload),
       headers: {
-        Authorization: `Bearer ${await authCtx.getToken()}`,
+        Authorization: `Bearer ${await getMsToken(instance)}`,
         "Content-Type": "application/json",
       },
     });
@@ -68,7 +66,7 @@ export default function useFavorite(expert: User): HookData {
     const resp = await fetch(url, {
       method: "DELETE",
       headers: {
-        Authorization: `Bearer ${await authCtx.getToken()}`,
+        Authorization: `Bearer ${await getMsToken(instance)}`,
         "Content-Type": "application/json",
       },
     });

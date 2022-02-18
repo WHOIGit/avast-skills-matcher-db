@@ -1,12 +1,8 @@
 import useSWR from "swr";
-import Auth, { User } from "../containers/authContainer";
-
-const API_BASE = process.env.NEXT_PUBLIC_API_HOST;
+import { useMsal } from "@azure/msal-react";
+import { fetcherWithToken, getMsToken } from "../utils/azureAuth";
+import { makeUrl, API_BASE } from "../utils/apiUtils";
 const profileUrl = `${API_BASE}/api/users/me/`;
-
-const makeUrl = (endpoint: string): string => {
-  return API_BASE + endpoint;
-};
 
 export type Project = {
   id: number;
@@ -27,26 +23,15 @@ type HookData = {
 };
 
 const useProjects = (pid?: any): HookData => {
-  const authCtx = Auth.useContainer();
-  // standard no Auth fetcher
-  const fetcher = (url: string) => fetch(url).then((r) => r.json());
-  // async fetcher function for useSWR hook using token from auth Context
-  const fetcherWithToken = async (url: string) => {
-    return fetch(url, {
-      headers: {
-        Authorization: `Bearer ${await authCtx.getToken()}`,
-      },
-    }).then((r) => r.json());
-  };
-
+  const { instance, inProgress } = useMsal();
   const {
     data: dataProjects,
     mutate,
     error: errorProjects,
-  } = useSWR(`${API_BASE}/api/projects/`, fetcherWithToken);
+  } = useSWR([`${API_BASE}/api/projects/`, instance], fetcherWithToken);
 
   const { data: dataProject, error: errorProject } = useSWR(
-    pid ? `${API_BASE}/api/projects/${pid}` : null,
+    pid ? [`${API_BASE}/api/projects/${pid}`, instance] : null,
     fetcherWithToken
   );
 
@@ -63,12 +48,11 @@ const useProjects = (pid?: any): HookData => {
         description,
       }),
       headers: {
-        Authorization: `Bearer ${await authCtx.getToken()}`,
+        Authorization: `Bearer ${await getMsToken(instance)}`,
         "Content-Type": "application/json",
       },
     });
     if (resp.ok) {
-      // const data = await resp.json();
       // refresh the useSWR profile API data
       mutate(profileUrl);
     }
@@ -88,13 +72,12 @@ const useProjects = (pid?: any): HookData => {
         description,
       }),
       headers: {
-        Authorization: `Bearer ${await authCtx.getToken()}`,
+        Authorization: `Bearer ${await getMsToken(instance)}`,
         "Content-Type": "application/json",
       },
     });
 
     if (resp.ok) {
-      // const data = await resp.json();
       // refresh the useSWR profile API data
       mutate(profileUrl);
     }

@@ -1,7 +1,5 @@
 import useSWR from "swr";
-
-const API_BASE = process.env.NEXT_PUBLIC_API_HOST;
-const fetcher = (url: string) => fetch(url).then((r) => r.json());
+import { fetcher, API_BASE } from "../utils/apiUtils";
 
 export type Skill = {
   id: number;
