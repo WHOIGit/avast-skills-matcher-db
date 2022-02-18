@@ -135,6 +135,7 @@ export const SignInSignOutButton = () => {
 export const WelcomeName = () => {
   const { accounts } = useMsal();
   const [name, setName] = useState<null | string | undefined>(null);
+  console.log(accounts[0]);
 
   useEffect(() => {
     if (accounts.length > 0) {

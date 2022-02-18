@@ -126,6 +126,9 @@ AUTH_ADFS = {
     "USERNAME_CLAIM": "upn",
     "TENANT_ID": env.str("TENANT_ID"),
     "RELYING_PARTY_ID": env.str("CLIENT_ID"),
+    "LOGIN_EXEMPT_URLS": [
+        "^api",  # Assuming your API is available at /api
+    ],
     # "VERSION": "v2.0",
 }
 
@@ -304,6 +307,7 @@ SOCIALACCOUNT_ADAPTER = "skills_matcher_db.users.adapters.SocialAccountAdapter"
 # django-rest-framework - https://www.django-rest-framework.org/api-guide/settings/
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
+        "django_auth_adfs.rest_framework.AdfsAccessTokenAuthentication",
         "rest_framework_simplejwt.authentication.JWTAuthentication",
         "rest_framework.authentication.SessionAuthentication",
     ),

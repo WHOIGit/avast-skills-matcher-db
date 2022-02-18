@@ -1,5 +1,6 @@
 import { useState } from "react";
 import useSWR, { useSWRConfig } from "swr";
+import { useMsal, useAccount } from "@azure/msal-react";
 import Auth, { User, Profile } from "../containers/authContainer";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_HOST;
@@ -36,15 +37,30 @@ type HookData = {
 };
 
 const useProfile = (): HookData => {
-  const authCtx = Auth.useContainer();
+  const { instance, accounts, inProgress } = useMsal();
+  const account = useAccount(accounts[0] || {});
   // use global mutate function for multiple SWR endpoints
   const { mutate } = useSWRConfig();
 
   // async fetcher function for useSWR hook using token from auth Context
   const fetcherWithToken = async (url: string) => {
+    let accessToken;
+
+    if (!account) {
+      throw Error("No active account! Verify a user has been signed in.");
+    }
+
+    const response = await instance.acquireTokenSilent({
+      scopes: ["92b1a62d-d80c-4c3c-848f-b564ca55e5b9/read"],
+    });
+    accessToken = response.accessToken;
+    console.log(response);
+
+    console.log("ACCESS TOKEN API", accessToken);
+
     return fetch(url, {
       headers: {
-        Authorization: `Bearer ${await authCtx.getToken()}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     }).then((r) => r.json());
   };
@@ -89,7 +105,7 @@ const useProfile = (): HookData => {
     email: string,
     title: string
   ): Promise<Response> => {
-    const url = makeUrl(`/api/users/${authCtx.user?.id}/`);
+    const url = makeUrl(`/api/users/${account?.username}/`);
     const resp = await fetch(url, {
       method: "PATCH",
       body: JSON.stringify({
@@ -99,7 +115,7 @@ const useProfile = (): HookData => {
         title,
       }),
       headers: {
-        Authorization: `Bearer ${await authCtx.getToken()}`,
+        Authorization: `Bearer `,
         "Content-Type": "application/json",
       },
     });
@@ -121,13 +137,13 @@ const useProfile = (): HookData => {
       availability: data.availability,
     };
     const url = makeUrl(
-      `/api/users/${authCtx.user?.id}/update_expert_profile/`
+      `/api/users/${account?.username}/update_expert_profile/`
     );
     const resp = await fetch(url, {
       method: "PATCH",
       body: JSON.stringify(payload),
       headers: {
-        Authorization: `Bearer ${await authCtx.getToken()}`,
+        Authorization: `Bearer `,
         "Content-Type": "application/json",
       },
     });
@@ -142,14 +158,14 @@ const useProfile = (): HookData => {
   };
 
   const uploadAvatar = async (image: string): Promise<Response> => {
-    const url = makeUrl(`/api/users/${authCtx.user?.id}/set_avatar/`);
+    const url = makeUrl(`/api/users/${account?.username}/set_avatar/`);
     const body = new FormData();
     body.append("avatar", image);
     const resp = await fetch(url, {
       method: "PATCH",
       body,
       headers: {
-        Authorization: `Bearer ${await authCtx.getToken()}`,
+        Authorization: `Bearer `,
       },
     });
 
@@ -173,7 +189,7 @@ const useProfile = (): HookData => {
         description,
       }),
       headers: {
-        Authorization: `Bearer ${await authCtx.getToken()}`,
+        Authorization: `Bearer `,
         "Content-Type": "application/json",
       },
     });
@@ -197,12 +213,12 @@ const useProfile = (): HookData => {
       projects,
     };
 
-    const url = makeUrl(`/api/users/${authCtx.user?.id}/contact_expert/`);
+    const url = makeUrl(`/api/users/${account?.username}/contact_expert/`);
     const resp = await fetch(url, {
       method: "POST",
       body: JSON.stringify(payload),
       headers: {
-        Authorization: `Bearer ${await authCtx.getToken()}`,
+        //Authorization: `Bearer ${await authCtx.getToken()}`,
         "Content-Type": "application/json",
       },
     });
