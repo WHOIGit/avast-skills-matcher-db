@@ -62,12 +62,7 @@ export default function EditForm() {
     console.log(data);
     // send form data to API
     try {
-      const resp = await editProfile(
-        data.firstName,
-        data.lastName,
-        data.email,
-        data.title
-      );
+      const resp = await editProfile(data.title);
       if (!resp.ok) {
         setErrorMessage("API connection error. Please try again later.");
       } else {
@@ -129,15 +124,20 @@ export default function EditForm() {
           onSubmit={handleSubmit(onSubmit)}
           sx={{ mt: 3 }}
         >
+          <Typography component="span" variant="body2" gutterBottom>
+            Name and email fields are not editable. Please contact WHOI IS if
+            there is an issue.
+          </Typography>
+
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <Controller
                 name="firstName"
                 defaultValue=""
                 control={control}
-                rules={{ required: true }}
                 render={({ field: { onChange, value } }) => (
                   <TextField
+                    disabled
                     fullWidth
                     onChange={onChange}
                     value={value}
@@ -155,9 +155,9 @@ export default function EditForm() {
                 name="lastName"
                 defaultValue=""
                 control={control}
-                rules={{ required: true }}
                 render={({ field: { onChange, value } }) => (
                   <TextField
+                    disabled
                     fullWidth
                     label="Last Name"
                     onChange={onChange}
@@ -174,15 +174,9 @@ export default function EditForm() {
                 name="email"
                 defaultValue=""
                 control={control}
-                rules={{
-                  required: true,
-                  pattern: {
-                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                    message: "Invalid email address",
-                  },
-                }}
                 render={({ field: { onChange, value } }) => (
                   <TextField
+                    disabled
                     fullWidth
                     id="email"
                     label="Email Address"

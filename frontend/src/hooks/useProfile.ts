@@ -1,13 +1,43 @@
-import { useState } from "react";
 import useSWR, { useSWRConfig } from "swr";
 import { useMsal, useAccount } from "@azure/msal-react";
-import Auth, { User, Profile } from "../containers/authContainer";
+import { Project } from "./useProjects";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_HOST;
 const AZURE_SCOPE_ID = process.env.NEXT_PUBLIC_AZURE_SCOPE_ID;
 
 const profileUrl = `${API_BASE}/api/users/me/`;
 const expertsUrl = `${API_BASE}/api/experts/`;
+
+export type Profile = {
+  experience: string;
+  skills: number[];
+  availability: string[] | null;
+  availabilityDisplay?: string[] | null;
+  orcidId: string | null;
+};
+
+export type Favorite = {
+  id: number;
+  user: number;
+  expert: number;
+  expertFirstName?: string;
+  expertLastName?: string;
+};
+
+export type User = {
+  id: number;
+  email: string;
+  firstName: string;
+  lastName: string;
+  username: string;
+  avatar: string;
+  title: string;
+  userType: string[];
+  expertProfile: Profile;
+  projectsOwned: Project[];
+  favorites: Favorite[];
+  favoredBy: Favorite[];
+};
 
 const makeUrl = (endpoint: string): string => {
   return API_BASE + endpoint;
@@ -22,12 +52,7 @@ type HookData = {
     password: string,
     userTypeId: string
   ) => Promise<Response>;
-  editProfile: (
-    firstName: string,
-    lastName: string,
-    email: string,
-    title: string
-  ) => Promise<Response>;
+  editProfile: (title: string) => Promise<Response>;
   uploadAvatar: (image: string) => Promise<Response>;
   editExpertProfile: (data: Profile) => Promise<Response>;
   createProject: (title: string, description: string) => Promise<Response>;
@@ -46,7 +71,6 @@ const useProfile = (): HookData => {
 
   async function getMsToken() {
     let accessToken;
-    console.log("SCOPE ID", AZURE_SCOPE_ID);
 
     if (!account) {
       throw Error("No active account! Verify a user has been signed in.");
@@ -61,13 +85,13 @@ const useProfile = (): HookData => {
   }
 
   // async fetcher function for useSWR hook using token from auth Context
-  const fetcherWithToken = async (url: string) => {
+  async function fetcherWithToken(url: string) {
     return fetch(url, {
       headers: {
         Authorization: `Bearer ${await getMsToken()}`,
       },
     }).then((r) => r.json());
-  };
+  }
 
   const { data, error } = useSWR(profileUrl, fetcherWithToken);
   console.log(data);
@@ -103,23 +127,15 @@ const useProfile = (): HookData => {
     return resp;
   };
 
-  const editProfile = async (
-    firstName: string,
-    lastName: string,
-    email: string,
-    title: string
-  ): Promise<Response> => {
-    const url = makeUrl(`/api/users/${account?.username}/`);
+  const editProfile = async (title: string): Promise<Response> => {
+    const url = makeUrl(`/api/users/update_profile/`);
     const resp = await fetch(url, {
       method: "PATCH",
       body: JSON.stringify({
-        firstName,
-        lastName,
-        email,
         title,
       }),
       headers: {
-        Authorization: `Bearer `,
+        Authorization: `Bearer ${await getMsToken()}`,
         "Content-Type": "application/json",
       },
     });
@@ -149,7 +165,6 @@ const useProfile = (): HookData => {
         "Content-Type": "application/json",
       },
     });
-    console.log(resp);
 
     if (resp.ok) {
       // refresh the useSWR profile API data
@@ -160,14 +175,14 @@ const useProfile = (): HookData => {
   };
 
   const uploadAvatar = async (image: string): Promise<Response> => {
-    const url = makeUrl(`/api/users/${account?.username}/set_avatar/`);
+    const url = makeUrl(`/api/users/set_avatar/`);
     const body = new FormData();
     body.append("avatar", image);
     const resp = await fetch(url, {
       method: "PATCH",
       body,
       headers: {
-        Authorization: `Bearer `,
+        Authorization: `Bearer ${await getMsToken()}`,
       },
     });
 
@@ -191,7 +206,7 @@ const useProfile = (): HookData => {
         description,
       }),
       headers: {
-        Authorization: `Bearer `,
+        Authorization: `Bearer ${await getMsToken()}`,
         "Content-Type": "application/json",
       },
     });
@@ -215,12 +230,12 @@ const useProfile = (): HookData => {
       projects,
     };
 
-    const url = makeUrl(`/api/users/${account?.username}/contact_expert/`);
+    const url = makeUrl(`/api/users/contact_expert/`);
     const resp = await fetch(url, {
       method: "POST",
       body: JSON.stringify(payload),
       headers: {
-        //Authorization: `Bearer ${await authCtx.getToken()}`,
+        Authorization: `Bearer ${await getMsToken()}`,
         "Content-Type": "application/json",
       },
     });

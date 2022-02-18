@@ -65,7 +65,7 @@ class UnauthenticatedPost(BasePermission):
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [IsAuthenticated | UnauthenticatedPost]
+    permission_classes = [IsAuthenticated]
     # lookup_field = "username"
 
     def get_queryset(self, *args, **kwargs):
@@ -78,7 +78,20 @@ class UserViewSet(viewsets.ModelViewSet):
         return Response(status=status.HTTP_200_OK, data=serializer.data)
 
     @action(detail=False, methods=["patch"])
-    def update_expert_profile(self, request, pk=None):
+    def update_profile(self, request):
+        user = request.user
+
+        # send data to Serializer
+        serializer = UserSerializer(user, data=request.data, partial=True)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"status": "profile updated"})
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(detail=False, methods=["patch"])
+    def update_expert_profile(self, request):
         user = request.user
 
         if not hasattr(user, "expert_profile"):
@@ -104,9 +117,9 @@ class UserViewSet(viewsets.ModelViewSet):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    @action(detail=True, methods=["patch"])
+    @action(detail=False, methods=["patch"])
     def set_avatar(self, request, pk=None):
-        user = self.get_object()
+        user = request.user
 
         serializer = AvatarSerializer(user, data=request.data)
 
@@ -116,9 +129,9 @@ class UserViewSet(viewsets.ModelViewSet):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    @action(detail=True, methods=["post"])
-    def contact_expert(self, request, pk=None):
-        user = self.get_object()
+    @action(detail=False, methods=["post"])
+    def contact_expert(self, request):
+        user = request.user
         try:
             expert = User.objects.get(id=request.data["expert_id"])
         except User.DoesNotExist:
