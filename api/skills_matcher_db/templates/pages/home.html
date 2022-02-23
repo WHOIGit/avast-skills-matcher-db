@@ -1,1 +1,27 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block content %}
+<p>Welcome to the AVAST Skills Matcher backend API admin site.</p>
+
+{% if not request.user.is_authenticated %}
+<p>If you're a registered admin user, login with your WHOI credentials</p>
+<p>
+  <a
+    class="btn btn-primary btn-lg"
+    href="{% url 'django_auth_adfs:login' %}"
+    role="button"
+    >Login</a
+  >
+</p>
+{% else %}
+<p>You are currently logged in. Access the admin site here:</p>
+<p>
+  <a class="btn btn-primary btn-lg" href="{% url 'admin:index' %}" role="button"
+    >Admin Site</a
+  >
+  <a
+    class="btn btn-secondary btn-lg"
+    href="{% url 'django_auth_adfs:logout' %}"
+    role="button"
+    >Logout</a
+  >
+</p>
+{% endif %} {% endblock content %}

@@ -4,6 +4,8 @@ from django.contrib import admin
 from django.urls import include, path
 from django.views import defaults as default_views
 from django.views.generic import TemplateView
+from django.views.generic import RedirectView
+
 from rest_framework.authtoken.views import obtain_auth_token
 
 from skills_matcher_db.users.api import jwt_views
@@ -14,7 +16,20 @@ urlpatterns = [
     path(
         "about/", TemplateView.as_view(template_name="pages/about.html"), name="about"
     ),
+    # ADFS/Azure auth urls
+    path("oauth2/", include("django_auth_adfs.urls")),
     # Django Admin, use {% url 'admin:index' %}
+    path(
+        "admin/login/",
+        RedirectView.as_view(pattern_name="django_auth_adfs:login"),
+        name="admin-login",
+    ),
+    path(
+        "admin/logout/",
+        RedirectView.as_view(pattern_name="django_auth_adfs:logout"),
+        name="admin-logout",
+    ),
+    path("admin/default-login/", admin.site.login, name="default-admin-login"),
     path(settings.ADMIN_URL, admin.site.urls),
     # User management
     path("users/", include("skills_matcher_db.users.urls", namespace="users")),
@@ -33,7 +48,6 @@ urlpatterns += [
     path("token/refresh/", jwt_views.RefreshToken.as_view(), name="token-refresh"),
     path("token/logout/", jwt_views.Logout.as_view(), name="logout"),
     path("ping/", Ping.as_view(), name="ping"),
-    path("oauth2/", include("django_auth_adfs.urls")),
 ]
 
 if settings.DEBUG:

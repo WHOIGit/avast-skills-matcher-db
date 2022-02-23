@@ -110,7 +110,7 @@ AUTH_USER_MODEL = "users.User"
 
 # Configure django to redirect users to the right URL for login
 LOGIN_URL = "django_auth_adfs:login"
-LOGIN_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = "/admin/"
 
 AUTH_ADFS = {
     "AUDIENCE": env.str("CLIENT_ID"),

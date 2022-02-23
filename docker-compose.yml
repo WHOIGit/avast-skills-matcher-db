@@ -6,9 +6,9 @@ volumes:
   media_volume: {}
 
 services:
-  skills_django: &skills_django
+  django: &django
     image: ghcr.io/whoigit/avast-skillsmatcher-api:stable
-    container_name: skills_django
+    container_name: django
     #network_mode: "host" # <-- to send email from container with local smtp
     depends_on:
       - postgres
@@ -39,8 +39,8 @@ services:
     image: redis:6
     restart: unless-stopped
   
-  skills_frontend:
-    container_name: skills_frontend
+  frontend:
+    container_name: frontend
     image: ghcr.io/whoigit/avast-skillsmatcher-frontend:stable
     ports:
       - "3000:3000"
