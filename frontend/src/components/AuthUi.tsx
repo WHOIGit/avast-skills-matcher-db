@@ -9,7 +9,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import Logout from "@mui/icons-material/Logout";
 import AccountMenu from "./AccountMenu";
 
-const SignInButton = () => {
+export const SignInButton = () => {
   const { instance } = useMsal();
   console.log(instance);
 

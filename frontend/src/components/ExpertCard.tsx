@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useIsAuthenticated } from "@azure/msal-react";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
@@ -23,7 +24,7 @@ type CardProps = {
 };
 
 export default function ExpertCard({ expert }: CardProps) {
-  const authCtx = Auth.useContainer();
+  const isAuthenticated = useIsAuthenticated();
   const { isFavorite, toggleFavorite } = useFavorite(expert);
   const [starColor, setStarColor] =
     React.useState<IconButtonProps["color"]>("default");
@@ -86,7 +87,7 @@ export default function ExpertCard({ expert }: CardProps) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        {authCtx.isAuthenticated ? (
+        {isAuthenticated ? (
           <>
             <IconButton
               aria-label="add to favorites"

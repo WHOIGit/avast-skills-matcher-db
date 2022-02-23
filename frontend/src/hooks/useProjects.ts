@@ -20,6 +20,7 @@ type HookData = {
     title: string,
     description: string
   ) => Promise<Response>;
+  deleteProject: (pid: number) => Promise<Response>;
 };
 
 const useProjects = (pid?: any): HookData => {
@@ -84,11 +85,29 @@ const useProjects = (pid?: any): HookData => {
     return resp;
   };
 
+  const deleteProject = async (pid: number): Promise<Response> => {
+    const url = makeUrl(`/api/projects/${pid}/`);
+    const resp = await fetch(url, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${await getMsToken(instance)}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (resp.ok) {
+      // refresh the useSWR profile API data
+      mutate(profileUrl);
+    }
+    return resp;
+  };
+
   return {
     projects: dataProjects,
     project: dataProject,
     createProject: createProject,
     editProject: editProject,
+    deleteProject: deleteProject,
   };
 };
 

@@ -13,16 +13,15 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Checkbox from "@mui/material/Checkbox";
-import Auth, { User } from "../containers/authContainer";
-import useProfile from "../hooks/useProfile";
+import useProfile, { User } from "../hooks/useProfile";
 import { IconButton } from "@mui/material";
 
 type Props = {
   expert: User;
 };
 export default function DirectContactDialog({ expert }: Props) {
-  const authCtx = Auth.useContainer();
-  const projects = authCtx.user?.projectsOwned;
+  const { profile } = useProfile();
+  const projects = profile.projectsOwned;
   const { contactExpert } = useProfile();
   const textRef = React.useRef() as React.MutableRefObject<HTMLInputElement>;
   const [open, setOpen] = React.useState(false);

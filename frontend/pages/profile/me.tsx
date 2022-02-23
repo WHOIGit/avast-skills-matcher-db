@@ -10,6 +10,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { NextLinkComposed } from "../../src/components/Link";
 import useProfile from "../../src/hooks/useProfile";
 import ProfileTabs from "../../src/components/ProfileTabs";
+import { SignInButton } from "../../src/components/AuthUi";
 
 const Me = (): React.ReactElement => {
   const { profile } = useProfile();
@@ -24,7 +25,7 @@ const Me = (): React.ReactElement => {
           alignItems: "center",
         }}
       >
-        <p>Sign In</p>
+        <SignInButton />
       </Box>
     );
   }

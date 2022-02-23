@@ -57,8 +57,7 @@ export default function Index() {
                   startIcon={<AddIcon />}
                   component={NextLinkComposed}
                   to={{
-                    pathname: "/signup",
-                    query: { userTypeId: "EXPERT" },
+                    pathname: "/profile/me",
                   }}
                 >
                   Create SME Profile
@@ -84,8 +83,7 @@ export default function Index() {
                   startIcon={<AddIcon />}
                   component={NextLinkComposed}
                   to={{
-                    pathname: "/signup",
-                    query: { userTypeId: "PROJECT OWNER" },
+                    pathname: "/profile/me",
                   }}
                 >
                   Create Project

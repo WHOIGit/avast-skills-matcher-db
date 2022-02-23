@@ -21,7 +21,7 @@ import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import Link, { NextLinkComposed } from "./Link";
 import { User } from "../hooks/useProfile";
 import SkillChip from "./SkillChip";
-import { Project } from "../hooks/useProjects";
+import useProjects, { Project } from "../hooks/useProjects";
 
 type TabPanelProps = {
   children?: React.ReactNode;
@@ -58,6 +58,7 @@ function a11yProps(index: number) {
 
 export default function ProfileTabs({ profile }: ComponentProps) {
   const router = useRouter();
+  const { deleteProject } = useProjects();
   const [value, setValue] = React.useState(
     profile.userType?.includes("PROJECT_OWNER") ? 1 : 0
   );
@@ -79,7 +80,11 @@ export default function ProfileTabs({ profile }: ComponentProps) {
       <ListItem
         key={project.id}
         secondaryAction={
-          <IconButton edge="end" aria-label="delete">
+          <IconButton
+            edge="end"
+            aria-label="delete"
+            onClick={() => deleteProject(project.id)}
+          >
             <DeleteIcon />
           </IconButton>
         }
