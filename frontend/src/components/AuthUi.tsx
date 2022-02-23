@@ -1,79 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useIsAuthenticated, useMsal } from "@azure/msal-react";
 import { InteractionStatus } from "@azure/msal-browser";
 import { loginRequest } from "../authConfig";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
-import IconButton from "@mui/material/IconButton";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import { useEffect } from "react";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import Logout from "@mui/icons-material/Logout";
+import AccountMenu from "./AccountMenu";
 
 const SignInButton = () => {
   const { instance } = useMsal();
   console.log(instance);
 
-  const [anchorEl, setAnchorEl] = React.useState<
-    null | (EventTarget & HTMLButtonElement)
-  >(null);
-  const open = Boolean(anchorEl);
-
   const handleLogin = (loginType: string) => {
-    setAnchorEl(null);
-
-    if (loginType === "popup") {
-      instance.loginPopup(loginRequest);
-    } else if (loginType === "redirect") {
-      instance.loginRedirect(loginRequest);
-    }
+    instance.loginPopup(loginRequest);
   };
 
   return (
     <div>
-      <Button
-        onClick={(event) => setAnchorEl(event.currentTarget)}
-        color="inherit"
-      >
-        AD Login
+      <Button color="inherit" onClick={() => handleLogin("popup")}>
+        Login
       </Button>
-      <Menu
-        id="menu-appbar"
-        anchorEl={anchorEl}
-        anchorOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
-        keepMounted
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
-        open={open}
-        onClose={() => setAnchorEl(null)}
-      >
-        <MenuItem onClick={() => handleLogin("popup")} key="loginPopup">
-          Sign in using Popup
-        </MenuItem>
-        <MenuItem onClick={() => handleLogin("redirect")} key="loginRedirect">
-          Sign in using Redirect
-        </MenuItem>
-      </Menu>
     </div>
   );
 };
 
-const SignOutButton = () => {
+export const SignOutButton = () => {
   const { instance } = useMsal();
 
-  const [anchorEl, setAnchorEl] = React.useState<
-    null | (EventTarget & HTMLButtonElement)
-  >(null);
-  const open = Boolean(anchorEl);
-
   const handleLogout = (logoutType: string) => {
-    setAnchorEl(null);
-
     if (logoutType === "popup") {
       instance.logoutPopup();
     } else if (logoutType === "redirect") {
@@ -82,36 +38,12 @@ const SignOutButton = () => {
   };
 
   return (
-    <div>
-      <IconButton
-        onClick={(event) => setAnchorEl(event.currentTarget)}
-        color="inherit"
-      >
-        <AccountCircle />
-      </IconButton>
-      <Menu
-        id="menu-appbar"
-        anchorEl={anchorEl}
-        anchorOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
-        keepMounted
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
-        open={open}
-        onClose={() => setAnchorEl(null)}
-      >
-        <MenuItem onClick={() => handleLogout("redirect")}>
-          Logout using Redirect
-        </MenuItem>
-        <MenuItem onClick={() => handleLogout("popup")}>
-          Logout using Popup
-        </MenuItem>
-      </Menu>
-    </div>
+    <MenuItem onClick={() => handleLogout("popup")}>
+      <ListItemIcon>
+        <Logout fontSize="small" />
+      </ListItemIcon>
+      Logout
+    </MenuItem>
   );
 };
 
@@ -120,7 +52,7 @@ export const SignInSignOutButton = () => {
   const isAuthenticated = useIsAuthenticated();
 
   if (isAuthenticated) {
-    return <SignOutButton />;
+    return <AccountMenu />;
   } else if (
     inProgress !== InteractionStatus.Startup &&
     inProgress !== InteractionStatus.HandleRedirect
@@ -146,7 +78,7 @@ export const WelcomeName = () => {
   }, [accounts]);
 
   if (name) {
-    return <Typography variant="h6">Welcome, {name}</Typography>;
+    return <Typography variant="body1">Welcome, {name}</Typography>;
   } else {
     return null;
   }

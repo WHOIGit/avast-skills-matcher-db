@@ -117,22 +117,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <SignInSignOutButton />
-            <WelcomeName />
-            {/*
-            {authCtx.isAuthenticated ? (
-              <AccountMenu />
-            ) : (
-              <Button
-                color="inherit"
-                component={NextLinkComposed}
-                to={{
-                  pathname: "/login",
-                }}
-              >
-                Login
-              </Button>
-            )}
-              */}
           </Box>
         </Toolbar>
       </AppBar>

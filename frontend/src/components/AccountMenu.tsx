@@ -5,45 +5,48 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
+import { Button } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import Logout from "@mui/icons-material/Logout";
-import Auth from "../containers/authContainer";
+import useProfile from "../../src/hooks/useProfile";
+import { SignOutButton } from "./AuthUi";
 
 export default function AccountMenu() {
-  const authCtx = Auth.useContainer();
   const router = useRouter();
+  const { profile } = useProfile();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+
+  const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
-  };
-
-  const handleLogout = () => {
-    authCtx.logout();
-    router.push("/");
   };
 
   const handleLink = (link: string) => {
     router.push(link);
   };
 
+  if (!profile) {
+    return null;
+  }
+
   return (
     <React.Fragment>
       <Tooltip title="Account settings">
-        <IconButton
-          size="large"
-          edge="end"
+        <Button
+          variant="text"
           aria-label="account of current user"
-          onClick={handleClick}
+          onClick={handleMenuClick}
           color="inherit"
+          endIcon={<Avatar alt={profile.firstName} src={profile.avatar} />}
         >
-          <AccountCircle />
-        </IconButton>
+          Welcome {profile.firstName}
+        </Button>
       </Tooltip>
       <Menu
         anchorEl={anchorEl}
@@ -56,7 +59,7 @@ export default function AccountMenu() {
             overflow: "visible",
             filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
             mt: 1.5,
-            "& .MuiAvatar-root": {
+            "& .MuiSvgIcon-root": {
               width: 32,
               height: 32,
               ml: -0.5,
@@ -80,17 +83,11 @@ export default function AccountMenu() {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <MenuItem onClick={() => handleLink("/profile/me")}>
-          <Avatar alt={authCtx.user?.firstName} src={authCtx.user?.avatar} /> My
-          account
+          <AccountCircle /> My account
         </MenuItem>
 
         <Divider />
-        <MenuItem onClick={handleLogout}>
-          <ListItemIcon>
-            <Logout fontSize="small" />
-          </ListItemIcon>
-          Logout
-        </MenuItem>
+        <SignOutButton />
       </Menu>
     </React.Fragment>
   );

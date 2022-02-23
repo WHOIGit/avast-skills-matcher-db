@@ -30,6 +30,8 @@ class FavoriteSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     url = serializers.SerializerMethodField()
+    first_name = serializers.SerializerMethodField()
+    last_name = serializers.SerializerMethodField()
     expert_profile = ExpertProfileSerializer(required=False)
     projects_owned = ProjectSerializer(required=False, many=True)
     avatar = serializers.SerializerMethodField("get_avatar_url")
@@ -67,6 +69,12 @@ class UserSerializer(serializers.ModelSerializer):
         # create a default empty EngineerProfile on user creation to make frontend API's life easier
         ExpertProfile.objects.create(user=user)
         return user
+
+    def get_first_name(self, obj):
+        return obj.first_name.title() if obj.first_name else None
+
+    def get_last_name(self, obj):
+        return obj.last_name.title() if obj.last_name else None
 
     def get_url(self, obj):
         request = self.context.get("request")

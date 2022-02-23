@@ -11,7 +11,7 @@ import { NextLinkComposed } from "../../src/components/Link";
 import useProfile from "../../src/hooks/useProfile";
 import ProfileTabs from "../../src/components/ProfileTabs";
 
-function Me(): React.ReactElement {
+const Me = (): React.ReactElement => {
   const { profile } = useProfile();
 
   if (!profile) {
@@ -115,33 +115,8 @@ function Me(): React.ReactElement {
       </Box>
 
       <Box sx={{ mt: 1, width: "100%" }}>
-        {profile && <ProfileTabs profile={profile} />}
+        {profile?.userType && <ProfileTabs profile={profile} />}
       </Box>
-
-      {!profile?.userType?.includes("PROJECT_OWNER") && (
-        <Box
-          sx={{
-            maxWidth: 600,
-            py: 2,
-            textAlign: "center",
-          }}
-        >
-          <Typography
-            variant="body1"
-            align="center"
-            color="text.secondary"
-            paragraph
-          >
-            Want to contact a SME listed on our site? <br />
-            Create a &quot;Project&quot; that you can request assistance with
-            from one of our users.
-          </Typography>
-
-          <Button variant="outlined" startIcon={<AddIcon />}>
-            Create Project
-          </Button>
-        </Box>
-      )}
 
       {!profile?.userType?.includes("EXPERT") && (
         <Box
@@ -174,8 +149,40 @@ function Me(): React.ReactElement {
           </Button>
         </Box>
       )}
+
+      {!profile?.userType?.includes("PROJECT_OWNER") && (
+        <Box
+          sx={{
+            maxWidth: 600,
+            py: 2,
+            textAlign: "center",
+          }}
+        >
+          <Typography
+            variant="body1"
+            align="center"
+            color="text.secondary"
+            paragraph
+          >
+            Want to contact a SME listed on our site? <br />
+            Create a &quot;Project&quot; that you can request assistance with
+            from one of our users.
+          </Typography>
+
+          <Button
+            variant="outlined"
+            startIcon={<AddIcon />}
+            component={NextLinkComposed}
+            to={{
+              pathname: "/projects/add",
+            }}
+          >
+            Create Project
+          </Button>
+        </Box>
+      )}
     </Box>
   );
-}
+};
 
 export default Me;

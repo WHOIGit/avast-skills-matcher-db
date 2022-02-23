@@ -11,6 +11,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import Typography from "@mui/material/Typography";
+import { FormHelperText } from "@mui/material/";
 // local imports
 import useProfile from "../../src/hooks/useProfile";
 import InnerNav from "../../src/components/InnerNav";
@@ -53,13 +54,11 @@ export default function EditForm() {
   }, [reset, profile]);
 
   const handleCapture = (event: any) => {
-    console.log(event.target.files);
     const newImg = event.target.files[0];
     uploadAvatar(newImg);
   };
 
   const onSubmit = async (data: FormData): Promise<void> => {
-    console.log(data);
     // send form data to API
     try {
       const resp = await editProfile(data.title);
@@ -76,8 +75,6 @@ export default function EditForm() {
       setErrorMessage(error.message);
     }
   };
-
-  console.log(profile, avatarImage);
 
   return (
     <>
@@ -124,11 +121,6 @@ export default function EditForm() {
           onSubmit={handleSubmit(onSubmit)}
           sx={{ mt: 3 }}
         >
-          <Typography component="span" variant="body2" gutterBottom>
-            Name and email fields are not editable. Please contact WHOI IS if
-            there is an issue.
-          </Typography>
-
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <Controller
@@ -146,6 +138,10 @@ export default function EditForm() {
                   />
                 )}
               />
+              <FormHelperText>
+                Name and email fields are not editable. Please contact WHOI IS
+                if there is an issue.
+              </FormHelperText>
               <Box sx={{ color: "error.main" }}>
                 {errors.firstName && "First name is required"}
               </Box>

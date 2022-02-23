@@ -19,7 +19,7 @@ import AddIcon from "@mui/icons-material/Add";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 // local imports
 import Link, { NextLinkComposed } from "./Link";
-import { User } from "../containers/authContainer";
+import { User } from "../hooks/useProfile";
 import SkillChip from "./SkillChip";
 import { Project } from "../hooks/useProjects";
 
