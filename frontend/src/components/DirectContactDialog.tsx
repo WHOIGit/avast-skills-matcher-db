@@ -20,9 +20,8 @@ type Props = {
   expert: User;
 };
 export default function DirectContactDialog({ expert }: Props) {
-  const { profile } = useProfile();
-  const projects = profile.projectsOwned;
-  const { contactExpert } = useProfile();
+  const { profile, contactExpert } = useProfile();
+  const projects = profile?.projectsOwned;
   const textRef = React.useRef() as React.MutableRefObject<HTMLInputElement>;
   const [open, setOpen] = React.useState(false);
   const [checked, setChecked] = React.useState([0]);
