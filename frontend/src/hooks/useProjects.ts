@@ -31,7 +31,7 @@ const useProjects = (pid?: any): HookData => {
   } = useSWR([`${API_BASE}/api/projects/`, instance], fetcherWithToken);
 
   const { data: dataProject, error: errorProject } = useSWR(
-    pid ? [`${API_BASE}/api/projects/${pid}`, instance] : null,
+    pid ? [`${API_BASE}/api/projects/${pid}/`, instance] : null,
     fetcherWithToken
   );
 

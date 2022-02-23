@@ -22,10 +22,10 @@ class FavoriteSerializer(serializers.ModelSerializer):
         fields = ["id", "user", "expert", "expert_first_name", "expert_last_name"]
 
     def get_expert_first_name(self, obj):
-        return obj.expert.first_name
+        return obj.expert.first_name.title() if obj.expert.first_name else None
 
     def get_expert_last_name(self, obj):
-        return obj.expert.last_name
+        return obj.expert.last_name.title() if obj.expert.last_name else None
 
 
 class UserSerializer(serializers.ModelSerializer):

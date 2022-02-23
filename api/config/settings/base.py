@@ -70,8 +70,6 @@ THIRD_PARTY_APPS = [
     # "allauth.account",
     # "allauth.socialaccount",
     "rest_framework",
-    # "rest_framework.authtoken",
-    "rest_framework_simplejwt.token_blacklist",
     "corsheaders",
     "mptt",
     "django_mptt_admin",

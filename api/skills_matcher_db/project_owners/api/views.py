@@ -3,7 +3,8 @@ from rest_framework.permissions import IsAuthenticated
 
 # local imports
 from ..models import ProjectOwner, Project
-from ...users.api.serializers import UserSerializer
+from skills_matcher_db.users.api.serializers import UserSerializer
+from skills_matcher_db.users.models import User
 from .serializers import ProjectSerializer
 
 
@@ -20,3 +21,17 @@ class ProjectViewSet(ModelViewSet):
     def get_queryset(self, *args, **kwargs):
         # limit results to only Projects owned by user
         return self.queryset.filter(project_owner_id=self.request.user.id)
+
+    def perform_create(self, serializer):
+        user = None
+        if self.request and hasattr(self.request, "user"):
+            user = self.request.user
+
+        # make sure User is also a PROJECT_OWNER user_type
+        if not user.user_type:
+            user.user_type = [User.Types.PROJECT_OWNER]
+        elif User.Types.PROJECT_OWNER not in user.user_type:
+            user.user_type.append(User.Types.PROJECT_OWNER)
+
+        user.save()
+        serializer.save()

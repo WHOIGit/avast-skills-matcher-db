@@ -174,7 +174,7 @@ const Me = (): React.ReactElement => {
             startIcon={<AddIcon />}
             component={NextLinkComposed}
             to={{
-              pathname: "/projects/add",
+              pathname: "/profile/projects/add",
             }}
           >
             Create Project

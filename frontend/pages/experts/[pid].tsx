@@ -109,8 +109,7 @@ export default function ExpertDetail() {
               component={NextLinkComposed}
               startIcon={<AddIcon />}
               to={{
-                pathname: "/signup",
-                query: { userTypeId: "PROJECT OWNER" },
+                pathname: "/profile/me",
               }}
             >
               Create Project
