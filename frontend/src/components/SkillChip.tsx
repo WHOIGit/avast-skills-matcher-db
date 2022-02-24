@@ -27,12 +27,15 @@ export default function SkillChip({ skillId, size = "medium" }: Props) {
     }
 
     let result = null;
-    for (let obj of skillsCtx.skills) {
-      result = searchByDepth(obj, skillId);
-      if (result) {
-        break;
+    if (skillsCtx.skills) {
+      for (let obj of skillsCtx.skills) {
+        result = searchByDepth(obj, skillId);
+        if (result) {
+          break;
+        }
       }
     }
+
     return result;
   }
 
