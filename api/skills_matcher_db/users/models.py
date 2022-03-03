@@ -45,7 +45,6 @@ class Engagement(models.Model):
 
     date_created = models.DateTimeField(default=timezone.now)
     date_responded = models.DateTimeField(null=True, blank=True)
-    description = models.TextField(null=True, blank=True)
     project_owner = models.ForeignKey(
         User,
         on_delete=models.SET_NULL,

@@ -252,6 +252,8 @@ EMAIL_BACKEND = env(
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-timeout
 EMAIL_TIMEOUT = 5
 
+TEMPLATED_EMAIL_BACKEND = "templated_email.backends.vanilla_django.TemplateBackend"
+
 # ADMIN
 # ------------------------------------------------------------------------------
 # Django Admin URL.

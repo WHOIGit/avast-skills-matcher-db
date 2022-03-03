@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.utils import timezone
-from django.core.mail import send_mail
+from templated_email import send_templated_mail
 
 from rest_framework.permissions import IsAdminUser, BasePermission, IsAuthenticated
 from rest_framework import status, response
@@ -14,29 +14,18 @@ from rest_framework.mixins import (
 from rest_framework.response import Response
 from rest_framework import viewsets
 
-from ..models import Favorite, Engagement
-from .serializers import FavoriteSerializer, UserSerializer, AvatarSerializer
+from ..models import Engagement, Favorite
+from ..emails import send_email_expert
+from .serializers import (
+    FavoriteSerializer,
+    UserSerializer,
+    AvatarSerializer,
+    EngagementSerializer,
+)
 from skills_matcher_db.experts.api.serializers import ExpertProfileSerializer
 from skills_matcher_db.project_owners.models import Project
 
 User = get_user_model()
-
-
-def _send_email_expert(user, expert, projects=None):
-    """
-    send the initial email to an expert requesting support
-    """
-    try:
-        send_mail(
-            "Subject here",
-            "Here is the message.",
-            None,
-            ["to@example.com"],
-            fail_silently=False,
-        )
-    except Exception as e:
-        print(e)
-        return "Email failed"
 
 
 class IsAdminOrIsSelf(IsAdminUser):
@@ -131,7 +120,9 @@ class UserViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=["post"])
     def contact_expert(self, request):
+        # sends email to selected expert, and initiates Engagement tracking
         user = request.user
+        projects = None
         try:
             expert = User.objects.get(id=request.data["expert_id"])
         except User.DoesNotExist:
@@ -139,12 +130,41 @@ class UserViewSet(viewsets.ModelViewSet):
 
         if request.data["projects"]:
             projects = Project.objects.filter(id__in=request.data["projects"])
-            print(projects)
+
         print(request.data)
 
         if expert:
-            # send emails, and initiate Engagement tracking
-            _send_email_expert(user, expert, projects)
+            # initiate Engagement tracking
+            engagement = Engagement.objects.create(
+                project_owner=user,
+                expert=expert,
+            )
+            # add Project to Many to Many field
+            if projects:
+                engagement.projects.add(*projects)
+
+            # send email
+            print("sending email...")
+            try:
+                send_templated_mail(
+                    template_name="expert_request",
+                    from_email="noreply-skillsdb@whoi.edu",
+                    recipient_list=[expert.email],
+                    context={
+                        "expert_name": f"{expert.first_name} {expert.last_name}",
+                        "requester_name": f"{user.first_name} {user.last_name}",
+                        "requester_email": {user.eamil},
+                        "projects": projects,
+                        "engagement_id": engagement.id,
+                    },
+                    # Optional:
+                    # cc=['cc@example.com'],
+                    # bcc=['bcc@example.com'],
+                    # headers={'My-Custom-Header':'Custom Value'},
+                )
+                print("Email sent")
+            except Exception as e:
+                print(e)
 
         return Response(status=200)
 
@@ -166,7 +186,7 @@ class FavoriteViewSet(viewsets.ModelViewSet):
         return self.queryset.filter(user_id=self.request.user.id)
 
     def create(self, request, *args, **kwargs):
-        # only allow the authoried user to create their own favorites
+        # only allow the authorised user to create their own favorites
         data = {"user": self.request.user.id, "expert": request.data["expert"]}
         serializer = self.get_serializer(data=data)
         serializer.is_valid(raise_exception=True)
@@ -175,3 +195,11 @@ class FavoriteViewSet(viewsets.ModelViewSet):
         return Response(
             serializer.data, status=status.HTTP_201_CREATED, headers=headers
         )
+
+
+class EngagementViewSet(
+    ListModelMixin, RetrieveModelMixin, UpdateModelMixin, viewsets.GenericViewSet
+):
+    queryset = Engagement.objects.all()
+    serializer_class = EngagementSerializer
+    permission_classes = (IsAuthenticated,)

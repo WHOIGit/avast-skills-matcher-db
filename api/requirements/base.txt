@@ -20,8 +20,10 @@ djangorestframework==3.12.4  # https://github.com/encode/django-rest-framework
 django-cors-headers==3.10.0 # https://github.com/adamchainz/django-cors-headers
 djangorestframework-simplejwt==5.0.0
 djangorestframework-camel-case==1.2.0
+
 # Project specific
 django-mptt==0.13.4
 django-mptt-admin==2.1.0
 django-filter==21.1
 django-auth-adfs==1.9.4
+django-templated-email==3.0.0

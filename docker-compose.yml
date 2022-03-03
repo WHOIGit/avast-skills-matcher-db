@@ -51,7 +51,7 @@ services:
     image: nginx:1.21.5
     container_name: nginx
     depends_on:
-      - skills_django
+      - django
     volumes:
       - ./nginx/log:/var/log/nginx # logs
       - ./nginx:/etc/nginx/conf.d:ro

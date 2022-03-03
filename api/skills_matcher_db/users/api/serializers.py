@@ -8,7 +8,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from skills_matcher_db.experts.api.serializers import ExpertProfileSerializer
 from skills_matcher_db.experts.models import ExpertProfile
 from skills_matcher_db.project_owners.api.serializers import ProjectSerializer
-from skills_matcher_db.users.models import Favorite
+from skills_matcher_db.users.models import Favorite, Engagement
 
 User = get_user_model()
 
@@ -96,3 +96,9 @@ class AvatarSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ["avatar"]
+
+
+class EngagementSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Engagement
+        fields = ["id", "response", "date_responded"]

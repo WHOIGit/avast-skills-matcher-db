@@ -1,0 +1,41 @@
+{% block subject %}AVAST Skills Matcher - Request for Assistance{% endblock %}
+{% block plain %}
+  Hi {{expert_name}},
+
+  The following WHOI community member has requested your assistance from the AVAST Skills Matcher site:
+      {{requester_name}} ({{requester_email})
+
+  If you're interested in working with them, please click here to accept the invitation:
+
+  Thanks from AVAST!
+{% endblock %}
+
+{% block html %}
+  <p>Hi {{expert_name}},</p>
+
+  <p>The following WHOI community member has requested your assistance from the AVAST Skills Matcher site:
+      <ul>
+        <li>{{requester_name}}</li>
+      </ul>
+  </p>
+
+  {% if projects %}
+    <p>They would like your help with the following projects:
+    <ul>
+    {% for p in projects %}
+        <li>{{p.title}}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+  
+
+  <p>If you're interested in working with them, please click here to accept the invitation:</p>
+
+  <p><a href="https://skillsdb-api.whoi.edu">Yes! I'm interested.</a></p>
+
+  <p>To decline, please click here:</p>
+
+  <p><a href="https://skillsdb-api.whoi.edu">No thanks.</a></p>
+
+  <p>Thanks from AVAST!</p>
+{% endblock %}
