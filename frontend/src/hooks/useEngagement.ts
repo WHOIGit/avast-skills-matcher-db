@@ -1,4 +1,4 @@
-import { useMsal } from "@azure/msal-react";
+import { useMsal, useIsAuthenticated } from "@azure/msal-react";
 import { getMsToken } from "../utils/azureAuth";
 import { makeUrl } from "../utils/apiUtils";
 
@@ -6,7 +6,7 @@ type HookData = {
   recordResponse: () => Promise<Response>;
 };
 
-const useEngagement = (pid: any, response: string): HookData => {
+const useEngagement = (pid: any, response: any): HookData => {
   const { instance } = useMsal();
   // record user Engagement response
   const recordResponse = async () => {
@@ -25,6 +25,7 @@ const useEngagement = (pid: any, response: string): HookData => {
         "Content-Type": "application/json",
       },
     });
+    console.log(resp);
 
     return resp;
   };

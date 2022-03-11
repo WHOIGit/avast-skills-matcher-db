@@ -31,11 +31,11 @@
 
   <p>If you're interested in working with them, please click here to accept the invitation:</p>
 
-  <p><a href="https://skillsdb-api.whoi.edu">Yes! I'm interested.</a></p>
+  <p><a href="https://skillsdb.whoi.edu/engagements/{{engagement_id}}?response=ACCEPTED">Yes! I'm interested.</a></p>
 
   <p>To decline, please click here:</p>
 
-  <p><a href="https://skillsdb-api.whoi.edu">No thanks.</a></p>
+  <p><a href="https://skillsdb.whoi.edu/engagements/{{engagement_id}}?response=DECLINED">No thanks.</a></p>
 
   <p>Thanks from AVAST!</p>
 {% endblock %}

@@ -118,6 +118,7 @@ AUTH_ADFS = {
         "first_name": "given_name",
         "last_name": "family_name",
         "email": "upn",
+        # "display_name": "display_name",
     },
     "GROUPS_CLAIM": "roles",
     "MIRROR_GROUPS": True,

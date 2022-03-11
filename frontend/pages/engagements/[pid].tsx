@@ -1,9 +1,13 @@
 import * as React from "react";
-import { MsalAuthenticationTemplate } from "@azure/msal-react";
+import {
+  MsalAuthenticationTemplate,
+  useIsAuthenticated,
+} from "@azure/msal-react";
 import { InteractionType } from "@azure/msal-browser";
 import { useRouter } from "next/router";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import useEngagement from "../../src/hooks/useEngagement";
 // local imports
 
 const ErrorComponent = ({ error }: any) => {
@@ -15,12 +19,26 @@ const LoadingComponent = () => {
 };
 
 const EngagementResponse = (): React.ReactElement => {
+  const isAuthenticated = useIsAuthenticated();
   const router = useRouter();
   const { response, pid } = router.query;
+  const { recordResponse } = useEngagement(pid, response);
+
+  React.useEffect(() => {
+    const fetchResponse = async () => {
+      const data = await recordResponse();
+      return data;
+    };
+
+    if (isAuthenticated) {
+      const response = fetchResponse();
+      console.log("Engagement response", response);
+    }
+  }, [isAuthenticated, recordResponse]);
 
   return (
     <MsalAuthenticationTemplate
-      interactionType={InteractionType.Popup}
+      interactionType={InteractionType.Redirect}
       errorComponent={ErrorComponent}
       loadingComponent={LoadingComponent}
     >

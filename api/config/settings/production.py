@@ -94,6 +94,12 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # ------------------------------------------------------------------------------
 # DEFAULT_FILE_STORAGE = "skills_matcher_db.utils.storages.MediaRootS3Boto3Storage"
 # MEDIA_URL = f"https://{aws_s3_domain}/media/"
+# MEDIA
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#media-root
+MEDIA_ROOT = str(ROOT_DIR / "media")
+# https://docs.djangoproject.com/en/dev/ref/settings/#media-url
+MEDIA_URL = "/media/"
 
 # TEMPLATES
 # ------------------------------------------------------------------------------

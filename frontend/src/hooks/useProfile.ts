@@ -158,6 +158,7 @@ const useProfile = (): HookData => {
 
     if (resp.ok) {
       // refresh the useSWR profile API data
+      console.log("MUTATE");
       mutate(profileUrl);
       mutate(expertsUrl);
     }

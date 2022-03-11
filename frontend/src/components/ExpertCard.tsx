@@ -38,7 +38,7 @@ export default function ExpertCard({ expert }: CardProps) {
   }, [isFavorite]);
 
   return (
-    <Card sx={{ maxWidth: 420, height: 350 }}>
+    <Card sx={{ height: 400 }}>
       <CardHeader
         avatar={
           <Avatar

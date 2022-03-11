@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
+import { useSWRConfig } from "swr";
 import { useForm, Controller } from "react-hook-form";
 import { useRouter } from "next/router";
 import { styled } from "@mui/material/styles";
@@ -15,6 +15,9 @@ import { FormHelperText } from "@mui/material/";
 // local imports
 import useProfile from "../../src/hooks/useProfile";
 import InnerNav from "../../src/components/InnerNav";
+import { API_BASE } from "../../src/utils/apiUtils";
+
+const profileUrl = `${API_BASE}/api/users/me/`;
 
 type FormData = {
   firstName: string;
@@ -29,19 +32,20 @@ const Input = styled("input")({
 
 export default function EditForm() {
   const router = useRouter();
+  const { mutate } = useSWRConfig();
   const { profile, editProfile, uploadAvatar } = useProfile();
-  const [avatarImage, setAvatarImage] = useState<string>("");
+  const [avatarImage, setAvatarImage] = React.useState<string>("");
   const {
     handleSubmit,
     control,
     formState: { errors },
     reset,
   } = useForm<FormData>();
-  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [errorMessage, setErrorMessage] = React.useState<string>("");
 
-  useEffect(() => {
+  React.useEffect(() => {
     // set the initial values for the form
-    profile?.avatar && setAvatarImage(profile?.avatar);
+    profile?.avatar && setAvatarImage(profile.avatar);
 
     // set for fields controlled by react-hook-form
 
@@ -53,9 +57,22 @@ export default function EditForm() {
     });
   }, [reset, profile]);
 
-  const handleCapture = (event: any) => {
+  const handleCapture = async (event: any) => {
     const newImg = event.target.files[0];
-    uploadAvatar(newImg);
+    // send form data to API
+    try {
+      const resp = await await uploadAvatar(newImg);
+      if (!resp.ok) {
+        setErrorMessage("API connection error. Please try again later.");
+      } else {
+        setErrorMessage("");
+        mutate(profileUrl);
+      }
+    } catch (error: any) {
+      console.error(error);
+      // TODO: actually parse api 400 error messages
+      setErrorMessage(error.message);
+    }
   };
 
   const onSubmit = async (data: FormData): Promise<void> => {

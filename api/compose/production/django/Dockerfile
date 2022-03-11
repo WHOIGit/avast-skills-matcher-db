@@ -38,7 +38,7 @@ ENV BUILD_ENV ${BUILD_ENVIRONMENT}
 WORKDIR ${APP_HOME}
 
 RUN addgroup --system django \
-    && adduser --system --ingroup django django
+  && adduser --system --ingroup django django
 
 
 # Install required system dependencies
@@ -74,7 +74,8 @@ RUN chmod +x /start
 COPY --chown=django:django . ${APP_HOME}
 
 # make django owner of the WORKDIR directory as well.
-RUN chown django:django ${APP_HOME}
+RUN mkdir /${APP_HOME}/media
+RUN chown -R django:django ${APP_HOME}
 
 USER django
 

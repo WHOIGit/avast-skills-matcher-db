@@ -153,7 +153,7 @@ class UserViewSet(viewsets.ModelViewSet):
                     context={
                         "expert_name": f"{expert.first_name} {expert.last_name}",
                         "requester_name": f"{user.first_name} {user.last_name}",
-                        "requester_email": {user.eamil},
+                        "requester_email": {user.email},
                         "projects": projects,
                         "engagement_id": engagement.id,
                     },
@@ -163,10 +163,10 @@ class UserViewSet(viewsets.ModelViewSet):
                     # headers={'My-Custom-Header':'Custom Value'},
                 )
                 print("Email sent")
+                return Response(status=status.HTTP_200_OK, data=engagement)
             except Exception as e:
                 print(e)
-
-        return Response(status=200)
+                return Response(status=status.HTTP_400_BAD_REQUEST, data=e)
 
 
 class Ping(GenericAPIView):
