@@ -44,6 +44,8 @@ export default function EditForm() {
   const [errorMessage, setErrorMessage] = React.useState<string>("");
 
   React.useEffect(() => {
+    console.log("useEffect fired");
+
     // set the initial values for the form
     profile?.avatar && setAvatarImage(profile.avatar);
 
@@ -59,6 +61,8 @@ export default function EditForm() {
 
   const handleCapture = async (event: any) => {
     const newImg = event.target.files[0];
+    console.log(newImg);
+
     // send form data to API
     try {
       const resp = await await uploadAvatar(newImg);
@@ -66,7 +70,17 @@ export default function EditForm() {
         setErrorMessage("API connection error. Please try again later.");
       } else {
         setErrorMessage("");
-        mutate(profileUrl);
+        /*
+        mutate(
+          profileUrl,
+          {
+            ...profile,
+            avatar: `"https://skillsdb-api.whoi.edu/media/avatars/${newImg.name}"`,
+          },
+          false
+        );
+        //mutate(profileUrl);
+        */
       }
     } catch (error: any) {
       console.error(error);

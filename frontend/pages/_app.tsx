@@ -15,7 +15,6 @@ import {
 import theme from "../src/theme";
 import createEmotionCache from "../src/utils/createEmotionCache";
 import Layout from "../src/components/Layout";
-import Auth from "../src/containers/authContainer";
 import Skills from "../src/containers/skillsContainer";
 import Search from "../src/containers/searchContainer";
 import { msalConfig } from "../src/authConfig";
@@ -63,17 +62,15 @@ const MyApp = (props: IAppProps) => {
       </Head>
       <ThemeProvider theme={theme}>
         <MsalProvider instance={msalInstance}>
-          <Auth.Provider>
-            <Skills.Provider>
-              <Search.Provider>
-                {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-                <CssBaseline />
-                <Layout>
-                  <Component {...pageProps} />
-                </Layout>
-              </Search.Provider>
-            </Skills.Provider>
-          </Auth.Provider>
+          <Skills.Provider>
+            <Search.Provider>
+              {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+              <CssBaseline />
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </Search.Provider>
+          </Skills.Provider>
         </MsalProvider>
       </ThemeProvider>
     </CacheProvider>

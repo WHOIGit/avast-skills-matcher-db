@@ -15,7 +15,6 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 import Link, { NextLinkComposed } from "./Link";
 import SkillsFilter from "./SkillsFilter";
-import Auth from "../containers/authContainer";
 import AccountMenu from "./AccountMenu";
 import logoImg from "../../public/WHOI-logo-notext.png";
 import SearchField from "./SearchField";
@@ -79,7 +78,6 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
-  const authCtx = Auth.useContainer();
 
   const handleDrawerOpen = () => {
     setOpen(true);

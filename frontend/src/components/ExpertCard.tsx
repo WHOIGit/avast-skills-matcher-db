@@ -14,7 +14,7 @@ import TextTruncate from "react-text-truncate";
 import Link, { NextLinkComposed } from "./Link";
 import SkillChip from "./SkillChip";
 import Stack from "@mui/material/Stack";
-import Auth, { User } from "../containers/authContainer";
+import { User } from "../containers/authContainer";
 import useFavorite from "../hooks/useFavorite";
 import DirectContactDialog from "./DirectContactDialog";
 import UnauthContactDialog from "./UnauthContactDialog";

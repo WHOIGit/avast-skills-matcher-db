@@ -48,7 +48,7 @@ type HookData = {
     userTypeId: string
   ) => Promise<Response>;
   editProfile: (title: string) => Promise<Response>;
-  uploadAvatar: (image: string) => Promise<Response>;
+  uploadAvatar: (image: File) => Promise<Response>;
   editExpertProfile: (data: Profile) => Promise<Response>;
   createProject: (title: string, description: string) => Promise<Response>;
   contactExpert: (
@@ -63,7 +63,11 @@ const useProfile = (): HookData => {
   // use global mutate function for multiple SWR endpoints
   const { mutate } = useSWRConfig();
 
-  const { data, error } = useSWR([profileUrl, instance], fetcherWithToken);
+  const {
+    data,
+    mutate: mutateProfile,
+    error,
+  } = useSWR([profileUrl, instance], fetcherWithToken);
   console.log(data);
 
   const createUser = async (
@@ -144,8 +148,10 @@ const useProfile = (): HookData => {
     return resp;
   };
 
-  const uploadAvatar = async (image: string): Promise<Response> => {
+  const uploadAvatar = async (image: File): Promise<Response> => {
     const url = makeUrl(`/api/users/set_avatar/`);
+    console.log(image);
+
     const body = new FormData();
     body.append("avatar", image);
     const resp = await fetch(url, {
@@ -158,8 +164,7 @@ const useProfile = (): HookData => {
 
     if (resp.ok) {
       // refresh the useSWR profile API data
-      console.log("MUTATE");
-      mutate(profileUrl);
+      mutateProfile();
       mutate(expertsUrl);
     }
     return resp;
