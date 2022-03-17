@@ -115,10 +115,9 @@ AUTH_ADFS = {
     "CLIENT_ID": env.str("CLIENT_ID"),
     "CLIENT_SECRET": env.str("CLIENT_SECRET"),
     "CLAIM_MAPPING": {
-        "first_name": "given_name",
-        "last_name": "family_name",
+        "first_name_ad": "given_name",
+        "last_name_ad": "family_name",
         "email": "upn",
-        # "display_name": "display_name",
     },
     "GROUPS_CLAIM": "roles",
     "MIRROR_GROUPS": True,

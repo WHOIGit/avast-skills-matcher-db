@@ -18,6 +18,10 @@ class User(AbstractUser):
 
     first_name = models.CharField(blank=True, max_length=255)
     last_name = models.CharField(blank=True, max_length=255)
+    # fields to store the name data coming from Active Directory
+    # these may need to be changed by user to preferred name
+    first_name_ad = models.CharField(blank=True, max_length=100)
+    last_name_ad = models.CharField(blank=True, max_length=100)
     # User can be multiple types
     user_type = ChoiceArrayField(
         models.CharField(max_length=50, blank=True, choices=Types.choices),
@@ -26,11 +30,19 @@ class User(AbstractUser):
     )
     avatar = models.ImageField(upload_to="avatars", null=True, blank=True)
     title = models.CharField(null=True, blank=True, max_length=255)
-    # field to save "starred" Engineers for future use
-    # favorites = models.ManyToManyField("self", related_name="favored_by")
 
     class Meta:
         ordering = ("last_name", "first_name")
+
+    def save(self, *args, **kwargs):
+        super(User, self).save(*args, **kwargs)
+        print(self.first_name_ad)
+        # on User create, set the display name values to default to AD values
+        if self.pk is None:
+            print("CREATING NEW USER", self.first_name_ad)
+            self.first_name = self.first_name_ad
+            self.last_name = self.last_name_ad
+            # self.display_name = self.display_name
 
 
 class Engagement(models.Model):

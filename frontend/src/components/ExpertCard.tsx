@@ -18,6 +18,7 @@ import { User } from "../containers/authContainer";
 import useFavorite from "../hooks/useFavorite";
 import DirectContactDialog from "./DirectContactDialog";
 import UnauthContactDialog from "./UnauthContactDialog";
+import { Grid } from "@mui/material";
 
 type CardProps = {
   expert: User;
@@ -71,11 +72,16 @@ export default function ExpertCard({ expert }: CardProps) {
       />
 
       <CardContent>
-        <Stack direction="row" spacing={1} sx={{ flexWrap: "wrap", mb: 2 }}>
+        <Grid container spacing={1}>
           {expert.expertProfile?.skills?.map((id: number) => {
-            return <SkillChip key={id} skillId={id} size="small" />;
+            return (
+              <Grid item xs={4} key={id}>
+                <SkillChip key={id} skillId={id} size="small" />
+              </Grid>
+            );
           })}
-        </Stack>
+        </Grid>
+
         <Typography variant="body2" color="text.secondary">
           <TextTruncate
             line={7}

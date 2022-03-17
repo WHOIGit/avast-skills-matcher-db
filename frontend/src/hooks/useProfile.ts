@@ -117,7 +117,7 @@ const useProfile = (): HookData => {
     if (resp.ok) {
       // const data = await resp.json();
       // refresh the useSWR profile API data
-      mutate(profileUrl);
+      mutateProfile();
       mutate(expertsUrl);
     }
     return resp;
@@ -142,7 +142,7 @@ const useProfile = (): HookData => {
 
     if (resp.ok) {
       // refresh the useSWR profile API data
-      mutate(profileUrl);
+      mutateProfile();
       mutate(expertsUrl);
     }
     return resp;
@@ -190,7 +190,7 @@ const useProfile = (): HookData => {
     if (resp.ok) {
       // const data = await resp.json();
       // refresh the useSWR profile API data
-      mutate(profileUrl);
+      mutateProfile();
     }
     return resp;
   };

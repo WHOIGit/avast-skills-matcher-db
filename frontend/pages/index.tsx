@@ -4,15 +4,12 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { Button, Stack, Divider } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import useProfile from "../src/hooks/useProfile";
 // local import
 import { NextLinkComposed } from "../src/components/Link";
 import Copyright from "../src/components/Copyright";
 import ExpertsGrid from "../src/components/ExpertsGrid";
 
 export default function Index() {
-  const { profile } = useProfile();
-
   return (
     <>
       <Box
@@ -40,56 +37,52 @@ export default function Index() {
             justifyContent="center"
             divider={<Divider orientation="vertical" flexItem />}
           >
-            {!profile?.userType?.includes("EXPERT") && (
-              <Box sx={{ textAlign: "center" }}>
-                <Typography
-                  variant="body1"
-                  align="center"
-                  color="text.secondary"
-                  paragraph
-                >
-                  Want to make your skills available to the WHOI community?{" "}
-                  Create a &quot;SME Profile&quot;, and you will be listed in
-                  the Skills Matcher DB.
-                </Typography>
-                <Button
-                  variant="contained"
-                  startIcon={<AddIcon />}
-                  component={NextLinkComposed}
-                  to={{
-                    pathname: "/profile/me",
-                  }}
-                >
-                  Create SME Profile
-                </Button>{" "}
-              </Box>
-            )}
+            <Box sx={{ textAlign: "center" }}>
+              <Typography
+                variant="body1"
+                align="center"
+                color="text.secondary"
+                paragraph
+              >
+                Want to make your skills available to the WHOI community? Create
+                a &quot;SME Profile&quot;, and you will be listed in the Skills
+                Matcher DB.
+              </Typography>
+              <Button
+                variant="contained"
+                startIcon={<AddIcon />}
+                component={NextLinkComposed}
+                to={{
+                  pathname: "/profile/me",
+                }}
+              >
+                Create SME Profile
+              </Button>{" "}
+            </Box>
 
-            {!profile?.userType?.includes("PROJECT_OWNER") && (
-              <Box sx={{ textAlign: "center" }}>
-                <Typography
-                  variant="body1"
-                  align="center"
-                  color="text.secondary"
-                  paragraph
-                >
-                  Want to contact an SME listed on our site? Create a
-                  &quot;Project&quot; that you can request assistance with from
-                  one of our users.
-                </Typography>
+            <Box sx={{ textAlign: "center" }}>
+              <Typography
+                variant="body1"
+                align="center"
+                color="text.secondary"
+                paragraph
+              >
+                Want to contact an SME listed on our site? Create a
+                &quot;Project&quot; that you can request assistance with from
+                one of our users.
+              </Typography>
 
-                <Button
-                  variant="outlined"
-                  startIcon={<AddIcon />}
-                  component={NextLinkComposed}
-                  to={{
-                    pathname: "/profile/me",
-                  }}
-                >
-                  Create Project
-                </Button>
-              </Box>
-            )}
+              <Button
+                variant="outlined"
+                startIcon={<AddIcon />}
+                component={NextLinkComposed}
+                to={{
+                  pathname: "/profile/me",
+                }}
+              >
+                Create Project
+              </Button>
+            </Box>
           </Stack>
         </Container>
       </Box>
