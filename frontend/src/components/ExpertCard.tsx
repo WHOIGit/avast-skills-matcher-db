@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useIsAuthenticated } from "@azure/msal-react";
+import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
@@ -10,19 +11,28 @@ import Typography from "@mui/material/Typography";
 import ReadMoreIcon from "@mui/icons-material/ReadMore";
 import StarsIcon from "@mui/icons-material/Stars";
 import TextTruncate from "react-text-truncate";
-
+// local imports
 import Link, { NextLinkComposed } from "./Link";
 import SkillChip from "./SkillChip";
-import Stack from "@mui/material/Stack";
 import { User } from "../containers/authContainer";
 import useFavorite from "../hooks/useFavorite";
 import DirectContactDialog from "./DirectContactDialog";
 import UnauthContactDialog from "./UnauthContactDialog";
-import { Grid } from "@mui/material";
 
 type CardProps = {
   expert: User;
 };
+
+const SkillChipsList = styled("ul")(({ theme }) => ({
+  display: "flex",
+  flexWrap: "wrap",
+  listStyle: "none",
+  padding: 0,
+  margin: 0,
+  "& > li": {
+    padding: theme.spacing(0.5),
+  },
+}));
 
 export default function ExpertCard({ expert }: CardProps) {
   const isAuthenticated = useIsAuthenticated();
@@ -71,18 +81,18 @@ export default function ExpertCard({ expert }: CardProps) {
         subheader={expert.title}
       />
 
-      <CardContent>
-        <Grid container spacing={1}>
+      <CardContent sx={{ pt: 0 }}>
+        <SkillChipsList>
           {expert.expertProfile?.skills?.map((id: number) => {
             return (
-              <Grid item xs={4} key={id}>
+              <li key={id}>
                 <SkillChip key={id} skillId={id} size="small" />
-              </Grid>
+              </li>
             );
           })}
-        </Grid>
+        </SkillChipsList>
 
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
           <TextTruncate
             line={7}
             element="span"
