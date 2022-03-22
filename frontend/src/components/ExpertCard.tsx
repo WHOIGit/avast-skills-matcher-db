@@ -16,7 +16,7 @@ import Link, { NextLinkComposed } from "./Link";
 import SkillChip from "./SkillChip";
 import { User } from "../containers/authContainer";
 import useFavorite from "../hooks/useFavorite";
-import DirectContactDialog from "./DirectContactDialog";
+import ContactDialog from "./ContactDialog";
 import UnauthContactDialog from "./UnauthContactDialog";
 
 type CardProps = {
@@ -112,7 +112,7 @@ export default function ExpertCard({ expert }: CardProps) {
             >
               <StarsIcon />
             </IconButton>
-            <DirectContactDialog expert={expert} />
+            <ContactDialog expert={expert} buttonType="icon" />
           </>
         ) : (
           <UnauthContactDialog expert={expert} />

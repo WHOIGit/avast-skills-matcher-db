@@ -56,7 +56,7 @@ export default function ExpertDetail() {
             <OpenInNewIcon />
           </Link>
         )}
-        {profile && <ContactDialog expert={expert} />}
+        {profile && <ContactDialog expert={expert} buttonType="standard" />}
 
         <Box sx={{ mt: 1, width: "100%" }}>
           <Box sx={{ mb: 2 }}>

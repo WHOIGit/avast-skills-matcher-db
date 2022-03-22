@@ -13,12 +13,18 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Checkbox from "@mui/material/Checkbox";
+import IconButton from "@mui/material/IconButton";
+
 import useProfile, { User } from "../hooks/useProfile";
 
 type Props = {
   expert: User;
+  buttonType: string;
 };
-export default function ContactDialog({ expert }: Props) {
+export default function ContactDialog({
+  expert,
+  buttonType = "standard",
+}: Props) {
   const { profile, contactExpert } = useProfile();
   const projects = profile?.projectsOwned;
   const textRef = React.useRef() as React.MutableRefObject<HTMLInputElement>;
@@ -54,15 +60,28 @@ export default function ContactDialog({ expert }: Props) {
 
   return (
     <div>
-      <Button
-        sx={{ my: 2 }}
-        variant="contained"
-        onClick={handleClickOpen}
-        size="small"
-        startIcon={<SendIcon />}
-      >
-        Contact SME
-      </Button>
+      {buttonType === "standard" && (
+        <Button
+          sx={{ my: 2 }}
+          variant="contained"
+          onClick={handleClickOpen}
+          size="small"
+          startIcon={<SendIcon />}
+        >
+          Contact SME
+        </Button>
+      )}
+
+      {buttonType === "icon" && (
+        <IconButton
+          aria-label="contact SME"
+          color="default"
+          onClick={handleClickOpen}
+        >
+          <SendIcon />
+        </IconButton>
+      )}
+
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>
           Contact {expert.firstName} {expert.lastName}
