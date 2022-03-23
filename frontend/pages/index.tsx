@@ -8,8 +8,11 @@ import AddIcon from "@mui/icons-material/Add";
 import { NextLinkComposed } from "../src/components/Link";
 import Copyright from "../src/components/Copyright";
 import ExpertsGrid from "../src/components/ExpertsGrid";
+import useProfile from "../src/hooks/useProfile";
 
 export default function Index() {
+  const { profile } = useProfile();
+
   return (
     <>
       <Box
@@ -37,28 +40,30 @@ export default function Index() {
             justifyContent="center"
             divider={<Divider orientation="vertical" flexItem />}
           >
-            <Box sx={{ textAlign: "center" }}>
-              <Typography
-                variant="body1"
-                align="center"
-                color="text.secondary"
-                paragraph
-              >
-                Want to make your skills available to the WHOI community? Create
-                a &quot;SME Profile&quot;, and you will be listed in the Skills
-                Matcher DB.
-              </Typography>
-              <Button
-                variant="contained"
-                startIcon={<AddIcon />}
-                component={NextLinkComposed}
-                to={{
-                  pathname: "/profile/me",
-                }}
-              >
-                Create SME Profile
-              </Button>{" "}
-            </Box>
+            {!profile?.userType?.includes("EXPERT") && (
+              <Box sx={{ textAlign: "center" }}>
+                <Typography
+                  variant="body1"
+                  align="center"
+                  color="text.secondary"
+                  paragraph
+                >
+                  Want to make your skills available to the WHOI community?
+                  Create a &quot;SME Profile&quot;, and you will be listed in
+                  the Skills Matcher DB.
+                </Typography>
+                <Button
+                  variant="contained"
+                  startIcon={<AddIcon />}
+                  component={NextLinkComposed}
+                  to={{
+                    pathname: "/profile/me",
+                  }}
+                >
+                  Create SME Profile
+                </Button>{" "}
+              </Box>
+            )}
 
             <Box sx={{ textAlign: "center" }}>
               <Typography

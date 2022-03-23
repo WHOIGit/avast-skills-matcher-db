@@ -36,12 +36,12 @@ class User(AbstractUser):
 
     def save(self, *args, **kwargs):
         super(User, self).save(*args, **kwargs)
-        print(self.first_name_ad)
         # on User create, set the display name values to default to AD values
         if self.pk is None:
             print("CREATING NEW USER", self.first_name_ad)
             self.first_name = self.first_name_ad
             self.last_name = self.last_name_ad
+            self.save()
             # self.display_name = self.display_name
 
 

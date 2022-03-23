@@ -40,7 +40,7 @@ class ExpertProfile(models.Model):
 
     class AvailabilityChoices(models.TextChoices):
         WEEKS = "WEEKS", "Weeks to months"
-        DAYS = "DAYS", "Days to weeks "
+        DAYS = "DAYS", "Days to weeks"
         INCIDENTAL = "INCIDENTAL", "Incidental advice"
 
     user = models.OneToOneField(

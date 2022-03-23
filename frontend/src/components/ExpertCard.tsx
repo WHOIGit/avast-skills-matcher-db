@@ -94,7 +94,7 @@ export default function ExpertCard({ expert }: CardProps) {
 
         <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
           <TextTruncate
-            line={7}
+            line={4}
             element="span"
             truncateText="..."
             text={expert.expertProfile?.experience}
