@@ -10,11 +10,12 @@ const useEngagement = (pid: any, response: any): HookData => {
   const { instance } = useMsal();
   // record user Engagement response
   const recordResponse = async () => {
-    let dateResponded = new Date().toISOString;
+    let dateResponded = new Date().toISOString();
     const payload = {
       response: response,
       dateResponded: dateResponded,
     };
+    console.log("Engagement payload", payload);
 
     const url = makeUrl(`/api/engagements/${pid}/`);
     const resp = await fetch(url, {

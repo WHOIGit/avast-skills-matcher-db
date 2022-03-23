@@ -146,6 +146,7 @@ class UserViewSet(viewsets.ModelViewSet):
             # send email
             print("sending email...")
             try:
+                # send email to expert
                 send_templated_mail(
                     template_name="expert_request",
                     from_email="noreply-skillsdb@whoi.edu",
@@ -156,11 +157,23 @@ class UserViewSet(viewsets.ModelViewSet):
                         "requester_email": {user.email},
                         "projects": projects,
                         "engagement_id": engagement.id,
+                        "message": request.data["message"],
                     },
                     # Optional:
                     # cc=['cc@example.com'],
                     # bcc=['bcc@example.com'],
                     # headers={'My-Custom-Header':'Custom Value'},
+                )
+                # send receipt to requester
+                send_templated_mail(
+                    template_name="expert_request_receipt",
+                    from_email="noreply-skillsdb@whoi.edu",
+                    recipient_list=[user.email],
+                    context={
+                        "expert_name": f"{expert.first_name} {expert.last_name}",
+                        "requester_name": f"{user.first_name} {user.last_name}",
+                        "expert_email": {expert.email},
+                    },
                 )
                 print("Email sent")
                 return Response(status=status.HTTP_200_OK, data=engagement)

@@ -102,3 +102,9 @@ class EngagementSerializer(serializers.ModelSerializer):
     class Meta:
         model = Engagement
         fields = ["id", "response", "date_responded"]
+
+    def update(self, instance, validated_data):
+        # send email to requester with SME response
+        instance = super(EngagementSerializer, self).update(instance, validated_data)
+        print(instance)
+        return instance

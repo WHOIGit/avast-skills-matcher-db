@@ -1,0 +1,25 @@
+{% block subject %}AVAST Skills Matcher - Your Request for Assistance{% endblock %}
+{% block plain %}
+  Hi {{requester_name}},
+
+  Your request for assistance has been sent to the following SME:
+  {{expert_name}} ( {{expert_email}} )
+  
+  We will notify you when they accept or decline your request.
+
+  Thanks from AVAST!
+{% endblock %}
+
+{% block html %}
+  <p>Hi {{requester_name}},</p>
+
+  <p>Your request for assistance has been sent to the following SME:
+      <ul>
+        <li>{{expert_name}} ({{expert_email}})</li>
+      </ul>
+  </p>
+
+  <p>We will notify you when they accept or decline your request.</p>
+  
+  <p>Thanks from AVAST!</p>
+{% endblock %}

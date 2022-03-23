@@ -32,7 +32,6 @@ const EngagementResponse = (): React.ReactElement => {
 
     if (isAuthenticated) {
       const response = fetchResponse();
-      console.log("Engagement response", response);
     }
   }, [isAuthenticated, recordResponse]);
 

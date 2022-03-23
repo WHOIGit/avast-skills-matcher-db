@@ -3,9 +3,14 @@
   Hi {{expert_name}},
 
   The following WHOI community member has requested your assistance from the AVAST Skills Matcher site:
-      {{requester_name}} ({{requester_email})
+      {{requester_name}} ({{requester_email}})
 
-  If you're interested in working with them, please click here to accept the invitation:
+  {{ message }}
+  
+  If you're interested in working with them, please click here to accept the invitation: 
+  https://skillsdb.whoi.edu/engagements/{{engagement_id}}?response=ACCEPTED
+
+  To decline, please click here:: https://skillsdb.whoi.edu/engagements/{{engagement_id}}?response=DECLINED
 
   Thanks from AVAST!
 {% endblock %}
@@ -28,6 +33,7 @@
     </ul>
   {% endif %}
   
+  <p>{{ message }}</p>
 
   <p>If you're interested in working with them, please click here to accept the invitation:</p>
 
