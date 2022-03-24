@@ -106,9 +106,9 @@ const useProfile = (): HookData => {
   };
 
   const editProfile = async (
-    title: string,
     firstName: string,
-    lastName: string
+    lastName: string,
+    title: string
   ): Promise<Response> => {
     const url = makeUrl(`/api/users/update_profile/`);
     const resp = await fetch(url, {
