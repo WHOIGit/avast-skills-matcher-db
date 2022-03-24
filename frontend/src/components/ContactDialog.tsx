@@ -51,6 +51,7 @@ export default function ContactDialog({
   };
 
   const handleClose = () => {
+    setMessageSent(false);
     setOpen(false);
   };
 

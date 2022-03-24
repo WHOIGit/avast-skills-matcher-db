@@ -51,6 +51,8 @@ export const SignInSignOutButton = () => {
   const { inProgress } = useMsal();
   const isAuthenticated = useIsAuthenticated();
 
+  console.log("In Progress", inProgress);
+
   if (isAuthenticated) {
     return <AccountMenu />;
   } else if (

@@ -47,7 +47,11 @@ type HookData = {
     password: string,
     userTypeId: string
   ) => Promise<Response>;
-  editProfile: (title: string) => Promise<Response>;
+  editProfile: (
+    title: string,
+    firstName: string,
+    lastName: string
+  ) => Promise<Response>;
   uploadAvatar: (image: File) => Promise<Response>;
   editExpertProfile: (data: Profile) => Promise<Response>;
   createProject: (title: string, description: string) => Promise<Response>;
@@ -101,11 +105,17 @@ const useProfile = (): HookData => {
     return resp;
   };
 
-  const editProfile = async (title: string): Promise<Response> => {
+  const editProfile = async (
+    title: string,
+    firstName: string,
+    lastName: string
+  ): Promise<Response> => {
     const url = makeUrl(`/api/users/update_profile/`);
     const resp = await fetch(url, {
       method: "PATCH",
       body: JSON.stringify({
+        firstName,
+        lastName,
         title,
       }),
       headers: {

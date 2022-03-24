@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model, login
 from django.conf import settings
+from templated_email import send_templated_mail
 from rest_framework import serializers
 from rest_framework.reverse import reverse
 from rest_framework_simplejwt import serializers as jwt_serializers
@@ -30,8 +31,6 @@ class FavoriteSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     url = serializers.SerializerMethodField()
-    first_name = serializers.SerializerMethodField()
-    last_name = serializers.SerializerMethodField()
     expert_profile = ExpertProfileSerializer(required=False)
     projects_owned = ProjectSerializer(required=False, many=True)
     avatar = serializers.SerializerMethodField("get_avatar_url")
@@ -70,12 +69,6 @@ class UserSerializer(serializers.ModelSerializer):
         ExpertProfile.objects.create(user=user)
         return user
 
-    def get_first_name(self, obj):
-        return obj.first_name.title() if obj.first_name else None
-
-    def get_last_name(self, obj):
-        return obj.last_name.title() if obj.last_name else None
-
     def get_url(self, obj):
         request = self.context.get("request")
         view_name = "api:user-detail"
@@ -104,7 +97,31 @@ class EngagementSerializer(serializers.ModelSerializer):
         fields = ["id", "response", "date_responded"]
 
     def update(self, instance, validated_data):
-        # send email to requester with SME response
+        # send email to requester with expert's response
+        print(instance.response)
+        if not instance.email_sent:
+            instance.response = validated_data.get("response", instance.response)
+            if instance.response == Engagement.Responses.ACCEPTED:
+                email_template = "expert_response_accept"
+            else:
+                email_template = "expert_response_decline"
+
+            try:
+                # send receipt to requester
+                send_templated_mail(
+                    template_name=email_template,
+                    from_email="noreply-skillsdb@whoi.edu",
+                    recipient_list=[instance.project_owner.email],
+                    context={
+                        "expert_name": f"{instance.expert.first_name} {instance.expert.last_name}",
+                        "requester_name": f"{instance.project_owner.first_name} {instance.project_owner.last_name}",
+                        "expert_email": {instance.expert.email},
+                    },
+                )
+                print("Email sent")
+                instance.email_sent = True
+            except Exception as e:
+                print(e)
+
         instance = super(EngagementSerializer, self).update(instance, validated_data)
-        print(instance)
         return instance

@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
+
 from skills_matcher_db.utils.fields import ChoiceArrayField
 
 
@@ -35,14 +36,16 @@ class User(AbstractUser):
         ordering = ("last_name", "first_name")
 
     def save(self, *args, **kwargs):
+        # on User create, set the display name values to default to AD values BUT
+        # auth-adfs module adds name attributes after initial save, so need
+        # to look for empty name fields
+        print("SAVING USER", self.pk)
+        if not self.last_name:
+            print("UPDATING USER", self.first_name_ad.title())
+            self.first_name = self.first_name_ad.title()
+            self.last_name = self.last_name_ad.title()
+            # self.save()
         super(User, self).save(*args, **kwargs)
-        # on User create, set the display name values to default to AD values
-        if self.pk is None:
-            print("CREATING NEW USER", self.first_name_ad)
-            self.first_name = self.first_name_ad
-            self.last_name = self.last_name_ad
-            self.save()
-            # self.display_name = self.display_name
 
 
 class Engagement(models.Model):
@@ -72,6 +75,7 @@ class Engagement(models.Model):
     response = models.CharField(
         max_length=20, choices=Responses.choices, default=Responses.NO_RESPONSE
     )
+    email_sent = models.BooleanField(default=False)
 
     def __str__(self):
         return self.project_owner.last_name
@@ -85,12 +89,12 @@ class Favorite(models.Model):
     date_created = models.DateTimeField(default=timezone.now)
     user = models.ForeignKey(
         User,
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
         related_name="favorites",
         null=True,
     )
     expert = models.ForeignKey(
-        User, on_delete=models.SET_NULL, related_name="favored_by", null=True
+        User, on_delete=models.CASCADE, related_name="favored_by", null=True
     )
 
     def __str__(self):

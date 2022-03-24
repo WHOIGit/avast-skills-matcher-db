@@ -85,7 +85,7 @@ export default function ExpertDetail() {
           </Typography>
         </Box>
 
-        {!profile || !profile.userType.includes("PROJECT_OWNER") ? (
+        {!profile || !profile.userType?.includes("PROJECT_OWNER") ? (
           <Box
             sx={{
               maxWidth: 600,

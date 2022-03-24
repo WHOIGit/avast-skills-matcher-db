@@ -32,7 +32,6 @@ const Input = styled("input")({
 
 export default function EditForm() {
   const router = useRouter();
-  const { mutate } = useSWRConfig();
   const { profile, editProfile, uploadAvatar } = useProfile();
   const [avatarImage, setAvatarImage] = React.useState<string>("");
   const {
@@ -44,8 +43,6 @@ export default function EditForm() {
   const [errorMessage, setErrorMessage] = React.useState<string>("");
 
   React.useEffect(() => {
-    console.log("useEffect fired");
-
     // set the initial values for the form
     profile?.avatar && setAvatarImage(profile.avatar);
 
@@ -70,17 +67,6 @@ export default function EditForm() {
         setErrorMessage("API connection error. Please try again later.");
       } else {
         setErrorMessage("");
-        /*
-        mutate(
-          profileUrl,
-          {
-            ...profile,
-            avatar: `"https://skillsdb-api.whoi.edu/media/avatars/${newImg.name}"`,
-          },
-          false
-        );
-        //mutate(profileUrl);
-        */
       }
     } catch (error: any) {
       console.error(error);
@@ -92,7 +78,7 @@ export default function EditForm() {
   const onSubmit = async (data: FormData): Promise<void> => {
     // send form data to API
     try {
-      const resp = await editProfile(data.title);
+      const resp = await editProfile(data.firstName, data.lastName, data.title);
       if (!resp.ok) {
         setErrorMessage("API connection error. Please try again later.");
       } else {
@@ -160,7 +146,6 @@ export default function EditForm() {
                 control={control}
                 render={({ field: { onChange, value } }) => (
                   <TextField
-                    disabled
                     fullWidth
                     onChange={onChange}
                     value={value}
@@ -170,8 +155,8 @@ export default function EditForm() {
                 )}
               />
               <FormHelperText>
-                Name and email fields are not editable. Please contact WHOI IS
-                if there is an issue.
+                Email field is not editable. Please contact WHOI IS if there is
+                an issue.
               </FormHelperText>
               <Box sx={{ color: "error.main" }}>
                 {errors.firstName && "First name is required"}
@@ -184,7 +169,6 @@ export default function EditForm() {
                 control={control}
                 render={({ field: { onChange, value } }) => (
                   <TextField
-                    disabled
                     fullWidth
                     label="Last Name"
                     onChange={onChange}
