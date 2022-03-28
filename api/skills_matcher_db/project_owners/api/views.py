@@ -1,5 +1,5 @@
 from rest_framework.viewsets import ReadOnlyModelViewSet, ModelViewSet
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 
 # local imports
 from ..models import ProjectOwner, Project
@@ -16,11 +16,7 @@ class ProjectOwnerViewSet(ReadOnlyModelViewSet):
 class ProjectViewSet(ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
-    permission_classes = [IsAuthenticated]
-
-    def get_queryset(self, *args, **kwargs):
-        # limit results to only Projects owned by user
-        return self.queryset.filter(project_owner_id=self.request.user.id)
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     def perform_create(self, serializer):
         user = None

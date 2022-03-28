@@ -1,33 +1,34 @@
-import useSWR from "swr";
+import useSWR, { useSWRConfig } from "swr";
 import { useMsal } from "@azure/msal-react";
 import { fetcherWithToken, getMsToken } from "../utils/azureAuth";
 import { makeUrl, API_BASE } from "../utils/apiUtils";
 const profileUrl = `${API_BASE}/api/users/me/`;
 
-export type Project = {
-  id: number;
+type ProjectFormData = {
   title: string;
   description: string;
-  project_owner: number;
+  skills: number[];
 };
+
+export interface Project extends ProjectFormData {
+  id: number;
+  project_owner?: number;
+}
 
 type HookData = {
   projects: Project[];
   project?: Project;
-  createProject: (title: string, description: string) => Promise<Response>;
-  editProject: (
-    pid: number,
-    title: string,
-    description: string
-  ) => Promise<Response>;
+  createProject: (data: ProjectFormData) => Promise<Response>;
+  editProject: (pid: number, data: ProjectFormData) => Promise<Response>;
   deleteProject: (pid: number) => Promise<Response>;
 };
 
 const useProjects = (pid?: any): HookData => {
   const { instance, inProgress } = useMsal();
+  const { mutate } = useSWRConfig();
   const {
     data: dataProjects,
-    mutate,
+    mutate: mutateProject,
     error: errorProjects,
   } = useSWR([`${API_BASE}/api/projects/`, instance], fetcherWithToken);
 
@@ -36,18 +37,17 @@ const useProjects = (pid?: any): HookData => {
     fetcherWithToken
   );
 
-  const createProject = async (
-    title: string,
-    description: string
-  ): Promise<Response> => {
+  const createProject = async (data: ProjectFormData): Promise<Response> => {
     const url = makeUrl("/api/projects/");
+    const payload = {
+      title: data.title,
+      description: data.description,
+      skills: data.skills,
+    };
 
     const resp = await fetch(url, {
       method: "POST",
-      body: JSON.stringify({
-        title,
-        description,
-      }),
+      body: JSON.stringify(payload),
       headers: {
         Authorization: `Bearer ${await getMsToken(instance)}`,
         "Content-Type": "application/json",
@@ -62,16 +62,17 @@ const useProjects = (pid?: any): HookData => {
 
   const editProject = async (
     pid: number,
-    title: string,
-    description: string
+    data: ProjectFormData
   ): Promise<Response> => {
     const url = makeUrl(`/api/projects/${pid}/`);
+    const payload = {
+      title: data.title,
+      description: data.description,
+      skills: data.skills,
+    };
     const resp = await fetch(url, {
       method: "PATCH",
-      body: JSON.stringify({
-        title,
-        description,
-      }),
+      body: JSON.stringify(payload),
       headers: {
         Authorization: `Bearer ${await getMsToken(instance)}`,
         "Content-Type": "application/json",
@@ -80,6 +81,7 @@ const useProjects = (pid?: any): HookData => {
 
     if (resp.ok) {
       // refresh the useSWR profile API data
+      mutateProject();
       mutate(profileUrl);
     }
     return resp;

@@ -7,7 +7,10 @@ import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+// local imports
+import Skills, { Skill } from "../../../src/containers/skillsContainer";
 import useProjects from "../../../src/hooks/useProjects";
+import SkillsCheckboxes from "../../../src/components/SkillsCheckboxes";
 
 type FormData = {
   title: string;
@@ -21,7 +24,6 @@ export default function AddProject() {
     handleSubmit,
     control,
     formState: { errors },
-    reset,
   } = useForm();
   const [errorMessage, setErrorMessage] = useState<string>("");
 
@@ -29,7 +31,7 @@ export default function AddProject() {
     console.log(data);
     // send form data to API
     try {
-      const resp = await createProject(data.title, data.description);
+      const resp = await createProject(data);
       if (!resp.ok) {
         setErrorMessage("API connection error. Please try again later.");
       } else {
@@ -104,6 +106,9 @@ export default function AddProject() {
             <Box sx={{ color: "error.main" }}>
               {errors.description && "Field is required"}
             </Box>
+          </Grid>
+          <Grid item xs={12}>
+            <SkillsCheckboxes />
           </Grid>
         </Grid>
         <Button

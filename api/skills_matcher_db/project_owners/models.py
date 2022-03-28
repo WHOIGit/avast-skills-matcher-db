@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.base_user import BaseUserManager
+from mptt.models import TreeManyToManyField
+
 from skills_matcher_db.users.models import User
+from skills_matcher_db.skills.models import Skill
 
 
 class ProjectOwnerManager(BaseUserManager):
@@ -37,6 +40,7 @@ class Project(models.Model):
         User, on_delete=models.CASCADE, related_name="projects_owned"
     )
     experts = models.ManyToManyField(User, related_name="projects_assigned", blank=True)
+    skills = TreeManyToManyField(Skill, related_name="projects", blank=True)
 
     def __str__(self):
         return self.title

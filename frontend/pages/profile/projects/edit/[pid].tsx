@@ -41,7 +41,7 @@ export default function EditProject() {
     console.log(data);
     // send form data to API
     try {
-      const resp = await editProject(pid, data.title, data.description);
+      const resp = await editProject(pid, data);
       if (!resp.ok) {
         setErrorMessage("API connection error. Please try again later.");
       } else {

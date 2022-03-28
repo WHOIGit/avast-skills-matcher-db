@@ -65,7 +65,7 @@ class UserSerializer(serializers.ModelSerializer):
         user = super(UserSerializer, self).create(validated_data)
         user.set_password(validated_data["password"])
         user.save()
-        # create a default empty EngineerProfile on user creation to make frontend API's life easier
+        # create a default empty ExpertProfile on user creation to make frontend API's life easier
         ExpertProfile.objects.create(user=user)
         return user
 
@@ -98,7 +98,6 @@ class EngagementSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         # send email to requester with expert's response
-        print(instance.response)
         if not instance.email_sent:
             instance.response = validated_data.get("response", instance.response)
             if instance.response == Engagement.Responses.ACCEPTED:
