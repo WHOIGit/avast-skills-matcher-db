@@ -1,0 +1,25 @@
+{% block subject %}AVAST Skills Matcher - Your Request to Assist a Project{% endblock %}
+{% block plain %}
+  Hi {{requester_name}},
+
+  Your request to assist with the Project "{{project_title}}" has been sent to the following Project Owner:
+  {{project_owner}} ({{project_owner_email}})
+  
+  We will notify you when they accept or decline your request.
+
+  Thanks from AVAST!
+{% endblock %}
+
+{% block html %}
+  <p>Hi {{requester_name}},</p>
+
+  <p>Your request to assist with the Project <strong>"{{project_title}}"</strong> has been sent to the following Project Owner:
+      <ul>
+        <li>{{project_owner}} ({{project_owner_email}})</li>
+      </ul>
+  </p>
+
+  <p>We will notify you when they accept or decline your request.</p>
+  
+  <p>Thanks from AVAST!</p>
+{% endblock %}

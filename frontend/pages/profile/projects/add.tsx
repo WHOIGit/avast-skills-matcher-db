@@ -12,11 +12,6 @@ import Skills, { Skill } from "../../../src/containers/skillsContainer";
 import useProjects from "../../../src/hooks/useProjects";
 import SkillsCheckboxes from "../../../src/components/SkillsCheckboxes";
 
-type FormData = {
-  title: string;
-  description: string;
-};
-
 export default function AddProject() {
   const router = useRouter();
   const { createProject } = useProjects();
@@ -108,7 +103,7 @@ export default function AddProject() {
             </Box>
           </Grid>
           <Grid item xs={12}>
-            <SkillsCheckboxes />
+            <SkillsCheckboxes control={control} />
           </Grid>
         </Grid>
         <Button

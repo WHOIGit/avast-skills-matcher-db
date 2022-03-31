@@ -1,0 +1,41 @@
+{% block subject %}AVAST Skills Matcher - Request to Assist Your Project{% endblock %}
+{% block plain %}
+  Hi {{project_owner}},
+
+  The following WHOI community member has requested to assist you with your Project - {{project_title}}:
+      {{requester_name}} ({{requester_email}})
+
+  {{ message }}
+  
+  If you're interested in working with them, please click here to accept the invitation: 
+  https://skillsdb.whoi.edu/engagements/{{engagement_id}}?response=ACCEPTED
+
+  To decline, please click here:: https://skillsdb.whoi.edu/engagements/{{engagement_id}}?response=DECLINED
+
+  Thanks from AVAST!
+{% endblock %}
+
+{% block html %}
+  <p>Hi {{project_owner}},</p>
+
+  <p>The following WHOI community member has requested to assist you with your Project - 
+    <strong>{{project_title}}</strong>:
+      <ul>
+        <li>{{requester_name}}</li>
+      </ul>
+  </p>
+  
+  {% if message %}
+    <p>Message: {{ message }}</p>
+  {% endif %}
+
+  <p>If you're interested in working with them, please click here to accept the invitation:</p>
+
+  <p><a href="https://skillsdb.whoi.edu/engagements/{{engagement_id}}?response=ACCEPTED">Yes! I'm interested.</a></p>
+
+  <p>To decline, please click here:</p>
+
+  <p><a href="https://skillsdb.whoi.edu/engagements/{{engagement_id}}?response=DECLINED">No thanks.</a></p>
+
+  <p>Thanks from AVAST!</p>
+{% endblock %}

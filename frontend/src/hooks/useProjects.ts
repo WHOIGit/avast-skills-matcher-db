@@ -12,7 +12,8 @@ type ProjectFormData = {
 
 export interface Project extends ProjectFormData {
   id: number;
-  project_owner?: number;
+  projectOwner?: number;
+  projectOwnerDisplay: string;
 }
 
 type HookData = {
@@ -21,6 +22,12 @@ type HookData = {
   createProject: (data: ProjectFormData) => Promise<Response>;
   editProject: (pid: number, data: ProjectFormData) => Promise<Response>;
   deleteProject: (pid: number) => Promise<Response>;
+  isLoading: boolean;
+  isError: boolean;
+  contactProjectOwner: (
+    projectId: number,
+    message: string
+  ) => Promise<Response>;
 };
 
 const useProjects = (pid?: any): HookData => {
@@ -104,12 +111,37 @@ const useProjects = (pid?: any): HookData => {
     return resp;
   };
 
+  const contactProjectOwner = async (
+    projectId: number,
+    message: string
+  ): Promise<Response> => {
+    const payload = {
+      projectId,
+      message,
+    };
+
+    const url = makeUrl(`/api/users/contact_project_owner/`);
+    const resp = await fetch(url, {
+      method: "POST",
+      body: JSON.stringify(payload),
+      headers: {
+        Authorization: `Bearer ${await getMsToken(instance)}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    return resp;
+  };
+
   return {
     projects: dataProjects,
     project: dataProject,
     createProject: createProject,
     editProject: editProject,
     deleteProject: deleteProject,
+    isLoading: !dataProjects && !errorProjects,
+    isError: errorProjects,
+    contactProjectOwner: contactProjectOwner,
   };
 };
 

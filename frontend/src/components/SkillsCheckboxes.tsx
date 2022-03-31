@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Controller, useForm } from "react-hook-form";
+import { Controller } from "react-hook-form";
 import Box from "@mui/material/Box";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
@@ -9,9 +9,9 @@ import FormGroup from "@mui/material/FormGroup";
 // local imports
 import Skills, { Skill } from "../containers/skillsContainer";
 
-export default function SkillsCheckboxes() {
+// pass in "control" argument from React Hook Form based form
+export default function SkillsCheckboxes({ control }: any) {
   const skillsCtx = Skills.useContainer();
-  const { control } = useForm();
 
   const renderSkillsList = (skill: Skill, field: any) => {
     let hasChildren = false;

@@ -9,13 +9,25 @@ import SendIcon from "@mui/icons-material/Send";
 import { NextLinkComposed } from "./Link";
 import { User } from "../containers/authContainer";
 import { Box, IconButton } from "@mui/material";
+import { Project } from "../hooks/useProjects";
 
 type Props = {
-  expert: User;
+  item: User | Project;
 };
 
-export default function UnauthContactDialog({ expert }: Props) {
+function isUser(obj: any): obj is User {
+  return obj.lastName !== undefined;
+}
+
+export default function UnauthContactDialog({ item }: Props) {
   const [open, setOpen] = React.useState(false);
+
+  let title;
+  if (isUser(item)) {
+    title = `${item.firstName} ${item.lastName}`;
+  } else {
+    title = item.title;
+  }
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -36,12 +48,11 @@ export default function UnauthContactDialog({ expert }: Props) {
       </IconButton>
 
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>
-          Contact {expert.firstName} {expert.lastName}
-        </DialogTitle>
+        <DialogTitle>Contact {title}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            To contact this SME, please login to your account first.
+            To contact this SME or Project Owner, please login to your account
+            first.
             <Box sx={{ textAlign: "center", mt: 2 }}>
               <Button
                 color="primary"

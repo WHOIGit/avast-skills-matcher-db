@@ -1,13 +1,13 @@
-{% block subject %}AVAST Skills Matcher - Response from {{expert_name}}{% endblock %}
+{% block subject %}AVAST Skills Matcher - Response from {{receiver_name}}{% endblock %}
 {% block plain %}
   Hi {{requester_name}},
 
-  Good news! Your request for assistance has been ACCEPTED by {{expert_name}}.
+  Good news! Your request for assistance has been ACCEPTED by {{receiver_name}}.
   
-  You can now contact them directly at {{expert_email}} and get started working together,
+  You can now contact them directly at {{receiver_email}} and get started working together,
   they'll be expecting your message.
 
-  Thanks for using the AVAST Skills Mathcher!
+  Thanks for using the AVAST Skills Matcher!
 {% endblock %}
 
 {% block html %}
@@ -18,5 +18,5 @@
   <p>You can now contact them directly at <a href="mailto:{{expert_email}}">{{expert_email}}</a> and get started working together, 
     they'll be expecting your message.</p>
   
-  <p>Thanks for using the AVAST Skills Mathcher!</p>
+  <p>Thanks for using the AVAST Skills Matcher!</p>
 {% endblock %}

@@ -100,21 +100,40 @@ class EngagementSerializer(serializers.ModelSerializer):
         # send email to requester with expert's response
         if not instance.email_sent:
             instance.response = validated_data.get("response", instance.response)
+
             if instance.response == Engagement.Responses.ACCEPTED:
-                email_template = "expert_response_accept"
+                email_template = "response_accept"
             else:
-                email_template = "expert_response_decline"
+                email_template = "response_decline"
+
+            if (
+                instance.engagement_type
+                == Engagement.EngagementTypes.PROJECT_OWNER_INITIATED
+            ):
+                receiver_name = (
+                    f"{instance.expert.first_name} {instance.expert.last_name}"
+                )
+                receiver_email = instance.expert.email
+                requester_name = f"{instance.project_owner.first_name} {instance.project_owner.last_name}"
+                requester_email = instance.project_owner.email
+            else:
+                receiver_name = f"{instance.project_owner.first_name} {instance.project_owner.last_name}"
+                receiver_email = instance.project_owner.email
+                requester_name = (
+                    f"{instance.expert.first_name} {instance.expert.last_name}"
+                )
+                requester_email = instance.expert.email
 
             try:
-                # send receipt to requester
+                # send accept/decline to requester
                 send_templated_mail(
                     template_name=email_template,
                     from_email="noreply-skillsdb@whoi.edu",
-                    recipient_list=[instance.project_owner.email],
+                    recipient_list=[requester_email],
                     context={
-                        "expert_name": f"{instance.expert.first_name} {instance.expert.last_name}",
-                        "requester_name": f"{instance.project_owner.first_name} {instance.project_owner.last_name}",
-                        "expert_email": {instance.expert.email},
+                        "receiver_name": receiver_name,
+                        "receiver_email": receiver_email,
+                        "requester_name": requester_name,
                     },
                 )
                 print("Email sent")

@@ -50,13 +50,17 @@ class User(AbstractUser):
 
 class Engagement(models.Model):
     """
-    Model to track requests for work from Project Owner -> Engineer
+    Model to track requests for bidirectional work from both Project Owner <-> Engineer
     """
 
     class Responses(models.TextChoices):
         ACCEPTED = "ACCEPTED", "Accepted"
         DECLINED = "DECLINED", "Declined"
         NO_RESPONSE = "NO_RESPONSE", "No Response"
+
+    class EngagementTypes(models.TextChoices):
+        PROJECT_OWNER_INITIATED = "PROJECT_OWNER_INITIATED", "Project Owner Initiated"
+        EXPERT_INITIATED = "EXPERT_INITIATED", "SME Initiated"
 
     date_created = models.DateTimeField(default=timezone.now)
     date_responded = models.DateTimeField(null=True, blank=True)
@@ -69,6 +73,7 @@ class Engagement(models.Model):
     expert = models.ForeignKey(
         User, on_delete=models.SET_NULL, related_name="expert_engagements", null=True
     )
+    # multiple Project field for Project Owner -> Expert request
     projects = models.ManyToManyField(
         "project_owners.Project", related_name="engagements", blank=True
     )
@@ -76,6 +81,11 @@ class Engagement(models.Model):
         max_length=20, choices=Responses.choices, default=Responses.NO_RESPONSE
     )
     email_sent = models.BooleanField(default=False)
+    engagement_type = models.CharField(
+        max_length=50,
+        choices=EngagementTypes.choices,
+        default=EngagementTypes.PROJECT_OWNER_INITIATED,
+    )
 
     def __str__(self):
         return self.project_owner.last_name

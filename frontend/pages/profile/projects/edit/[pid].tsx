@@ -9,11 +9,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import useProjects from "../../../../src/hooks/useProjects";
 import InnerNav from "../../../../src/components/InnerNav";
-
-type FormData = {
-  title: string;
-  description: string;
-};
+import SkillsCheckboxes from "../../../../src/components/SkillsCheckboxes";
 
 export default function EditProject() {
   const router = useRouter();
@@ -34,6 +30,7 @@ export default function EditProject() {
     reset({
       title: project?.title,
       description: project?.description,
+      skills: project?.skills,
     });
   }, [reset, project]);
 
@@ -118,6 +115,9 @@ export default function EditProject() {
               <Box sx={{ color: "error.main" }}>
                 {errors.description && "Field is required"}
               </Box>
+            </Grid>
+            <Grid item xs={12}>
+              <SkillsCheckboxes control={control} />
             </Grid>
           </Grid>
           <Button

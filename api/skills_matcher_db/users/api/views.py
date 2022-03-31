@@ -138,6 +138,7 @@ class UserViewSet(viewsets.ModelViewSet):
             engagement = Engagement.objects.create(
                 project_owner=user,
                 expert=expert,
+                engagement_type=Engagement.EngagementTypes.PROJECT_OWNER_INITIATED,
             )
             # add Project to Many to Many field
             if projects:
@@ -154,7 +155,7 @@ class UserViewSet(viewsets.ModelViewSet):
                     context={
                         "expert_name": f"{expert.first_name} {expert.last_name}",
                         "requester_name": f"{user.first_name} {user.last_name}",
-                        "requester_email": {user.email},
+                        "requester_email": user.email,
                         "projects": projects,
                         "engagement_id": engagement.id,
                         "message": request.data["message"],
@@ -172,7 +173,63 @@ class UserViewSet(viewsets.ModelViewSet):
                     context={
                         "expert_name": f"{expert.first_name} {expert.last_name}",
                         "requester_name": f"{user.first_name} {user.last_name}",
-                        "expert_email": {expert.email},
+                        "expert_email": expert.email,
+                    },
+                )
+                print("Email sent")
+                return Response(status=status.HTTP_200_OK, data=engagement)
+            except Exception as e:
+                print(e)
+                return Response(status=status.HTTP_400_BAD_REQUEST, data=e)
+
+    @action(detail=False, methods=["post"])
+    def contact_project_owner(self, request):
+        # sends email to project owner, and initiates Engagement tracking
+        user = request.user
+        try:
+            project = Project.objects.get(id=request.data["project_id"])
+        except Project.DoesNotExist:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        print(request.data)
+
+        if project:
+            # initiate Engagement tracking
+            engagement = Engagement.objects.create(
+                project_owner=project.project_owner,
+                expert=user,
+                engagement_type=Engagement.EngagementTypes.EXPERT_INITIATED,
+            )
+            # add Project to Many to Many field
+            engagement.projects.add(project)
+
+            # send email
+            print("sending email...")
+            try:
+                # send email to project owner
+                send_templated_mail(
+                    template_name="project_request",
+                    from_email="noreply-skillsdb@whoi.edu",
+                    recipient_list=[project.project_owner.email],
+                    context={
+                        "project_owner": f"{project.project_owner.first_name} {project.project_owner.last_name}",
+                        "requester_name": f"{user.first_name} {user.last_name}",
+                        "requester_email": {user.email},
+                        "project_title": project.title,
+                        "engagement_id": engagement.id,
+                        "message": request.data["message"],
+                    },
+                )
+                # send receipt to requester
+                send_templated_mail(
+                    template_name="project_request_receipt",
+                    from_email="noreply-skillsdb@whoi.edu",
+                    recipient_list=[user.email],
+                    context={
+                        "project_owner": f"{project.project_owner.first_name} {project.project_owner.last_name}",
+                        "requester_name": f"{user.first_name} {user.last_name}",
+                        "project_title": project.title,
+                        "project_owner_email": project.project_owner.email,
                     },
                 )
                 print("Email sent")

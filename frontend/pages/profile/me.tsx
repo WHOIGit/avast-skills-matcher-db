@@ -27,7 +27,7 @@ const Me = (): React.ReactElement => {
 
   return (
     <MsalAuthenticationTemplate
-      interactionType={InteractionType.Popup}
+      interactionType={InteractionType.Redirect}
       errorComponent={ErrorComponent}
       loadingComponent={LoadingComponent}
     >

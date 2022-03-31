@@ -8,7 +8,7 @@ import Divider from "@mui/material/Divider";
 import { Button } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-import AccountCircle from "@mui/icons-material/AccountCircle";
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import Logout from "@mui/icons-material/Logout";
 import useProfile from "../../src/hooks/useProfile";
 import { SignOutButton } from "./AuthUi";
@@ -83,7 +83,7 @@ export default function AccountMenu() {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <MenuItem onClick={() => handleLink("/profile/me")}>
-          <AccountCircle /> My account
+          <ManageAccountsIcon /> Manage account
         </MenuItem>
 
         <Divider />

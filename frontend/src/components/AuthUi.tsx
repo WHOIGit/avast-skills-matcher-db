@@ -19,7 +19,7 @@ export const SignInButton = () => {
 
   return (
     <div>
-      <Button color="inherit" onClick={() => handleLogin("popup")}>
+      <Button color="inherit" onClick={() => handleLogin("redirect")}>
         Login
       </Button>
     </div>

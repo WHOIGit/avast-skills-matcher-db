@@ -14,13 +14,13 @@ import TextTruncate from "react-text-truncate";
 // local imports
 import Link, { NextLinkComposed } from "./Link";
 import SkillChip from "./SkillChip";
-import { User } from "../containers/authContainer";
-import useFavorite from "../hooks/useFavorite";
+import { Project } from "../hooks/useProjects";
 import ContactDialog from "./ContactDialog";
 import UnauthContactDialog from "./UnauthContactDialog";
+import ContactProjectDialog from "./ContactProjectDialog";
 
 type CardProps = {
-  expert: User;
+  project: Project;
 };
 
 const SkillChipsList = styled("ul")(({ theme }) => ({
@@ -34,56 +34,33 @@ const SkillChipsList = styled("ul")(({ theme }) => ({
   },
 }));
 
-export default function ExpertCard({ expert }: CardProps) {
+export default function ProjectCard({ project }: CardProps) {
   const isAuthenticated = useIsAuthenticated();
-  const { isFavorite, toggleFavorite } = useFavorite(expert);
-  const [starColor, setStarColor] =
-    React.useState<IconButtonProps["color"]>("default");
-
-  React.useEffect(() => {
-    if (isFavorite) {
-      setStarColor("secondary");
-    } else {
-      setStarColor("default");
-    }
-  }, [isFavorite]);
 
   return (
     <Card sx={{ height: 400 }}>
       <CardHeader
-        avatar={
-          <Avatar
-            sx={{ bgcolor: "secondary.main" }}
-            aria-label="expert"
-            component={NextLinkComposed}
-            to={{
-              pathname: `/experts/${expert.id}`,
-            }}
-            alt={expert.firstName}
-            src={expert.avatar}
-          />
-        }
         action={
           <IconButton
             component={NextLinkComposed}
             to={{
-              pathname: `/experts/${expert.id}`,
+              pathname: `/projects/${project.id}`,
             }}
           >
             <ReadMoreIcon />
           </IconButton>
         }
         title={
-          <Link href={`/experts/${expert.id}`} underline="hover">
-            {`${expert.firstName} ${expert.lastName}`}
+          <Link href={`/projects/${project.id}`} underline="hover">
+            {project.title}
           </Link>
         }
-        subheader={expert.title}
+        subheader={`{Project owner: ${project.projectOwnerDisplay}`}
       />
 
       <CardContent sx={{ pt: 0 }}>
         <SkillChipsList>
-          {expert.expertProfile?.skills?.map((id: number) => {
+          {project.skills?.map((id: number) => {
             return (
               <li key={id}>
                 <SkillChip key={id} skillId={id} size="small" />
@@ -97,25 +74,16 @@ export default function ExpertCard({ expert }: CardProps) {
             line={4}
             element="span"
             truncateText="..."
-            text={expert.expertProfile?.experience}
+            text={project.description}
             //textTruncateChild={<a href="#">Read on</a>}
           />
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
         {isAuthenticated ? (
-          <>
-            <IconButton
-              aria-label="add to favorites"
-              color={starColor}
-              onClick={toggleFavorite}
-            >
-              <StarsIcon />
-            </IconButton>
-            <ContactDialog expert={expert} buttonType="icon" />
-          </>
+          <ContactProjectDialog project={project} buttonType="icon" />
         ) : (
-          <UnauthContactDialog item={expert} />
+          <UnauthContactDialog item={project} />
         )}
       </CardActions>
     </Card>

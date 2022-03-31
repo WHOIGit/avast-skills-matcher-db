@@ -16,19 +16,18 @@ import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 
-import useProfile, { User } from "../hooks/useProfile";
+import useProjects, { Project } from "../hooks/useProjects";
 
 type Props = {
-  expert: User;
+  project: Project;
   buttonType: string;
 };
 
-export default function ContactDialog({
-  expert,
+export default function ContactProjectDialog({
+  project,
   buttonType = "standard",
 }: Props) {
-  const { profile, contactExpert } = useProfile();
-  const projects = profile?.projectsOwned;
+  const { contactProjectOwner } = useProjects();
   const textRef = React.useRef() as React.MutableRefObject<HTMLInputElement>;
   const [open, setOpen] = React.useState(false);
   const [checked, setChecked] = React.useState([0]);
@@ -58,7 +57,7 @@ export default function ContactDialog({
 
   const handleSend = () => {
     console.log(textRef.current.value);
-    contactExpert(expert.id, textRef.current.value, checked);
+    contactProjectOwner(project.id, textRef.current.value);
     setMessageSent(true);
     setTimeout(handleClose, 2000);
   };
@@ -88,9 +87,7 @@ export default function ContactDialog({
       )}
 
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>
-          Contact {expert.firstName} {expert.lastName}
-        </DialogTitle>
+        <DialogTitle>Contact Project Owner of {project.title}</DialogTitle>
         <DialogContent>
           {messageSent ? (
             <div>
@@ -100,46 +97,11 @@ export default function ContactDialog({
           ) : (
             <div>
               <DialogContentText>
-                To contact this SME, you can select one of your Projects that
-                you&rsquo;d like to work with them on, or just send a direct
-                message. We will send them your Project and contact details and
-                notify you if they&rsquo;re interested.
+                To contact the owner of this Project, enter an optional message
+                and click &ldquo;Send Request&rdquo;. We will send them your
+                Profile and contact details and notify you if they&rsquo;re
+                interested in your help.
               </DialogContentText>
-
-              <List
-                sx={{
-                  width: "100%",
-                  maxWidth: 360,
-                  bgcolor: "background.paper",
-                }}
-              >
-                {projects?.map((project) => {
-                  console.log(project);
-
-                  const labelId = `checkbox-list-label-${project.id}`;
-
-                  return (
-                    <ListItem key={project.id} disablePadding>
-                      <ListItemButton
-                        role={undefined}
-                        onClick={handleToggle(project.id)}
-                        dense
-                      >
-                        <ListItemIcon>
-                          <Checkbox
-                            edge="start"
-                            checked={checked.indexOf(project.id) !== -1}
-                            tabIndex={-1}
-                            disableRipple
-                            inputProps={{ "aria-labelledby": labelId }}
-                          />
-                        </ListItemIcon>
-                        <ListItemText id={labelId} primary={project.title} />
-                      </ListItemButton>
-                    </ListItem>
-                  );
-                })}
-              </List>
 
               <TextField
                 fullWidth
