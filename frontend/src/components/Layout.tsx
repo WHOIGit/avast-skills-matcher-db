@@ -112,7 +112,38 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             </Typography>
           </Link>
           <SearchField />
-          <Box sx={{ flexGrow: 1 }} />
+          <Box
+            sx={{
+              display: "flex",
+              flexGrow: 1,
+              alignItems: "center",
+              textAlign: "center",
+            }}
+          >
+            <Link
+              href="/"
+              underline="hover"
+              sx={{ color: "white", minWidth: 100 }}
+            >
+              <Typography>SMEs</Typography>
+            </Link>
+
+            <Link
+              href="/projects"
+              underline="hover"
+              sx={{ color: "white", minWidth: 100 }}
+            >
+              <Typography>Projects</Typography>
+            </Link>
+
+            <Link
+              href="/about"
+              underline="hover"
+              sx={{ color: "white", minWidth: 100 }}
+            >
+              <Typography>About</Typography>
+            </Link>
+          </Box>
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <SignInSignOutButton />
           </Box>

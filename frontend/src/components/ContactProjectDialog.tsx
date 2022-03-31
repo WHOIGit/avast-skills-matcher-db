@@ -7,12 +7,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import SendIcon from "@mui/icons-material/Send";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import Checkbox from "@mui/material/Checkbox";
+import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 
@@ -77,13 +72,15 @@ export default function ContactProjectDialog({
       )}
 
       {buttonType === "icon" && (
-        <IconButton
-          aria-label="contact SME"
-          color="default"
-          onClick={handleClickOpen}
-        >
-          <SendIcon />
-        </IconButton>
+        <Tooltip title="Contact Project Owner">
+          <IconButton
+            aria-label="contact Project Owner"
+            color="default"
+            onClick={handleClickOpen}
+          >
+            <SendIcon />
+          </IconButton>
+        </Tooltip>
       )}
 
       <Dialog open={open} onClose={handleClose}>

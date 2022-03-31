@@ -15,7 +15,8 @@ import ListItemText from "@mui/material/ListItemText";
 import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-
+import Tooltip from "@mui/material/Tooltip";
+// local imports
 import useProfile, { User } from "../hooks/useProfile";
 
 type Props = {
@@ -78,13 +79,15 @@ export default function ContactDialog({
       )}
 
       {buttonType === "icon" && (
-        <IconButton
-          aria-label="contact SME"
-          color="default"
-          onClick={handleClickOpen}
-        >
-          <SendIcon />
-        </IconButton>
+        <Tooltip title="Contact SME">
+          <IconButton
+            aria-label="contact SME"
+            color="default"
+            onClick={handleClickOpen}
+          >
+            <SendIcon />
+          </IconButton>
+        </Tooltip>
       )}
 
       <Dialog open={open} onClose={handleClose}>
@@ -152,11 +155,12 @@ export default function ContactDialog({
             </div>
           )}
         </DialogContent>
-
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleSend}>Send Request</Button>
-        </DialogActions>
+        {!messageSent && (
+          <DialogActions>
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button onClick={handleSend}>Send Request</Button>
+          </DialogActions>
+        )}
       </Dialog>
     </div>
   );

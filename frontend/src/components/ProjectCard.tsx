@@ -51,11 +51,15 @@ export default function ProjectCard({ project }: CardProps) {
           </IconButton>
         }
         title={
-          <Link href={`/projects/${project.id}`} underline="hover">
+          <Link
+            href={`/projects/${project.id}`}
+            underline="hover"
+            sx={{ fontSize: "1.4rem" }}
+          >
             {project.title}
           </Link>
         }
-        subheader={`{Project owner: ${project.projectOwnerDisplay}`}
+        subheader={`Project owner: ${project.projectOwnerDisplay}`}
       />
 
       <CardContent sx={{ pt: 0 }}>

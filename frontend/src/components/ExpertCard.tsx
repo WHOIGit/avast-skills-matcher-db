@@ -10,6 +10,7 @@ import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import ReadMoreIcon from "@mui/icons-material/ReadMore";
 import StarsIcon from "@mui/icons-material/Stars";
+import Tooltip from "@mui/material/Tooltip";
 import TextTruncate from "react-text-truncate";
 // local imports
 import Link, { NextLinkComposed } from "./Link";
@@ -105,13 +106,15 @@ export default function ExpertCard({ expert }: CardProps) {
       <CardActions disableSpacing>
         {isAuthenticated ? (
           <>
-            <IconButton
-              aria-label="add to favorites"
-              color={starColor}
-              onClick={toggleFavorite}
-            >
-              <StarsIcon />
-            </IconButton>
+            <Tooltip title="Add to Favorites">
+              <IconButton
+                aria-label="add to favorites"
+                color={starColor}
+                onClick={toggleFavorite}
+              >
+                <StarsIcon />
+              </IconButton>
+            </Tooltip>
             <ContactDialog expert={expert} buttonType="icon" />
           </>
         ) : (
