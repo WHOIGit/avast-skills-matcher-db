@@ -65,29 +65,31 @@ export default function Index() {
               </Box>
             )}
 
-            <Box sx={{ textAlign: "center" }}>
-              <Typography
-                variant="body1"
-                align="center"
-                color="text.secondary"
-                paragraph
-              >
-                Want to contact an SME listed on our site? Create a
-                &quot;Project&quot; that you can request assistance with from
-                one of our users.
-              </Typography>
+            {!profile?.userType?.includes("PROJECT_OWNER") && (
+              <Box sx={{ textAlign: "center" }}>
+                <Typography
+                  variant="body1"
+                  align="center"
+                  color="text.secondary"
+                  paragraph
+                >
+                  Want to contact an SME listed on our site? Create a
+                  &quot;Project&quot; that you can request assistance with from
+                  one of our users.
+                </Typography>
 
-              <Button
-                variant="outlined"
-                startIcon={<AddIcon />}
-                component={NextLinkComposed}
-                to={{
-                  pathname: "/profile/me",
-                }}
-              >
-                Create Project
-              </Button>
-            </Box>
+                <Button
+                  variant="outlined"
+                  startIcon={<AddIcon />}
+                  component={NextLinkComposed}
+                  to={{
+                    pathname: "/profile/me",
+                  }}
+                >
+                  Create Project
+                </Button>
+              </Box>
+            )}
           </Stack>
         </Container>
       </Box>

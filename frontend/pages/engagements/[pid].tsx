@@ -55,8 +55,9 @@ const EngagementResponse = (): React.ReactElement => {
           </Typography>
 
           <Typography component="p" variant="subtitle1">
-            Your response has been recorded and sent to the Project Owner. If
-            you agreed to provide assistance, they will reach out to you soon.
+            Your response has been recorded and sent to the SME or the Project
+            Owner. If you approved their request, they will reach out directly
+            to you soon.
           </Typography>
         </Box>
       </Box>

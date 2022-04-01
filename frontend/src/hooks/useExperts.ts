@@ -9,7 +9,7 @@ type HookData = {
 };
 
 export default function useExperts(): HookData {
-  // get array of all Engineers
+  // get array of all Experts
   let { data, error } = useSWR(`${API_BASE}/api/experts/`, fetcher);
 
   return {

@@ -42,5 +42,8 @@ class Project(models.Model):
     experts = models.ManyToManyField(User, related_name="projects_assigned", blank=True)
     skills = TreeManyToManyField(Skill, related_name="projects", blank=True)
 
+    class Meta:
+        ordering = ["title"]
+
     def __str__(self):
         return self.title

@@ -1,7 +1,7 @@
 import useSWR, { useSWRConfig } from "swr";
 import { useMsal } from "@azure/msal-react";
 import { fetcherWithToken, getMsToken } from "../utils/azureAuth";
-import { makeUrl, API_BASE } from "../utils/apiUtils";
+import { makeUrl, fetcher, API_BASE } from "../utils/apiUtils";
 const profileUrl = `${API_BASE}/api/users/me/`;
 
 type ProjectFormData = {
@@ -37,11 +37,11 @@ const useProjects = (pid?: any): HookData => {
     data: dataProjects,
     mutate: mutateProject,
     error: errorProjects,
-  } = useSWR([`${API_BASE}/api/projects/`, instance], fetcherWithToken);
+  } = useSWR(`${API_BASE}/api/projects/`, fetcher);
 
   const { data: dataProject, error: errorProject } = useSWR(
-    pid ? [`${API_BASE}/api/projects/${pid}/`, instance] : null,
-    fetcherWithToken
+    pid ? `${API_BASE}/api/projects/${pid}/` : null,
+    fetcher
   );
 
   const createProject = async (data: ProjectFormData): Promise<Response> => {

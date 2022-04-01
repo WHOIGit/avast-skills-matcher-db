@@ -9,7 +9,7 @@ type HookData = {
 };
 
 export default function useExpert(pid: any): HookData {
-  // get array of all Engineers
+  // get array of single Expert
   let { data, error } = useSWR(
     pid ? `${API_BASE}/api/experts/${pid}` : null,
     fetcher

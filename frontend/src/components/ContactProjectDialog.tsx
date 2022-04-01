@@ -67,7 +67,7 @@ export default function ContactProjectDialog({
           size="small"
           startIcon={<SendIcon />}
         >
-          Contact SME
+          Contact Project Owner
         </Button>
       )}
 

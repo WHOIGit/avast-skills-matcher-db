@@ -5,7 +5,6 @@ import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
-import Avatar from "@mui/material/Avatar";
 import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import ReadMoreIcon from "@mui/icons-material/ReadMore";
@@ -15,7 +14,6 @@ import TextTruncate from "react-text-truncate";
 import Link, { NextLinkComposed } from "./Link";
 import SkillChip from "./SkillChip";
 import { Project } from "../hooks/useProjects";
-import ContactDialog from "./ContactDialog";
 import UnauthContactDialog from "./UnauthContactDialog";
 import ContactProjectDialog from "./ContactProjectDialog";
 
@@ -38,7 +36,7 @@ export default function ProjectCard({ project }: CardProps) {
   const isAuthenticated = useIsAuthenticated();
 
   return (
-    <Card sx={{ height: 400 }}>
+    <Card sx={{ height: 380 }}>
       <CardHeader
         action={
           <IconButton
