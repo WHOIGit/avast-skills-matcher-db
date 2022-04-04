@@ -14,7 +14,11 @@ export const SignInButton = () => {
   console.log(instance);
 
   const handleLogin = (loginType: string) => {
-    instance.loginPopup(loginRequest);
+    if (loginType === "popup") {
+      instance.loginPopup(loginRequest);
+    } else if (loginType === "redirect") {
+      instance.loginRedirect(loginRequest);
+    }
   };
 
   return (
