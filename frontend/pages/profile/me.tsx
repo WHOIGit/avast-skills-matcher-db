@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useRouter } from "next/router";
 import { MsalAuthenticationTemplate } from "@azure/msal-react";
 import { InteractionType } from "@azure/msal-browser";
 import Stack from "@mui/material/Stack";
@@ -12,7 +13,6 @@ import AddIcon from "@mui/icons-material/Add";
 import { NextLinkComposed } from "../../src/components/Link";
 import useProfile from "../../src/hooks/useProfile";
 import ProfileTabs from "../../src/components/ProfileTabs";
-import { SignInButton } from "../../src/components/AuthUi";
 
 const ErrorComponent = ({ error }: any) => {
   return <p>An Error Occurred: {error}</p>;
@@ -24,12 +24,21 @@ const LoadingComponent = () => {
 
 const Me = (): React.ReactElement => {
   const { profile } = useProfile();
+  const { query } = useRouter();
   const [selectedTab, setSelectedTab] = React.useState(0);
 
   const selectProjectsTab = () => {
     // change active tab to Projects
     setSelectedTab(1);
   };
+
+  React.useEffect(() => {
+    console.log(query);
+
+    if (query.tabId) {
+      setSelectedTab(Number(query.tabId));
+    }
+  }, [query]);
 
   return (
     <MsalAuthenticationTemplate

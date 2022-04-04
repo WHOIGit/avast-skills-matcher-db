@@ -22,6 +22,7 @@ import Link, { NextLinkComposed } from "./Link";
 import { User } from "../hooks/useProfile";
 import SkillChip from "./SkillChip";
 import useProjects, { Project } from "../hooks/useProjects";
+import ProjectDeleteDialog from "./ProjectDeleteDialog";
 
 type TabPanelProps = {
   children?: React.ReactNode;
@@ -59,7 +60,6 @@ function a11yProps(index: number) {
 
 export default function ProfileTabs({ profile, showTab }: ComponentProps) {
   const router = useRouter();
-  const { deleteProject } = useProjects();
   const [value, setValue] = React.useState(0);
 
   React.useEffect(() => {
@@ -78,15 +78,7 @@ export default function ProfileTabs({ profile, showTab }: ComponentProps) {
     return (
       <ListItem
         key={project.id}
-        secondaryAction={
-          <IconButton
-            edge="end"
-            aria-label="delete"
-            onClick={() => deleteProject(project.id)}
-          >
-            <DeleteIcon />
-          </IconButton>
-        }
+        secondaryAction={<ProjectDeleteDialog project={project} />}
         disablePadding
       >
         <ListItemButton onClick={() => handleEdit(project.id)} dense>

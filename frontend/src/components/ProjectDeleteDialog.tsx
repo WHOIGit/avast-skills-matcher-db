@@ -1,6 +1,6 @@
 import * as React from "react";
+import { useRouter } from "next/router";
 import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -10,7 +10,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-
+// local imports
 import useProjects, { Project } from "../hooks/useProjects";
 
 type Props = {
@@ -19,23 +19,9 @@ type Props = {
 
 export default function ProjectDeleteDialog({ project }: Props) {
   const { deleteProject } = useProjects();
-  const textRef = React.useRef() as React.MutableRefObject<HTMLInputElement>;
+  const router = useRouter();
   const [open, setOpen] = React.useState(false);
-  const [checked, setChecked] = React.useState([0]);
   const [isDeleted, setIsDeleted] = React.useState(false);
-
-  const handleToggle = (value: number) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-
-    setChecked(newChecked);
-  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -44,6 +30,8 @@ export default function ProjectDeleteDialog({ project }: Props) {
   const handleClose = () => {
     setIsDeleted(false);
     setOpen(false);
+    // redirect to user profile
+    router.push("/profile/me?tabId=1");
   };
 
   const handleDelete = () => {

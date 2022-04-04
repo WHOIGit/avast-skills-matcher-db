@@ -11,7 +11,6 @@ import AccountMenu from "./AccountMenu";
 
 export const SignInButton = () => {
   const { instance } = useMsal();
-  console.log(instance);
 
   const handleLogin = (loginType: string) => {
     if (loginType === "popup") {
@@ -55,8 +54,6 @@ export const SignInSignOutButton = () => {
   const { inProgress } = useMsal();
   const isAuthenticated = useIsAuthenticated();
 
-  console.log("In Progress", inProgress);
-
   if (isAuthenticated) {
     return <AccountMenu />;
   } else if (
@@ -73,7 +70,6 @@ export const SignInSignOutButton = () => {
 export const WelcomeName = () => {
   const { accounts } = useMsal();
   const [name, setName] = useState<null | string | undefined>(null);
-  console.log(accounts[0]);
 
   useEffect(() => {
     if (accounts.length > 0) {

@@ -8,9 +8,9 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 // local imports
-import Skills, { Skill } from "../../../src/containers/skillsContainer";
 import useProjects from "../../../src/hooks/useProjects";
 import SkillsCheckboxes from "../../../src/components/SkillsCheckboxes";
+import InnerNav from "../../../src/components/InnerNav";
 
 export default function AddProject() {
   const router = useRouter();
@@ -32,7 +32,7 @@ export default function AddProject() {
       } else {
         setErrorMessage("");
         // redirect to user profile
-        router.push("/profile/me");
+        router.push("/profile/me?tabId=1");
       }
     } catch (error: any) {
       console.error(error);
@@ -42,80 +42,83 @@ export default function AddProject() {
   };
 
   return (
-    <Box
-      sx={{
-        marginTop: 8,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
-      <Typography component="h1" variant="h5">
-        Add Project
-      </Typography>
-
+    <>
+      <InnerNav />
       <Box
-        component="form"
-        noValidate
-        onSubmit={handleSubmit(onSubmit)}
-        sx={{ mt: 3, width: 600 }}
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
       >
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <Controller
-              name="title"
-              defaultValue=""
-              control={control}
-              rules={{ required: true }}
-              render={({ field: { onChange, value } }) => (
-                <TextField
-                  fullWidth
-                  label="Project Title"
-                  onChange={onChange}
-                  value={value}
-                />
-              )}
-            />
-            <Box sx={{ color: "error.main" }}>
-              {errors.title && "Title is required"}
-            </Box>
-          </Grid>
-          <Grid item xs={12}>
-            <Controller
-              name="description"
-              defaultValue=""
-              control={control}
-              rules={{ required: true }}
-              render={({ field: { onChange, value } }) => (
-                <TextField
-                  fullWidth
-                  multiline
-                  rows={8}
-                  onChange={onChange}
-                  value={value}
-                  label={"Describe your project"}
-                  variant="outlined"
-                />
-              )}
-            />
-            <Box sx={{ color: "error.main" }}>
-              {errors.description && "Field is required"}
-            </Box>
-          </Grid>
-          <Grid item xs={12}>
-            <SkillsCheckboxes control={control} />
-          </Grid>
-        </Grid>
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          sx={{ mt: 3, mb: 2 }}
+        <Typography component="h1" variant="h5">
+          Add Project
+        </Typography>
+
+        <Box
+          component="form"
+          noValidate
+          onSubmit={handleSubmit(onSubmit)}
+          sx={{ mt: 3, width: 600 }}
         >
-          Save Project
-        </Button>
-        <Box sx={{ color: "error.main" }}>{errorMessage}</Box>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <Controller
+                name="title"
+                defaultValue=""
+                control={control}
+                rules={{ required: true }}
+                render={({ field: { onChange, value } }) => (
+                  <TextField
+                    fullWidth
+                    label="Project Title"
+                    onChange={onChange}
+                    value={value}
+                  />
+                )}
+              />
+              <Box sx={{ color: "error.main" }}>
+                {errors.title && "Title is required"}
+              </Box>
+            </Grid>
+            <Grid item xs={12}>
+              <Controller
+                name="description"
+                defaultValue=""
+                control={control}
+                rules={{ required: true }}
+                render={({ field: { onChange, value } }) => (
+                  <TextField
+                    fullWidth
+                    multiline
+                    rows={8}
+                    onChange={onChange}
+                    value={value}
+                    label={"Describe your project"}
+                    variant="outlined"
+                  />
+                )}
+              />
+              <Box sx={{ color: "error.main" }}>
+                {errors.description && "Field is required"}
+              </Box>
+            </Grid>
+            <Grid item xs={12}>
+              <SkillsCheckboxes control={control} />
+            </Grid>
+          </Grid>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Save Project
+          </Button>
+          <Box sx={{ color: "error.main" }}>{errorMessage}</Box>
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 }

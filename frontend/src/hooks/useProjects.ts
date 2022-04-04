@@ -106,6 +106,7 @@ const useProjects = (pid?: any): HookData => {
 
     if (resp.ok) {
       // refresh the useSWR profile API data
+      console.log("MUTATE PROFILE ON DELETE");
       mutate(profileUrl);
     }
     return resp;

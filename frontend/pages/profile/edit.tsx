@@ -154,10 +154,7 @@ export default function EditForm() {
                   />
                 )}
               />
-              <FormHelperText>
-                Email field is not editable. Please contact WHOI IS if there is
-                an issue.
-              </FormHelperText>
+
               <Box sx={{ color: "error.main" }}>
                 {errors.firstName && "First name is required"}
               </Box>
@@ -196,6 +193,10 @@ export default function EditForm() {
                   />
                 )}
               />
+              <FormHelperText>
+                Email field is not editable. Please contact WHOI IS if there is
+                an issue.
+              </FormHelperText>
               <Box sx={{ color: "error.main" }}>{errors.email?.message}</Box>
             </Grid>
             <Grid item xs={12}>

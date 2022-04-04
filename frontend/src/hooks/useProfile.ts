@@ -160,7 +160,6 @@ const useProfile = (): HookData => {
 
   const uploadAvatar = async (image: File): Promise<Response> => {
     const url = makeUrl(`/api/users/set_avatar/`);
-    console.log(image);
 
     const body = new FormData();
     body.append("avatar", image);
