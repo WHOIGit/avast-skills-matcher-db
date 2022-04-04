@@ -93,6 +93,12 @@ export default function Index() {
           </Stack>
         </Container>
       </Box>
+      <Box sx={{ my: 2 }}>
+        <Typography variant="body1" color="text.secondary" paragraph>
+          The following <strong>SMEs (Subject Matter Experts)</strong> are
+          available to contact for assistance:
+        </Typography>
+      </Box>
       <Box sx={{ my: 4 }}>
         <ExpertsGrid />
       </Box>

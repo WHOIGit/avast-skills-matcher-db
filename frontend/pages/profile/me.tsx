@@ -24,6 +24,12 @@ const LoadingComponent = () => {
 
 const Me = (): React.ReactElement => {
   const { profile } = useProfile();
+  const [selectedTab, setSelectedTab] = React.useState(0);
+
+  const selectProjectsTab = () => {
+    // change active tab to Projects
+    setSelectedTab(1);
+  };
 
   return (
     <MsalAuthenticationTemplate
@@ -73,6 +79,7 @@ const Me = (): React.ReactElement => {
             >
               Edit Account
             </Button>
+
             {profile?.userType?.includes("EXPERT") && (
               <Button
                 variant="contained"
@@ -91,6 +98,17 @@ const Me = (): React.ReactElement => {
               >
                 {profile?.expertProfile?.experience ? "Edit" : "Create"} SME
                 Profile
+              </Button>
+            )}
+
+            {profile?.userType?.includes("PROJECT_OWNER") && (
+              <Button
+                variant="contained"
+                size="small"
+                startIcon={<EditIcon />}
+                onClick={selectProjectsTab}
+              >
+                Manage Projects
               </Button>
             )}
           </Stack>
@@ -120,7 +138,9 @@ const Me = (): React.ReactElement => {
         </Box>
 
         <Box sx={{ mt: 1, width: "100%" }}>
-          {profile?.userType && <ProfileTabs profile={profile} />}
+          {profile?.userType && (
+            <ProfileTabs profile={profile} showTab={selectedTab} />
+          )}
         </Box>
 
         {!profile?.userType?.includes("EXPERT") && (

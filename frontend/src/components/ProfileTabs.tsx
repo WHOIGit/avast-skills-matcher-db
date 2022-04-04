@@ -31,6 +31,7 @@ type TabPanelProps = {
 
 type ComponentProps = {
   profile: User;
+  showTab: number;
 };
 
 function TabPanel(props: TabPanelProps) {
@@ -56,16 +57,14 @@ function a11yProps(index: number) {
   };
 }
 
-export default function ProfileTabs({ profile }: ComponentProps) {
+export default function ProfileTabs({ profile, showTab }: ComponentProps) {
   const router = useRouter();
   const { deleteProject } = useProjects();
-  const [value, setValue] = React.useState(
-    profile.userType?.includes("PROJECT_OWNER") ? 1 : 0
-  );
+  const [value, setValue] = React.useState(0);
 
-  useEffect(() => {
-    setValue(profile.userType?.includes("PROJECT_OWNER") ? 1 : 0);
-  }, [profile]);
+  React.useEffect(() => {
+    setValue(showTab);
+  }, [showTab]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);

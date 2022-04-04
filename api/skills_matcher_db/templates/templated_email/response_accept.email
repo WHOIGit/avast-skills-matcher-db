@@ -13,9 +13,9 @@
 {% block html %}
   <p>Hi {{requester_name}},</p>
 
-  <p>Good news! Your request for assistance has been ACCEPTED by {{expert_name}}.</p>
+  <p>Good news! Your request for assistance has been ACCEPTED by {{receiver_name}}.</p>
 
-  <p>You can now contact them directly at <a href="mailto:{{expert_email}}">{{expert_email}}</a> and get started working together, 
+  <p>You can now contact them directly at <a href="mailto:{{receiver_email}}">{{receiver_email}}</a> and get started working together, 
     they'll be expecting your message.</p>
   
   <p>Thanks for using the AVAST Skills Matcher!</p>

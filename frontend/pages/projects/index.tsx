@@ -48,9 +48,9 @@ export default function Index() {
                   color="text.secondary"
                   paragraph
                 >
-                  Want to make your skills available to the WHOI community?
-                  Create a &quot;SME Profile&quot;, and you will be listed in
-                  the Skills Matcher DB.
+                  Want to offer your assistance on a Project? Create a &quot;SME
+                  Profile&quot; to highlight your skills, and then send a
+                  messasge to the Project Owner.
                 </Typography>
                 <Button
                   variant="contained"
@@ -73,9 +73,9 @@ export default function Index() {
                   color="text.secondary"
                   paragraph
                 >
-                  Want to contact an SME listed on our site? Create a
-                  &quot;Project&quot; that you can request assistance with from
-                  one of our users.
+                  Have a project you need assistance with? Create a
+                  &quot;Project&quot; in your accoutn and it will be listed in
+                  the Project database for WHOI SMEs to discover.
                 </Typography>
 
                 <Button
@@ -93,6 +93,13 @@ export default function Index() {
           </Stack>
         </Container>
       </Box>
+
+      <Box sx={{ my: 2 }}>
+        <Typography variant="body1" color="text.secondary" paragraph>
+          The following <strong>Projects</strong> are looking for assistance:
+        </Typography>
+      </Box>
+
       <Box sx={{ my: 4 }}>
         <ProjectsGrid />
       </Box>
