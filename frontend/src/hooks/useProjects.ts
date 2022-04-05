@@ -1,8 +1,8 @@
-import useSWR, { useSWRConfig } from "swr";
+import useSWR from "swr";
 import { useMsal } from "@azure/msal-react";
-import { fetcherWithToken, getMsToken } from "../utils/azureAuth";
+import { getMsToken } from "../utils/azureAuth";
 import { makeUrl, fetcher, API_BASE } from "../utils/apiUtils";
-const profileUrl = `${API_BASE}/api/users/me/`;
+import useProfile from "./useProfile";
 
 type ProjectFormData = {
   title: string;
@@ -32,7 +32,7 @@ type HookData = {
 
 const useProjects = (pid?: any): HookData => {
   const { instance, inProgress } = useMsal();
-  const { mutate } = useSWRConfig();
+  const { mutateProfile } = useProfile();
   const {
     data: dataProjects,
     mutate: mutateProject,
@@ -62,7 +62,7 @@ const useProjects = (pid?: any): HookData => {
     });
     if (resp.ok) {
       // refresh the useSWR profile API data
-      mutate(profileUrl);
+      mutateProfile();
     }
     return resp;
   };
@@ -89,7 +89,7 @@ const useProjects = (pid?: any): HookData => {
     if (resp.ok) {
       // refresh the useSWR profile API data
       mutateProject();
-      mutate(profileUrl);
+      mutateProfile();
     }
     return resp;
   };
@@ -106,8 +106,7 @@ const useProjects = (pid?: any): HookData => {
 
     if (resp.ok) {
       // refresh the useSWR profile API data
-      console.log("MUTATE PROFILE ON DELETE");
-      mutate(profileUrl);
+      mutateProfile();
     }
     return resp;
   };

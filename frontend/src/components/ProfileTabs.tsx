@@ -167,6 +167,19 @@ export default function ProfileTabs({ profile, showTab }: ComponentProps) {
         <Typography component="p" variant="body1" paragraph>
           {profile.expertProfile?.experience}
         </Typography>
+
+        <Button
+          variant="contained"
+          color="warning"
+          size="small"
+          startIcon={<DeleteIcon />}
+          component={NextLinkComposed}
+          to={{
+            pathname: "/profile/edit",
+          }}
+        >
+          Delete SME Profile
+        </Button>
       </TabPanel>
 
       <TabPanel value={value} index={1}>

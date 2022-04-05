@@ -11,7 +11,7 @@ import InnerNav from "../src/components/InnerNav";
 
 export default function About() {
   return (
-    <Container maxWidth="md">
+    <>
       <InnerNav />
       <Box sx={{ my: 4 }}>
         <Typography variant="h4" component="h1" gutterBottom>
@@ -122,6 +122,6 @@ export default function About() {
 
         <Copyright />
       </Box>
-    </Container>
+    </>
   );
 }

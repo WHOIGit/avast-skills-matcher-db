@@ -1,4 +1,4 @@
-import useSWR, { useSWRConfig } from "swr";
+import useSWR, { KeyedMutator, useSWRConfig } from "swr";
 import { useMsal } from "@azure/msal-react";
 import { Project } from "./useProjects";
 import { fetcherWithToken, getMsToken } from "../utils/azureAuth";
@@ -60,6 +60,7 @@ type HookData = {
     message: string,
     projects: number[]
   ) => Promise<Response>;
+  mutateProfile: KeyedMutator<any>;
 };
 
 const useProfile = (): HookData => {
@@ -236,6 +237,7 @@ const useProfile = (): HookData => {
     editExpertProfile: editExpertProfile,
     createProject: createProject,
     contactExpert: contactExpert,
+    mutateProfile: mutateProfile,
   };
 };
 
