@@ -54,7 +54,7 @@ type HookData = {
   ) => Promise<Response>;
   uploadAvatar: (image: File) => Promise<Response>;
   editExpertProfile: (data: Profile) => Promise<Response>;
-  createProject: (title: string, description: string) => Promise<Response>;
+  deleteExpertProfile: (action: string) => Promise<Response>;
   contactExpert: (
     expertId: number,
     message: string,
@@ -180,17 +180,14 @@ const useProfile = (): HookData => {
     return resp;
   };
 
-  const createProject = async (
-    title: string,
-    description: string
-  ): Promise<Response> => {
-    const url = makeUrl(`/api/projects/`);
+  const deleteExpertProfile = async (action: string): Promise<Response> => {
+    const payload = {
+      action: action,
+    };
+    const url = makeUrl(`/api/users/delete_expert_profile/`);
     const resp = await fetch(url, {
-      method: "POST",
-      body: JSON.stringify({
-        title,
-        description,
-      }),
+      method: "PATCH",
+      body: JSON.stringify(payload),
       headers: {
         Authorization: `Bearer ${await getMsToken(instance)}`,
         "Content-Type": "application/json",
@@ -198,9 +195,9 @@ const useProfile = (): HookData => {
     });
 
     if (resp.ok) {
-      // const data = await resp.json();
       // refresh the useSWR profile API data
       mutateProfile();
+      mutate(expertsUrl);
     }
     return resp;
   };
@@ -235,7 +232,7 @@ const useProfile = (): HookData => {
     editProfile: editProfile,
     uploadAvatar: uploadAvatar,
     editExpertProfile: editExpertProfile,
-    createProject: createProject,
+    deleteExpertProfile: deleteExpertProfile,
     contactExpert: contactExpert,
     mutateProfile: mutateProfile,
   };

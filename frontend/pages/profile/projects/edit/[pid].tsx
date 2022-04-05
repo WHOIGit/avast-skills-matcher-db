@@ -44,7 +44,7 @@ export default function EditProject() {
       } else {
         setErrorMessage("");
         // redirect to user profile
-        router.push("/profile/me");
+        router.push("/profile/me?tabId=1");
       }
     } catch (error: any) {
       console.error(error);

@@ -118,6 +118,25 @@ class UserViewSet(viewsets.ModelViewSet):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    @action(detail=False, methods=["patch"])
+    def delete_expert_profile(self, request):
+        user = request.user
+        action = request.data["action"]
+        try:
+            if action == "delete":
+                # delete the Expert Profile
+                expert_profile = user.expert_profile
+                expert_profile.delete()
+                # remove the Expert user type from User data
+                user.user_type.remove(User.Types.EXPERT)
+                user.save()
+                return Response(status=status.HTTP_200_OK)
+            else:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            print(e)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
     @action(detail=False, methods=["post"])
     def contact_expert(self, request):
         # sends email to selected expert, and initiates Engagement tracking
@@ -177,7 +196,9 @@ class UserViewSet(viewsets.ModelViewSet):
                     },
                 )
                 print("Email sent")
-                return Response(status=status.HTTP_200_OK, data=engagement)
+                return Response(
+                    status=status.HTTP_200_OK, data={"action": "email sent"}
+                )
             except Exception as e:
                 print(e)
                 return Response(status=status.HTTP_400_BAD_REQUEST, data=e)
@@ -233,10 +254,12 @@ class UserViewSet(viewsets.ModelViewSet):
                     },
                 )
                 print("Email sent")
-                return Response(status=status.HTTP_200_OK, data=engagement)
+                return Response(
+                    status=status.HTTP_200_OK, data={"action": "email sent"}
+                )
             except Exception as e:
                 print(e)
-                return Response(status=status.HTTP_400_BAD_REQUEST, data=e)
+                return Response(status=status.HTTP_400_BAD_REQUEST, data={"error": e})
 
 
 class Ping(GenericAPIView):

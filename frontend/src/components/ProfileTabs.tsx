@@ -23,6 +23,7 @@ import { User } from "../hooks/useProfile";
 import SkillChip from "./SkillChip";
 import useProjects, { Project } from "../hooks/useProjects";
 import ProjectDeleteDialog from "./ProjectDeleteDialog";
+import Divider from "@mui/material/Divider";
 
 type TabPanelProps = {
   children?: React.ReactNode;
@@ -60,7 +61,9 @@ function a11yProps(index: number) {
 
 export default function ProfileTabs({ profile, showTab }: ComponentProps) {
   const router = useRouter();
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState(
+    profile.userType?.includes("EXPERT") ? 0 : 1
+  );
 
   React.useEffect(() => {
     setValue(showTab);
@@ -124,62 +127,70 @@ export default function ProfileTabs({ profile, showTab }: ComponentProps) {
       </Box>
 
       <TabPanel value={value} index={0}>
-        <Box sx={{ mb: 2 }}>
+        <Box
+          sx={{
+            display: profile.userType?.includes("EXPERT") ? "block" : "none",
+          }}
+        >
+          <Box sx={{ mb: 2 }}>
+            <Typography component="p" variant="body1" paragraph>
+              This is the profile information that will be publicly displayed in
+              our searchable SME database.
+            </Typography>
+
+            <Typography component="h6" variant="h6">
+              Your Skills
+            </Typography>
+            <Stack direction="row" spacing={2}>
+              {profile.expertProfile?.skills.map((id: number) => {
+                return <SkillChip key={id} skillId={id} />;
+              })}
+            </Stack>
+          </Box>
+
+          {profile.expertProfile?.orcidId && (
+            <>
+              <Typography component="h6" variant="h6">
+                ORCID ID
+              </Typography>
+              <Typography component="p" variant="body1" paragraph>
+                <Link href={profile.expertProfile?.orcidId} target="_blank">
+                  {profile.expertProfile?.orcidId}
+                  <OpenInNewIcon />
+                </Link>
+              </Typography>
+            </>
+          )}
+
+          <Typography component="h6" variant="h6">
+            Availability
+          </Typography>
           <Typography component="p" variant="body1" paragraph>
-            This is the profile information that will be publicly displayed in
-            our searchable SME database.
+            {profile.expertProfile?.availabilityDisplay?.join(", ")}
           </Typography>
 
           <Typography component="h6" variant="h6">
-            Your Skills
+            Experience
           </Typography>
-          <Stack direction="row" spacing={2}>
-            {profile.expertProfile?.skills.map((id: number) => {
-              return <SkillChip key={id} skillId={id} />;
-            })}
-          </Stack>
+          <Typography component="p" variant="body1" paragraph>
+            {profile.expertProfile?.experience}
+          </Typography>
+
+          <Divider variant="middle" sx={{ my: 2 }} />
+
+          <Button
+            variant="contained"
+            color="error"
+            size="small"
+            startIcon={<DeleteIcon />}
+            component={NextLinkComposed}
+            to={{
+              pathname: "/profile/delete_profile",
+            }}
+          >
+            Delete SME Profile
+          </Button>
         </Box>
-
-        {profile.expertProfile?.orcidId && (
-          <>
-            <Typography component="h6" variant="h6">
-              ORCID ID
-            </Typography>
-            <Typography component="p" variant="body1" paragraph>
-              <Link href={profile.expertProfile?.orcidId} target="_blank">
-                {profile.expertProfile?.orcidId}
-                <OpenInNewIcon />
-              </Link>
-            </Typography>
-          </>
-        )}
-
-        <Typography component="h6" variant="h6">
-          Availability
-        </Typography>
-        <Typography component="p" variant="body1" paragraph>
-          {profile.expertProfile?.availabilityDisplay?.join(", ")}
-        </Typography>
-
-        <Typography component="h6" variant="h6">
-          Experience
-        </Typography>
-        <Typography component="p" variant="body1" paragraph>
-          {profile.expertProfile?.experience}
-        </Typography>
-
-        <Button
-          variant="contained"
-          color="warning"
-          size="small"
-          startIcon={<DeleteIcon />}
-          component={NextLinkComposed}
-          to={{
-            pathname: "/profile/edit",
-          }}
-        >
-          Delete SME Profile
-        </Button>
       </TabPanel>
 
       <TabPanel value={value} index={1}>
