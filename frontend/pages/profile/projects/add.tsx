@@ -23,7 +23,6 @@ export default function AddProject() {
   const [errorMessage, setErrorMessage] = useState<string>("");
 
   const onSubmit = async (data: any): Promise<void> => {
-    console.log(data);
     // send form data to API
     try {
       const resp = await createProject(data);

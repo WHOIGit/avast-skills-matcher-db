@@ -33,8 +33,6 @@ const Me = (): React.ReactElement => {
   };
 
   React.useEffect(() => {
-    console.log(query);
-
     if (query.tabId) {
       setSelectedTab(Number(query.tabId));
     }

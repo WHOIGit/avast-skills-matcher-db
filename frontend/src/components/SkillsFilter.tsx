@@ -11,7 +11,6 @@ import Skills, { Skill } from "../containers/skillsContainer";
 const SkillsFilter: React.FC = () => {
   const skillsCtx = Skills.useContainer();
   const selectedIDs = skillsCtx.selectedSkills.map((skill) => skill.id);
-  console.log(selectedIDs);
 
   const renderSkillsList = (skill: Skill) => {
     let hasChildren = false;

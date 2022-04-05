@@ -58,7 +58,6 @@ export default function EditForm() {
 
   const handleCapture = async (event: any) => {
     const newImg = event.target.files[0];
-    console.log(newImg);
 
     // send form data to API
     try {

@@ -58,7 +58,6 @@ export default function ContactDialog({
   };
 
   const handleSend = () => {
-    console.log(textRef.current.value);
     contactExpert(expert.id, textRef.current.value, checked);
     setMessageSent(true);
     setTimeout(handleClose, 2000);
@@ -117,8 +116,6 @@ export default function ContactDialog({
                 }}
               >
                 {projects?.map((project) => {
-                  console.log(project);
-
                   const labelId = `checkbox-list-label-${project.id}`;
 
                   return (

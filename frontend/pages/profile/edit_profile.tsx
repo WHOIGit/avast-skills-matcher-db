@@ -43,7 +43,6 @@ export default function EditProfileForm() {
   }, [reset, profile]);
 
   const onSubmit = async (data: any): Promise<void> => {
-    console.log(data);
     // send form data to API
     try {
       const resp = await editExpertProfile(data);

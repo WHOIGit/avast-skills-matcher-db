@@ -55,7 +55,6 @@ export default function SearchField() {
     let terms = event.target.value;
     if (terms.length > 2) {
       search.setSearchTerms(terms);
-      console.log(event.target.value);
     } else {
       search.setSearchTerms("");
     }

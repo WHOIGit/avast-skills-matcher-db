@@ -15,7 +15,6 @@ export default function EditProject() {
   const router = useRouter();
   const pid = parseInt(router.query.pid as string);
   const { project, editProject } = useProjects(pid);
-  console.log(project);
 
   const {
     handleSubmit,
@@ -35,7 +34,6 @@ export default function EditProject() {
   }, [reset, project]);
 
   const onSubmit = async (data: any): Promise<void> => {
-    console.log(data);
     // send form data to API
     try {
       const resp = await editProject(pid, data);

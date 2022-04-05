@@ -82,7 +82,6 @@ export default function useFavorite(expert: User): HookData {
     } else {
       resp = await addFavorite();
     }
-    console.log(resp);
 
     if (resp?.ok) {
       // refresh the useSWR profile API data

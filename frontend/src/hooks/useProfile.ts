@@ -73,7 +73,6 @@ const useProfile = (): HookData => {
     mutate: mutateProfile,
     error,
   } = useSWR([profileUrl, instance], fetcherWithToken);
-  console.log(data);
 
   const createUser = async (
     firstName: string,

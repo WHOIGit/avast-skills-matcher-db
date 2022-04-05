@@ -7,7 +7,6 @@ export async function getMsToken(instance: any) {
   const response = await instance.acquireTokenSilent({
     scopes: [`${AZURE_SCOPE_ID}/read`],
   });
-  console.log(response);
 
   accessToken = response.accessToken;
   return accessToken;

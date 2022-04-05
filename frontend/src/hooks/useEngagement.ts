@@ -15,7 +15,6 @@ const useEngagement = (pid: any, response: any): HookData => {
       response: response,
       dateResponded: dateResponded,
     };
-    console.log("Engagement payload", payload);
 
     const url = makeUrl(`/api/engagements/${pid}/`);
     const resp = await fetch(url, {
@@ -26,7 +25,6 @@ const useEngagement = (pid: any, response: any): HookData => {
         "Content-Type": "application/json",
       },
     });
-    console.log(resp);
 
     return resp;
   };

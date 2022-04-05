@@ -12,15 +12,12 @@ export default function ProjectsGrid() {
   const skillsCtx = Skills.useContainer();
   const { projects, isLoading, isError } = useProjects();
   const { results } = useProjectSearch(search.searchTerms);
-  console.log("PROJECTS", projects);
 
   const [matchingProjects, setMatchingProjects] = React.useState(projects);
 
   React.useEffect(() => {
     // if search is active, set the base array of available experts to search results,
     // else use the full expert list
-    console.log("RESULTS", results);
-
     let projectList;
     if (results) {
       projectList = results;

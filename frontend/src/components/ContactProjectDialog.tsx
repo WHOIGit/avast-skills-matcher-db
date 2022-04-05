@@ -51,7 +51,6 @@ export default function ContactProjectDialog({
   };
 
   const handleSend = () => {
-    console.log(textRef.current.value);
     contactProjectOwner(project.id, textRef.current.value);
     setMessageSent(true);
     setTimeout(handleClose, 2000);
