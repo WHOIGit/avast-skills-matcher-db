@@ -36,6 +36,7 @@ export type User = {
   projectsOwned: Project[];
   favorites: Favorite[];
   favoredBy: Favorite[];
+  supervisorEmail?: string;
 };
 
 type HookData = {
@@ -50,7 +51,8 @@ type HookData = {
   editProfile: (
     title: string,
     firstName: string,
-    lastName: string
+    lastName: string,
+    supervisorEmail: string
   ) => Promise<Response>;
   uploadAvatar: (image: File) => Promise<Response>;
   editExpertProfile: (data: Profile) => Promise<Response>;
@@ -108,7 +110,8 @@ const useProfile = (): HookData => {
   const editProfile = async (
     firstName: string,
     lastName: string,
-    title: string
+    title: string,
+    supervisorEmail: string
   ): Promise<Response> => {
     const url = makeUrl(`/api/users/update_profile/`);
     const resp = await fetch(url, {
@@ -117,6 +120,7 @@ const useProfile = (): HookData => {
         firstName,
         lastName,
         title,
+        supervisorEmail,
       }),
       headers: {
         Authorization: `Bearer ${await getMsToken(instance)}`,

@@ -150,8 +150,6 @@ class UserViewSet(viewsets.ModelViewSet):
         if request.data["projects"]:
             projects = Project.objects.filter(id__in=request.data["projects"])
 
-        print(request.data)
-
         if expert:
             # initiate Engagement tracking
             engagement = Engagement.objects.create(
@@ -180,7 +178,7 @@ class UserViewSet(viewsets.ModelViewSet):
                         "message": request.data["message"],
                     },
                     # Optional:
-                    # cc=['cc@example.com'],
+                    cc=[expert.supervisor_email],
                     # bcc=['bcc@example.com'],
                     # headers={'My-Custom-Header':'Custom Value'},
                 )

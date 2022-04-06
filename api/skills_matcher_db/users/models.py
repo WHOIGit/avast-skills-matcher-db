@@ -30,7 +30,8 @@ class User(AbstractUser):
         blank=True,
     )
     avatar = models.ImageField(upload_to="avatars", null=True, blank=True)
-    title = models.CharField(null=True, blank=True, max_length=255)
+    title = models.CharField(blank=True, max_length=255)
+    supervisor_email = models.CharField(blank=True, max_length=255)
 
     class Meta:
         ordering = ("last_name", "first_name")

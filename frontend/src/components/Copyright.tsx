@@ -6,7 +6,11 @@ export default function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
       {"Copyright © "}
-      <MuiLink color="inherit" href="https://mui.com/">
+      <MuiLink
+        color="inherit"
+        href="https://intranet.whoi.edu/avast/"
+        target="_blank"
+      >
         WHOI AVAST
       </MuiLink>{" "}
       {new Date().getFullYear()}.

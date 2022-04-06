@@ -54,6 +54,7 @@ class UserSerializer(serializers.ModelSerializer):
             "projects_owned",
             "favorites",
             "favored_by",
+            "supervisor_email",
         ]
 
         extra_kwargs = {

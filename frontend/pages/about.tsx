@@ -112,12 +112,12 @@ export default function About() {
           Login to the application and create a{" "}
           <Link href="/profile/me">SME Profile</Link> (Subject Matter Expert) to
           detail your skills and experience. Then search our{" "}
-          <Link href="/projects">Project database</Link>
-          for avaiable Projects that match your skills. Once you find a Project
-          that interests you, just click on the Send Message button, and
-          we&rsquo;ll send an email to the Project Owner with your profile
-          details. If they accept your offer to help, we&rsquo;ll let you know
-          and you can start working together.
+          <Link href="/projects">Project database</Link> for avaiable Projects
+          that match your skills. Once you find a Project that interests you,
+          just click on the Send Message button, and we&rsquo;ll send an email
+          to the Project Owner with your profile details. If they accept your
+          offer to help, we&rsquo;ll let you know and you can start working
+          together.
         </Typography>
 
         <Copyright />

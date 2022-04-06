@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useSWRConfig } from "swr";
 import { useForm, Controller } from "react-hook-form";
 import { useRouter } from "next/router";
 import { styled } from "@mui/material/styles";
@@ -24,6 +23,7 @@ type FormData = {
   lastName: string;
   email: string;
   title: string;
+  supervisorEmail: string;
 };
 
 const Input = styled("input")({
@@ -53,6 +53,7 @@ export default function EditForm() {
       lastName: profile?.lastName,
       email: profile?.email,
       title: profile?.title,
+      supervisorEmail: profile?.supervisorEmail,
     });
   }, [reset, profile]);
 
@@ -77,7 +78,12 @@ export default function EditForm() {
   const onSubmit = async (data: FormData): Promise<void> => {
     // send form data to API
     try {
-      const resp = await editProfile(data.firstName, data.lastName, data.title);
+      const resp = await editProfile(
+        data.firstName,
+        data.lastName,
+        data.title,
+        data.supervisorEmail
+      );
       if (!resp.ok) {
         setErrorMessage("API connection error. Please try again later.");
       } else {
@@ -213,6 +219,27 @@ export default function EditForm() {
                   />
                 )}
               />
+              <Box sx={{ color: "error.main" }}>{errors.email?.message}</Box>
+            </Grid>
+            <Grid item xs={12}>
+              <Controller
+                name="supervisorEmail"
+                defaultValue=""
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <TextField
+                    fullWidth
+                    id="supervisorEmail"
+                    label="Supervisor Email"
+                    onChange={onChange}
+                    value={value}
+                  />
+                )}
+              />
+              <FormHelperText>
+                Supervisor email is optional. Include a CC email for your
+                supervisor if required.
+              </FormHelperText>
               <Box sx={{ color: "error.main" }}>{errors.email?.message}</Box>
             </Grid>
           </Grid>
