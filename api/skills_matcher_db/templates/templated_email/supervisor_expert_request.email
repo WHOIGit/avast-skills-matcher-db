@@ -1,0 +1,38 @@
+{% block subject %}AVAST Skills Matcher - Request for Assistance - Supervisor Copy{% endblock %}
+{% block plain %}
+  Hello from AVAST,
+
+  Your supervisee {{expert_name}} has been contacted through the AVAST Skills Matcher site.
+
+  The following WHOI community member has requested their assistance:
+      {{requester_name}} ({{requester_email}})
+
+  Message: {{ message }}
+  
+  Thanks from AVAST!
+{% endblock %}
+
+{% block html %}
+  <p>Hello from AVAST</p>
+
+  <p>Your supervisee {{expert_name}} has been contacted through the AVAST Skills Matcher site.</p>
+
+  <p>The following WHOI community member has requested their assistance:
+      <ul>
+        <li>{{requester_name}}</li>
+      </ul>
+  </p>
+
+  {% if projects %}
+    <p>They would like help with the following projects:
+    <ul>
+    {% for p in projects %}
+        <li>{{p.title}}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+  
+  <p>Message: {{ message }}</p>
+
+  <p>Thanks from AVAST!</p>
+{% endblock %}

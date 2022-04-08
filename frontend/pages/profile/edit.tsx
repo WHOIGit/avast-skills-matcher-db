@@ -238,7 +238,8 @@ export default function EditForm() {
               />
               <FormHelperText>
                 Supervisor email is optional. Include a CC email for your
-                supervisor if required.
+                supervisor if required. A copy of any assistance requests sent
+                to you will be CC&rsquo;ed to them.
               </FormHelperText>
               <Box sx={{ color: "error.main" }}>{errors.email?.message}</Box>
             </Grid>

@@ -178,7 +178,7 @@ class UserViewSet(viewsets.ModelViewSet):
                         "message": request.data["message"],
                     },
                     # Optional:
-                    cc=[expert.supervisor_email],
+                    # cc=[expert.supervisor_email],
                     # bcc=['bcc@example.com'],
                     # headers={'My-Custom-Header':'Custom Value'},
                 )
@@ -194,6 +194,24 @@ class UserViewSet(viewsets.ModelViewSet):
                     },
                 )
                 print("Email sent")
+
+                # send supervisor email if needed
+                if expert.supervisor_email:
+                    try:
+                        # send receipt to requester
+                        send_templated_mail(
+                            template_name="supervisor_expert_request",
+                            from_email="noreply-skillsdb@whoi.edu",
+                            recipient_list=[expert.supervisor_email],
+                            context={
+                                "expert_name": f"{expert.first_name} {expert.last_name}",
+                                "requester_name": f"{user.first_name} {user.last_name}",
+                                "expert_email": expert.email,
+                            },
+                        )
+                    except Exception as e:
+                        pass
+
                 return Response(
                     status=status.HTTP_200_OK, data={"action": "email sent"}
                 )
