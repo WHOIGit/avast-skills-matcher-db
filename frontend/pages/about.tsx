@@ -15,37 +15,37 @@ export default function About() {
       <InnerNav />
       <Box sx={{ my: 4 }}>
         <Typography variant="h4" component="h1" gutterBottom>
-          About the AVAST Skills Matcher DB
+          About the AVAST Skills Matcher Database
         </Typography>
 
         <Typography component="p" gutterBottom>
-          The AVAST Skills Matcher DB is a web application that allows WHOI
-          community members to connect with each other based on their expertise
-          and projects. You can use the Skills Matcher in multiple ways:
+          The Skills Matcher DB is a web application that allows WHOI&rsquo;s
+          AVAST community to connect with each other to share technical
+          expertise. You can use the Skills Matcher in multiple ways:
           <List>
             <ListItem>
               <ListItemIcon>
                 <DoubleArrowIcon />
               </ListItemIcon>
-              <ListItemText primary="Share your Skills with others" />
+              <ListItemText primary="To tell the AVAST community about your skill set and expertise" />
             </ListItem>
             <ListItem>
               <ListItemIcon>
                 <DoubleArrowIcon />
               </ListItemIcon>
-              <ListItemText primary="Find someone that has the Skills you need" />
+              <ListItemText primary="To find an expert in the AVAST community who has a specific skill set or expertise" />
             </ListItem>
             <ListItem>
               <ListItemIcon>
                 <DoubleArrowIcon />
               </ListItemIcon>
-              <ListItemText primary="Share your Project that needs assistance" />
+              <ListItemText primary="To advertise a project or problem in search of a specific skill set or expertise" />
             </ListItem>
             <ListItem>
               <ListItemIcon>
                 <DoubleArrowIcon />
               </ListItemIcon>
-              <ListItemText primary="Find a Project that you&rsquo;d like to work on" />
+              <ListItemText primary="To learn about projects or problems seeking help from the AVAST community" />
             </ListItem>
           </List>
         </Typography>
@@ -56,67 +56,71 @@ export default function About() {
 
         <Typography component="p" gutterBottom>
           <strong>
-            Do you want to share your skills with the WHOI community?
+            Share your expertise and skills with the AVAST community
+          </strong>
+        </Typography>
+
+        <Typography component="p" gutterBottom sx={{ mb: 2 }}>
+          Using the Skills Matcher DB requires an{" "}
+          <Link href="/profile/me">SME Profile</Link> (Subject Matter Expert).
+          Login to the application using your WHOI credentials and create a{" "}
+          <Link href="/profile/me">SME Profile</Link> with whatever information
+          you feel is valuable for the AVAST community to know. Once
+          you&rsquo;ve saved your profile this information will be displayed in
+          our <Link href="/">SME database</Link>. If another user wants to
+          connect with you through the DB, you&rsquo;ll receive an email from
+          AVAST with the option to start a discussion. Set your availability
+          preference in your profile to indicate what level of interaction you
+          currently have bandwidth for. If appropriate, include your
+          supervisor&rsquo;s email for cc&rsquo;s on these messages.
+        </Typography>
+
+        <Typography component="p" gutterBottom>
+          <strong>
+            Find an SME (Subject Matter Expert) for advice or help
           </strong>
         </Typography>
 
         <Typography component="p" gutterBottom sx={{ mb: 2 }}>
           Login to the application and create a{" "}
-          <Link href="/profile/me">SME Profile</Link> (Subject Matter Expert).
-          Once you set up your profile, your information will be displayed in
-          our <Link href="/">SME database</Link>. If another user wants to work
-          with you, you&rsquo;ll receive an email from AVAST with the option to
-          accept or decline the offer.
+          <Link href="/profile/me">Project</Link> that describes the knowledge
+          or skills you need help with. Then, search the SME database for
+          individuals with matching skills or expertise. You can save multiple
+          SMEs as Favorites as you browse through the DB. Once you find a SME
+          that you’d like to connect with, just click on the Send Message
+          button, add an optional personal message, and the DB will contact them
+          on your behalf. Once they respond to your request, the DB emails you
+          their response and you can follow up from there!
         </Typography>
 
         <Typography component="p" gutterBottom>
-          <strong>
-            Do you want to find a SME (Subject Matter Expert) to help you?
-          </strong>
+          <strong>Post the details of a Project you need help with</strong>
         </Typography>
 
         <Typography component="p" gutterBottom sx={{ mb: 2 }}>
-          Login to the application, create a{" "}
-          <Link href="/profile/me">Project</Link> if you have a specific project
-          that you&rsquo;d like to request help with, then search the SME
-          database for the skills you need. You can save multiple SMEs as
-          Favorites as you browse the DB. Once you find a SME that you&rsquo;d
-          like to connect with, just click on the Send Message button, add an
-          optional personal message, and we&rsquo;ll contact them on your
-          behalf. Once they respond to your request, we&rsquo;ll email you their
-          response and then if they accept, you can get started!
-        </Typography>
-
-        <Typography component="p" gutterBottom>
-          <strong>
-            Do you want to list a Project you&rsquo;d like help with?
-          </strong>
-        </Typography>
-
-        <Typography component="p" gutterBottom sx={{ mb: 2 }}>
-          Login to the application, and create a{" "}
-          <Link href="/profile/me">Project</Link> in your account. Once your
-          Project is saved, it will be listed in our{" "}
-          <Link href="/projects">Project database</Link>. If another user would
-          like to assist your Project, we&rsquo;ll send you an email with their
-          Profile information and the option to accept or decline their offer.
-          If you accept, we&rsquo;ll let the SME know and you can start working
+          Login to the application with your account and create a{" "}
+          <Link href="/profile/me">Project</Link>. Once your Project is saved it
+          will be listed in our <Link href="/projects">Project database</Link>.
+          If another user sees a Project they want to help with, they can
+          connect with you through the DB. This sends you an email with their
+          Profile information and the option to start a discussion. If you
+          accept, the DB will let the SME know and you can start working
           together.
         </Typography>
 
         <Typography component="p" gutterBottom>
-          <strong>Do you want to find a new Project to work on?</strong>
+          <strong>
+            See what Projects are in need of specific skills or expertise
+          </strong>
         </Typography>
 
         <Typography component="p" gutterBottom sx={{ mb: 2 }}>
-          Login to the application and create a{" "}
-          <Link href="/profile/me">SME Profile</Link> (Subject Matter Expert) to
-          detail your skills and experience. Then search our{" "}
-          <Link href="/projects">Project database</Link> for avaiable Projects
-          that match your skills. Once you find a Project that interests you,
-          just click on the Send Message button, and we&rsquo;ll send an email
-          to the Project Owner with your profile details. If they accept your
-          offer to help, we&rsquo;ll let you know and you can start working
+          Log into the application and then search the{" "}
+          <Link href="/projects">Project database</Link> for available Projects
+          that you might contribute to. Once you find a Project that interests
+          you, just click on the Send Message button and the DB will send an
+          email to the Project Owner with your profile details. If they want to
+          follow up with you, the DB will let you know and you can start working
           together.
         </Typography>
 
