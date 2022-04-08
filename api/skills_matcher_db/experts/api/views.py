@@ -19,7 +19,7 @@ class ExpertFilter(filters.FilterSet):
             Q(first_name__icontains=value)
             | Q(last_name__icontains=value)
             | Q(title__icontains=value)
-            | Q(engineer_profile__experience__icontains=value)
+            | Q(expert_profile__experience__icontains=value)
         )
 
 
