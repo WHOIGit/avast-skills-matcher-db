@@ -1,8 +1,8 @@
-import * as React from 'react';
-import Document, { Html, Head, Main, NextScript } from 'next/document';
-import createEmotionServer from '@emotion/server/create-instance';
-import theme from '../src/theme';
-import createEmotionCache from '../src/utils/createEmotionCache';
+import * as React from "react";
+import Document, { Html, Head, Main, NextScript } from "next/document";
+import createEmotionServer from "@emotion/server/create-instance";
+import theme from "../src/theme";
+import createEmotionCache from "../src/utils/createEmotionCache";
 
 export default class MyDocument extends Document {
   render() {
@@ -14,6 +14,23 @@ export default class MyDocument extends Document {
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+          />
+          {/* Global Site Tag (gtag.js) - Google Analytics */}
+          <script
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+          />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
+              page_path: window.location.pathname,
+            });
+          `,
+            }}
           />
         </Head>
         <body>
@@ -60,7 +77,8 @@ MyDocument.getInitialProps = async (ctx) => {
   ctx.renderPage = () =>
     originalRenderPage({
       // eslint-disable-next-line react/display-name
-      enhanceApp: (App: any) => (props) => <App emotionCache={cache} {...props} />,
+      enhanceApp: (App: any) => (props) =>
+        <App emotionCache={cache} {...props} />,
     });
 
   const initialProps = await Document.getInitialProps(ctx);
@@ -69,7 +87,7 @@ MyDocument.getInitialProps = async (ctx) => {
   const emotionStyles = extractCriticalToChunks(initialProps.html);
   const emotionStyleTags = emotionStyles.styles.map((style) => (
     <style
-      data-emotion={`${style.key} ${style.ids.join(' ')}`}
+      data-emotion={`${style.key} ${style.ids.join(" ")}`}
       key={style.key}
       // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{ __html: style.css }}
@@ -79,6 +97,9 @@ MyDocument.getInitialProps = async (ctx) => {
   return {
     ...initialProps,
     // Styles fragment is rendered after the app and page rendering finish.
-    styles: [...React.Children.toArray(initialProps.styles), ...emotionStyleTags],
+    styles: [
+      ...React.Children.toArray(initialProps.styles),
+      ...emotionStyleTags,
+    ],
   };
 };

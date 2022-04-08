@@ -19,6 +19,7 @@ import Skills from "../src/containers/skillsContainer";
 import Search from "../src/containers/searchContainer";
 import { msalConfig } from "../src/authConfig";
 import { CustomNavigationClient } from "../src/NavigationClient";
+import * as ga from "../src/lib/ga";
 import { useRouter } from "next/router";
 
 // Client-side cache, shared for the whole session of the user in the browser.
@@ -51,6 +52,21 @@ const MyApp = (props: IAppProps) => {
   msalInstance.setNavigationClient(navigationClient);
 
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
+  // function to track page views for GA
+  React.useEffect(() => {
+    const handleRouteChange = (url: string) => {
+      ga.pageview(url);
+    };
+    //When the component is mounted, subscribe to router changes
+    //and log those page views
+    router.events.on("routeChangeComplete", handleRouteChange);
+
+    // If the component is unmounted, unsubscribe
+    // from the event with the `off` method
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange);
+    };
+  }, [router.events]);
 
   return (
     <CacheProvider value={emotionCache}>
