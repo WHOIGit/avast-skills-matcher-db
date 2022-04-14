@@ -24,6 +24,7 @@ class UserAdmin(auth_admin.UserAdmin):
                     "last_name",
                     "email",
                     "title",
+                    "supervisor_email",
                     "user_type",
                     "avatar",
                 )

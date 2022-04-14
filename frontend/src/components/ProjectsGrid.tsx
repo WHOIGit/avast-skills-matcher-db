@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Grid } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 // local imports
 import Skills, { Skill } from "../containers/skillsContainer";
 import Search from "../containers/searchContainer";
@@ -49,8 +49,14 @@ export default function ProjectsGrid() {
     }
   }, [projects, results, skillsCtx.filterInclusive, skillsCtx.selectedSkills]);
 
-  if (!matchingProjects) {
-    return null;
+  if (!matchingProjects || !matchingProjects?.length) {
+    return (
+      <Box>
+        <Typography component="p" gutterBottom sx={{ mb: 2 }}>
+          No Projects found.
+        </Typography>
+      </Box>
+    );
   }
 
   return (
