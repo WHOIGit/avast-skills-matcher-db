@@ -62,7 +62,7 @@ export default function EditForm() {
 
     // send form data to API
     try {
-      const resp = await await uploadAvatar(newImg);
+      const resp = await uploadAvatar(newImg);
       if (!resp.ok) {
         setErrorMessage("API connection error. Please try again later.");
       } else {
