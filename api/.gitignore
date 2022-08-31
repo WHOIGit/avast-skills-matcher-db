@@ -278,4 +278,3 @@ skills_matcher_db/media/
 .ipython/
 .env
 .envs/*
-!.envs/.local/
