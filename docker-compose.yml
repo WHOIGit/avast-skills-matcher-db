@@ -55,7 +55,8 @@ services:
     volumes:
       - ./nginx/log:/var/log/nginx # logs
       - ./nginx:/etc/nginx/conf.d:ro
-      - /etc/ssl/whoi_certs:/etc/ssl/certs:ro # bind a local directory with the WHOI SSL certs
+      - /etc/ssl/certs:/etc/ssl/certs:ro # bind a local directory with the WHOI SSL certs
+      - /etc/ssl/private:/etc/ssl/private:ro
     ports:
       - "0.0.0.0:80:80"
       - "0.0.0.0:443:443"
