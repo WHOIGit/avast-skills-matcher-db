@@ -1,4 +1,4 @@
-version: '3.9'
+version: "3.9"
 
 volumes:
   production_postgres_data: {}
@@ -9,17 +9,18 @@ services:
   django: &django
     image: ghcr.io/whoigit/avast-skillsmatcher-api:stable
     container_name: django
-    #network_mode: "host" # <-- to send email from container with local smtp
+    network_mode: "host" # <-- to send email from container with local smtp
     depends_on:
       - postgres
       - redis
     volumes:
-      - media_volume:/app/media  # <-- bind the media files
+      - media_volume:/app/media # <-- bind the media files
     env_file:
       - ./.envs/.production/.django
       - ./.envs/.production/.postgres
     ports:
       - "5000:5000"
+      - "25"
     extra_hosts: # <-- to send email from container with local smtp
       - "host.docker.internal:host-gateway"
     restart: unless-stopped
@@ -38,7 +39,7 @@ services:
   redis:
     image: redis:6
     restart: unless-stopped
-  
+
   frontend:
     container_name: frontend
     image: ghcr.io/whoigit/avast-skillsmatcher-frontend:stable
@@ -61,5 +62,3 @@ services:
       - "0.0.0.0:80:80"
       - "0.0.0.0:443:443"
     restart: unless-stopped
-
-

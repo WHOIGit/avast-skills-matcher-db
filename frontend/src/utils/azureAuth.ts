@@ -2,7 +2,7 @@ const AZURE_SCOPE_ID = process.env.NEXT_PUBLIC_AZURE_SCOPE_ID;
 
 export async function getMsToken(instance: any) {
   let accessToken;
-  // get token from Azure AD for backen API
+  // get token from Azure AD for backend API
   // required scope format: "<backend_applicationid>/read" (DON'T USE "api://" starter from MS docs)
   const response = await instance.acquireTokenSilent({
     scopes: [`${AZURE_SCOPE_ID}/read`],
