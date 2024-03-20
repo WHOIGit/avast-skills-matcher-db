@@ -9,7 +9,6 @@ services:
   django: &django
     image: ghcr.io/whoigit/avast-skillsmatcher-api:stable
     container_name: django
-    network_mode: "host" # <-- to send email from container with local smtp
     depends_on:
       - postgres
       - redis
@@ -18,13 +17,9 @@ services:
     env_file:
       - ./.envs/.production/.django
       - ./.envs/.production/.postgres
-    ports:
-      - "5000:5000"
-      - "25"
-    extra_hosts: # <-- to send email from container with local smtp
-      - "host.docker.internal:host-gateway"
     restart: unless-stopped
     command: /start
+    network_mode: "host" # <-- to send email from container with local smtp
 
   postgres:
     image: ghcr.io/whoigit/postgres-docker-scripts:13.5
@@ -35,18 +30,20 @@ services:
     env_file:
       - ./.envs/.production/.postgres
     restart: unless-stopped
+    network_mode: "host"
 
   redis:
     image: redis:6
     restart: unless-stopped
+    network_mode: "host"
 
   frontend:
     container_name: frontend
     image: ghcr.io/whoigit/avast-skillsmatcher-frontend:stable
-    ports:
-      - "3000:3000"
     environment:
       NODE_ENV: production
+    restart: unless-stopped
+    network_mode: "host"
 
   nginx:
     image: nginx:1.21.5
@@ -58,7 +55,5 @@ services:
       - ./nginx:/etc/nginx/conf.d:ro
       - /etc/ssl/certs:/etc/ssl/certs:ro # bind a local directory with the WHOI SSL certs
       - /etc/ssl/private:/etc/ssl/private:ro
-    ports:
-      - "0.0.0.0:80:80"
-      - "0.0.0.0:443:443"
+    network_mode: "host"
     restart: unless-stopped

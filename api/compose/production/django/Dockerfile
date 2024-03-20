@@ -1,7 +1,5 @@
 ARG PYTHON_VERSION=3.9-slim-bullseye
 
-
-
 # define an alias for the specfic python version used in this file.
 FROM python:${PYTHON_VERSION} as python
 
@@ -78,5 +76,7 @@ RUN mkdir /${APP_HOME}/media
 RUN chown -R django:django ${APP_HOME}
 
 USER django
+# expose port that Django uses here, using network_mode: "host" in docker compose file, so no ports option
+EXPOSE 5000
 
 ENTRYPOINT ["/entrypoint"]

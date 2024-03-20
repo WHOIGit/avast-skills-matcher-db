@@ -127,8 +127,9 @@ EMAIL_SUBJECT_PREFIX = env(
     "DJANGO_EMAIL_SUBJECT_PREFIX",
     default="[Skills Matcher DB]",
 )
-# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-# EMAIL_HOST = "172.17.0.1"
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "localhost"
+
 # ADMIN
 # ------------------------------------------------------------------------------
 # Django Admin URL regex.
@@ -137,14 +138,14 @@ ADMIN_URL = env("DJANGO_ADMIN_URL")
 # Anymail
 # ------------------------------------------------------------------------------
 # https://anymail.readthedocs.io/en/stable/installation/#installing-anymail
-INSTALLED_APPS += ["anymail"]  # noqa F405
+# INSTALLED_APPS += ["anymail"]  # noqa F405
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
 # https://anymail.readthedocs.io/en/stable/installation/#anymail-settings-reference
 # https://anymail.readthedocs.io/en/stable/esps/amazon_ses/
-EMAIL_BACKEND = "anymail.backends.sendgrid.EmailBackend"
-ANYMAIL = {
-    "SENDGRID_API_KEY": env("SENDGRID_API_KEY"),
-}
+# EMAIL_BACKEND = "anymail.backends.sendgrid.EmailBackend"
+# ANYMAIL = {
+#    "SENDGRID_API_KEY": env("SENDGRID_API_KEY"),
+# }
 
 
 # LOGGING
