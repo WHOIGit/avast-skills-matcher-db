@@ -198,7 +198,7 @@ export default function EditProfileForm() {
                 <FormGroup>
                   <Controller
                     name="internationalTravel"
-                    defaultValue={false}
+                    //defaultValue={false}
                     control={control}
                     //rules={{ required: true }}
                     render={({ field }) => (

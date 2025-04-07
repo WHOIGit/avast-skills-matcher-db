@@ -152,7 +152,7 @@ export default function ProfileTabs({ profile, showTab }: ComponentProps) {
           </Box>
 
           {profile.expertProfile?.internationalTravel && 
-            <Chip sx={{mt:1}} icon={<CardTravelIcon />} label="Available for International Travel" variant="outlined" color="primary" />
+            <Chip sx={{mt:1, mb:1}} icon={<CardTravelIcon />} label="Available for International Travel" variant="outlined" color="primary" />
           }
 
           {profile.expertProfile?.orcidId && (
