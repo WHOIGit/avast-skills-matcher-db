@@ -207,8 +207,8 @@ export default function EditProfileForm() {
                         label="YES"
                         control={
                           <Checkbox
-                            value={true}
                             checked={field.value}
+                            {...field}
                           />
                         }
                       />
