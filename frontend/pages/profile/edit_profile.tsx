@@ -39,6 +39,7 @@ export default function EditProfileForm() {
       skills: profile?.expertProfile?.skills,
       orcidId: profile?.expertProfile?.orcidId,
       availability: profile?.expertProfile?.availability,
+      internationalTravel: profile?.expertProfile?.internationalTravel,
     });
   }, [reset, profile]);
 
@@ -207,7 +208,7 @@ export default function EditProfileForm() {
                         label="YES"
                         control={
                           <Checkbox
-                            //checked={field.value}
+                            checked={field.value}
                             {...field}
                           />
                         }
