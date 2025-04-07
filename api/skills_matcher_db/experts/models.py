@@ -60,6 +60,9 @@ class ExpertProfile(models.Model):
     )
     # ORCID ID link https://info.orcid.org/what-does-an-orcid-identifier-look-like/
     orcid_id = models.URLField(max_length=100, blank=True, null=True)
+    international_travel = models.BooleanField(
+        default=False, verbose_name="Willing to Travel Internationally"
+    )
 
     def __str__(self):
         return f"{self.user.username} Profile"

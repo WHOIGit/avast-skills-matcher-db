@@ -13,6 +13,7 @@ export type Profile = {
   availability: string[] | null;
   availabilityDisplay?: string[] | null;
   orcidId: string | null;
+  internationalTravel: boolean;
 };
 
 export type Favorite = {
