@@ -19,6 +19,8 @@ import { User } from "../containers/authContainer";
 import useFavorite from "../hooks/useFavorite";
 import ContactDialog from "./ContactDialog";
 import UnauthContactDialog from "./UnauthContactDialog";
+import CardTravelIcon from '@mui/icons-material/CardTravel';
+import Chip from '@mui/material/Chip';
 
 type CardProps = {
   expert: User;
@@ -102,6 +104,13 @@ export default function ExpertCard({ expert }: CardProps) {
             //textTruncateChild={<a href="#">Read on</a>}
           />
         </Typography>
+
+        {expert.expertProfile?.internationalTravel && 
+          <Chip sx={{mt:1}} icon={<CardTravelIcon />} label="Available for International Travel" variant="outlined" color="primary" />
+        } 
+          
+          
+        
       </CardContent>
       <CardActions disableSpacing>
         {isAuthenticated ? (

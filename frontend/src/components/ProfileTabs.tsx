@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useEffect } from "react";
 import { useRouter } from "next/router";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -24,6 +23,9 @@ import SkillChip from "./SkillChip";
 import useProjects, { Project } from "../hooks/useProjects";
 import ProjectDeleteDialog from "./ProjectDeleteDialog";
 import Divider from "@mui/material/Divider";
+import CardTravelIcon from '@mui/icons-material/CardTravel';
+import Chip from '@mui/material/Chip';
+import { log } from "console";
 
 type TabPanelProps = {
   children?: React.ReactNode;
@@ -60,6 +62,7 @@ function a11yProps(index: number) {
 }
 
 export default function ProfileTabs({ profile, showTab }: ComponentProps) {
+  
   const router = useRouter();
   const [value, setValue] = React.useState(
     profile.userType?.includes("EXPERT") ? 0 : 1
@@ -147,6 +150,10 @@ export default function ProfileTabs({ profile, showTab }: ComponentProps) {
               })}
             </Stack>
           </Box>
+
+          {profile.expertProfile?.internationalTravel && 
+            <Chip sx={{mt:1}} icon={<CardTravelIcon />} label="Available for International Travel" variant="outlined" color="primary" />
+          }
 
           {profile.expertProfile?.orcidId && (
             <>

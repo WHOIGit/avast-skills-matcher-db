@@ -43,6 +43,8 @@ export default function EditProfileForm() {
   }, [reset, profile]);
 
   const onSubmit = async (data: any): Promise<void> => {
+    console.log(data);
+    
     // send form data to API
     try {
       const resp = await editExpertProfile(data);
@@ -189,6 +191,33 @@ export default function EditProfileForm() {
                 {errors.experience && "Field is required"}
               </Box>
             </Grid>
+
+            <Grid item xs={12}>
+              <FormControl component="fieldset" variant="standard">
+                <FormLabel component="legend">Available for International Travel?</FormLabel>
+                <FormGroup>
+                  <Controller
+                    name="internationalTravel"
+                    defaultValue={false}
+                    control={control}
+                    //rules={{ required: true }}
+                    render={({ field }) => (
+                      <FormControlLabel
+                        key="internationalTravel"
+                        label="YES"
+                        control={
+                          <Checkbox
+                            value={true}
+                            checked={field.value}
+                          />
+                        }
+                      />
+                    )}
+                  />
+                </FormGroup>
+              </FormControl>
+            </Grid>
+
             <Grid item xs={12}>
               <FormControl component="fieldset" variant="standard">
                 <FormLabel component="legend">Your Availability</FormLabel>

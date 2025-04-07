@@ -14,6 +14,8 @@ import ContactDialog from "../../src/components/ContactDialog";
 import { NextLinkComposed } from "../../src/components/Link";
 import useProfile from "../../src/hooks/useProfile";
 import useExpert from "../../src/hooks/useExpert";
+import Chip from '@mui/material/Chip';
+import CardTravelIcon from '@mui/icons-material/CardTravel';
 
 export default function ExpertDetail() {
   const router = useRouter();
@@ -69,6 +71,10 @@ export default function ExpertDetail() {
               })}
             </Stack>
           </Box>
+
+          {expert.expertProfile?.internationalTravel && 
+          <Chip sx={{mt:1, mb:2}} icon={<CardTravelIcon />} label="Available for International Travel" variant="outlined" color="primary" />
+        } 
 
           <Typography component="h6" variant="h6">
             Availability

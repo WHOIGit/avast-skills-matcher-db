@@ -130,7 +130,7 @@ const Me = (): React.ReactElement => {
                 color="text.secondary"
                 paragraph
               >
-                Welcome to the AVAST Skills Matcher DB! You&rsquo;re now
+                Welcome to the WHOI Skills Matcher DB! You&rsquo;re now
                 registered as a SME on our site. Complete your{" "}
                 <NextLinkComposed
                   to={{

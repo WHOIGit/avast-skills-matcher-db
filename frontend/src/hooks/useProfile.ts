@@ -144,6 +144,7 @@ const useProfile = (): HookData => {
       skills: data.skills,
       orcidId: data.orcidId,
       availability: data.availability,
+      internationalTravel: data.internationalTravel
     };
     const url = makeUrl(`/api/users/update_expert_profile/`);
     const resp = await fetch(url, {
