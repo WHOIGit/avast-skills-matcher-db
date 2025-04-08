@@ -46,9 +46,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _src_containers_searchContainer__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(5767);
 /* harmony import */ var _src_authConfig__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(4844);
 /* harmony import */ var _src_NavigationClient__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(6183);
-/* harmony import */ var _src_lib_ga__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(9245);
+/* harmony import */ var _src_lib_ga__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(9245);
 /* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(1853);
 /* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_15__);
+/* harmony import */ var _src_containers_intlTravelContainer__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(5049);
 var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_emotion_react__WEBPACK_IMPORTED_MODULE_5__, _src_utils_createEmotionCache__WEBPACK_IMPORTED_MODULE_9__, _src_components_Layout__WEBPACK_IMPORTED_MODULE_10__, _src_containers_skillsContainer__WEBPACK_IMPORTED_MODULE_11__]);
 ([_emotion_react__WEBPACK_IMPORTED_MODULE_5__, _src_utils_createEmotionCache__WEBPACK_IMPORTED_MODULE_9__, _src_components_Layout__WEBPACK_IMPORTED_MODULE_10__, _src_containers_skillsContainer__WEBPACK_IMPORTED_MODULE_11__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
 
@@ -60,6 +61,7 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_emo
 
 
 // local imports
+
 
 
 
@@ -93,7 +95,7 @@ const MyApp = (props)=>{
     // function to track page views for GA
     react__WEBPACK_IMPORTED_MODULE_1__.useEffect(()=>{
         const handleRouteChange = (url)=>{
-            _src_lib_ga__WEBPACK_IMPORTED_MODULE_16__/* .pageview */ .L(url);
+            _src_lib_ga__WEBPACK_IMPORTED_MODULE_17__/* .pageview */ .L(url);
         };
         //When the component is mounted, subscribe to router changes
         //and log those page views
@@ -112,7 +114,7 @@ const MyApp = (props)=>{
             /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)((next_head__WEBPACK_IMPORTED_MODULE_2___default()), {
                 children: [
                     /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("title", {
-                        children: "AVAST Skills Matcher"
+                        children: "WHOI Skills Matcher"
                     }),
                     /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("meta", {
                         name: "viewport",
@@ -125,15 +127,17 @@ const MyApp = (props)=>{
                 children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_azure_msal_react__WEBPACK_IMPORTED_MODULE_6__.MsalProvider, {
                     instance: msalInstance,
                     children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_src_containers_skillsContainer__WEBPACK_IMPORTED_MODULE_11__/* ["default"].Provider */ .Z.Provider, {
-                        children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_src_containers_searchContainer__WEBPACK_IMPORTED_MODULE_12__/* ["default"].Provider */ .Z.Provider, {
-                            children: [
-                                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((_mui_material_CssBaseline__WEBPACK_IMPORTED_MODULE_4___default()), {}),
-                                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_src_components_Layout__WEBPACK_IMPORTED_MODULE_10__/* ["default"] */ .Z, {
-                                    children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(Component, {
-                                        ...pageProps
+                        children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_src_containers_searchContainer__WEBPACK_IMPORTED_MODULE_12__/* ["default"].Provider */ .Z.Provider, {
+                            children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_src_containers_intlTravelContainer__WEBPACK_IMPORTED_MODULE_16__/* ["default"].Provider */ .Z.Provider, {
+                                children: [
+                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((_mui_material_CssBaseline__WEBPACK_IMPORTED_MODULE_4___default()), {}),
+                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_src_components_Layout__WEBPACK_IMPORTED_MODULE_10__/* ["default"] */ .Z, {
+                                        children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(Component, {
+                                            ...pageProps
+                                        })
                                     })
-                                })
-                            ]
+                                ]
+                            })
                         })
                     })
                 })
@@ -561,6 +565,72 @@ __webpack_async_result__();
 
 /***/ }),
 
+/***/ 4269:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(997);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6689);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5692);
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_mui_material__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _mui_material_FormLabel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6096);
+/* harmony import */ var _mui_material_FormLabel__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_mui_material_FormLabel__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _mui_material_FormControl__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(8891);
+/* harmony import */ var _mui_material_FormControl__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_mui_material_FormControl__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _mui_material_FormGroup__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(8860);
+/* harmony import */ var _mui_material_FormGroup__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_mui_material_FormGroup__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _mui_material_Switch__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(3191);
+/* harmony import */ var _mui_material_Switch__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_mui_material_Switch__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _containers_intlTravelContainer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(5049);
+
+
+
+
+
+
+
+
+const IntlTravelFilter = ()=>{
+    const intlTravelCtx = _containers_intlTravelContainer__WEBPACK_IMPORTED_MODULE_7__/* ["default"].useContainer */ .Z.useContainer();
+    console.log(intlTravelCtx);
+    return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_mui_material__WEBPACK_IMPORTED_MODULE_2__.Box, {
+        sx: {
+            px: 2
+        },
+        children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)((_mui_material_FormControl__WEBPACK_IMPORTED_MODULE_4___default()), {
+            component: "fieldset",
+            variant: "standard",
+            sx: {
+                my: 2
+            },
+            children: [
+                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((_mui_material_FormLabel__WEBPACK_IMPORTED_MODULE_3___default()), {
+                    component: "legend",
+                    children: "International Travel"
+                }),
+                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((_mui_material_FormGroup__WEBPACK_IMPORTED_MODULE_5___default()), {
+                    children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_mui_material__WEBPACK_IMPORTED_MODULE_2__.FormControlLabel, {
+                        control: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((_mui_material_Switch__WEBPACK_IMPORTED_MODULE_6___default()), {
+                            checked: intlTravelCtx.internationalTravel,
+                            onChange: (event)=>intlTravelCtx.setInternationalTravel(event.target.checked),
+                            name: "internationalTravel"
+                        }),
+                        label: "Available"
+                    })
+                })
+            ]
+        })
+    });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (IntlTravelFilter);
+
+
+/***/ }),
+
 /***/ 1415:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
@@ -602,8 +672,10 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony import */ var _SearchField__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(7150);
 /* harmony import */ var _FavoritesList__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(9704);
 /* harmony import */ var _AuthUi__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(6359);
+/* harmony import */ var _IntlTravelFilter__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(4269);
 var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_SkillsFilter__WEBPACK_IMPORTED_MODULE_15__, _FavoritesList__WEBPACK_IMPORTED_MODULE_18__, _AuthUi__WEBPACK_IMPORTED_MODULE_19__]);
 ([_SkillsFilter__WEBPACK_IMPORTED_MODULE_15__, _FavoritesList__WEBPACK_IMPORTED_MODULE_18__, _AuthUi__WEBPACK_IMPORTED_MODULE_19__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+
 
 
 
@@ -721,17 +793,29 @@ const Layout = ({ children  })=>{
                                 })
                             })
                         }),
-                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_Link__WEBPACK_IMPORTED_MODULE_14__/* ["default"] */ .C, {
-                            href: "/",
-                            underline: "none",
+                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((_mui_material_Box__WEBPACK_IMPORTED_MODULE_5___default()), {
                             sx: {
-                                color: "white"
+                                px: 2,
+                                mt: 0.5
                             },
-                            children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((_mui_material_Typography__WEBPACK_IMPORTED_MODULE_8___default()), {
-                                variant: "h6",
-                                noWrap: true,
-                                component: "div",
-                                children: "AVAST Skills Matcher DB"
+                            children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Link__WEBPACK_IMPORTED_MODULE_14__/* ["default"] */ .C, {
+                                href: "/",
+                                underline: "none",
+                                sx: {
+                                    color: "white"
+                                },
+                                children: [
+                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((_mui_material_Typography__WEBPACK_IMPORTED_MODULE_8___default()), {
+                                        variant: "h6",
+                                        noWrap: true,
+                                        component: "div",
+                                        children: "WHOI Skills Matcher DB"
+                                    }),
+                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((_mui_material_Typography__WEBPACK_IMPORTED_MODULE_8___default()), {
+                                        variant: "subtitle2",
+                                        children: "Created by AVAST"
+                                    })
+                                ]
                             })
                         }),
                         /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_SearchField__WEBPACK_IMPORTED_MODULE_17__/* ["default"] */ .Z, {}),
@@ -809,6 +893,8 @@ const Layout = ({ children  })=>{
                             children: theme.direction === "ltr" ? /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((_mui_icons_material_ChevronLeft__WEBPACK_IMPORTED_MODULE_12___default()), {}) : /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((_mui_icons_material_ChevronRight__WEBPACK_IMPORTED_MODULE_13___default()), {})
                         })
                     }),
+                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((_mui_material_Divider__WEBPACK_IMPORTED_MODULE_9___default()), {}),
+                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_IntlTravelFilter__WEBPACK_IMPORTED_MODULE_20__/* ["default"] */ .Z, {}),
                     /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((_mui_material_Divider__WEBPACK_IMPORTED_MODULE_9___default()), {}),
                     /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_SkillsFilter__WEBPACK_IMPORTED_MODULE_15__/* ["default"] */ .Z, {}),
                     /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((_mui_material_Divider__WEBPACK_IMPORTED_MODULE_9___default()), {}),
@@ -1038,6 +1124,31 @@ const SkillsFilter = ()=>{
 
 __webpack_async_result__();
 } catch(e) { __webpack_async_result__(e); } });
+
+/***/ }),
+
+/***/ 5049:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6689);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var unstated_next__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7441);
+/* harmony import */ var unstated_next__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(unstated_next__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function useIntlTravel() {
+    const [internationalTravel, setInternationalTravel] = react__WEBPACK_IMPORTED_MODULE_0__.useState(false);
+    return {
+        internationalTravel: internationalTravel,
+        setInternationalTravel: setInternationalTravel
+    };
+}
+const IntlTravel = (0,unstated_next__WEBPACK_IMPORTED_MODULE_1__.createContainer)(useIntlTravel);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (IntlTravel);
+
 
 /***/ }),
 

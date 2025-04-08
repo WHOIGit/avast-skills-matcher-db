@@ -23,9 +23,8 @@ import SkillChip from "./SkillChip";
 import useProjects, { Project } from "../hooks/useProjects";
 import ProjectDeleteDialog from "./ProjectDeleteDialog";
 import Divider from "@mui/material/Divider";
-import CardTravelIcon from '@mui/icons-material/CardTravel';
+import PublicIcon from '@mui/icons-material/Public';
 import Chip from '@mui/material/Chip';
-import { log } from "console";
 
 type TabPanelProps = {
   children?: React.ReactNode;
@@ -152,7 +151,7 @@ export default function ProfileTabs({ profile, showTab }: ComponentProps) {
           </Box>
 
           {profile.expertProfile?.internationalTravel && 
-            <Chip sx={{mt:1, mb:1}} icon={<CardTravelIcon />} label="Available for International Travel" variant="outlined" color="primary" />
+            <Chip sx={{mt:1, mb:1}} icon={<PublicIcon />} label="Available for International Travel" variant="outlined" color="primary" />
           }
 
           {profile.expertProfile?.orcidId && (

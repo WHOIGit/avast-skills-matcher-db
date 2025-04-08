@@ -21,6 +21,7 @@ import { msalConfig } from "../src/authConfig";
 import { CustomNavigationClient } from "../src/NavigationClient";
 import * as ga from "../src/lib/ga";
 import { useRouter } from "next/router";
+import IntlTravel from "../src/containers/intlTravelContainer";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -71,18 +72,20 @@ const MyApp = (props: IAppProps) => {
   return (
     <CacheProvider value={emotionCache}>
       <Head>
-        <title>AVAST Skills Matcher</title>
+        <title>WHOI Skills Matcher</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
       <ThemeProvider theme={theme}>
         <MsalProvider instance={msalInstance}>
           <Skills.Provider>
             <Search.Provider>
+              <IntlTravel.Provider>
               {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
               <CssBaseline />
               <Layout>
                 <Component {...pageProps} />
               </Layout>
+              </IntlTravel.Provider>
             </Search.Provider>
           </Skills.Provider>
         </MsalProvider>

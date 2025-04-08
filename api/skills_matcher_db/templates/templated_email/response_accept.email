@@ -1,4 +1,4 @@
-{% block subject %}AVAST Skills Matcher - Response from {{receiver_name}}{% endblock %}
+{% block subject %}WHOI Skills Matcher DB - Response from {{receiver_name}}{% endblock %}
 {% block plain %}
   Hi {{requester_name}},
 
@@ -7,7 +7,7 @@
   You can now contact them directly at {{receiver_email}} and get started working together,
   they'll be expecting your message.
 
-  Thanks for using the AVAST Skills Matcher!
+  Thanks for using the WHOI Skills Matcher DB!
 {% endblock %}
 
 {% block html %}
@@ -18,5 +18,5 @@
   <p>You can now contact them directly at <a href="mailto:{{receiver_email}}">{{receiver_email}}</a> and get started working together, 
     they'll be expecting your message.</p>
   
-  <p>Thanks for using the AVAST Skills Matcher!</p>
+  <p>Thanks for using the WHOI Skills Matcher DB!</p>
 {% endblock %}

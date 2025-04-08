@@ -1,14 +1,14 @@
-{% block subject %}AVAST Skills Matcher - Response from {{receiver_name}}{% endblock %}
+{% block subject %}WHOI Skills Matcher DB - Response from {{receiver_name}}{% endblock %}
 {% block plain %}
   Hi {{requester_name}},
 
   Your request for assistance has been DECLINED by {{receiver_name}} at this time.
   
-  If you'd like to contact another SME or Project, please search the AVAST Skills Matcher again.
+  If you'd like to contact another SME or Project, please search the WHOI Skills Matcher DB again.
 
   https://skillsdb.whoi.edu
 
-  Thanks from AVAST!
+  Thanks from the WHOI Skills Matcher DB!
 {% endblock %}
 
 {% block html %}
@@ -17,7 +17,7 @@
   <p>Your request for assistance has been DECLINED by {{receiver_name}} at this time.</p>
 
   <p>If you'd like to contact another SME or Project, please search the 
-    <a href="https://skillsdb.whoi.edu/">AVAST Skills Matcher</a> again.</p>
+    <a href="https://skillsdb.whoi.edu/">WHOI Skills Matcher DB</a> again.</p>
   
-  <p>Thanks from AVAST!</p>
+  <p>Thanks from the WHOI Skills Matcher DB!</p>
 {% endblock %}

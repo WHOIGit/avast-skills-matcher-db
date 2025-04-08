@@ -30,7 +30,7 @@ export default function Index() {
             color="text.primary"
             gutterBottom
           >
-            Welcome to the AVAST Skills Matcher DB
+            Welcome to the WHOI Skills Matcher DB
           </Typography>
 
           <Stack
@@ -73,7 +73,7 @@ export default function Index() {
                   color="text.secondary"
                   paragraph
                 >
-                  Want to contact an SME listed on our site? Create a
+                  Want to recruit help for your research or project? Create a
                   &quot;Project&quot; that you can request assistance with from
                   one of our users.
                 </Typography>

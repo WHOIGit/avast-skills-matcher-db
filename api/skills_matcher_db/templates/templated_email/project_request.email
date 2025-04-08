@@ -1,4 +1,4 @@
-{% block subject %}AVAST Skills Matcher - Request to Assist Your Project{% endblock %}
+{% block subject %}WHOI Skills Matcher DB - Request to Assist Your Project{% endblock %}
 {% block plain %}
   Hi {{project_owner}},
 
@@ -12,7 +12,7 @@
 
   To decline, please click here:: https://skillsdb.whoi.edu/engagements/{{engagement_id}}?response=DECLINED
 
-  Thanks from AVAST!
+  Thanks from the WHOI Skills Matcher DB!
 {% endblock %}
 
 {% block html %}
@@ -37,5 +37,5 @@
 
   <p><a href="https://skillsdb.whoi.edu/engagements/{{engagement_id}}?response=DECLINED">No thanks.</a></p>
 
-  <p>Thanks from AVAST!</p>
+  <p>Thanks from the WHOI Skills Matcher DB!</p>
 {% endblock %}

@@ -1,4 +1,4 @@
-{% block subject %}AVAST Skills Matcher - Your Request for Assistance{% endblock %}
+{% block subject %}WHOI Skills Matcher DB - Your Request for Assistance{% endblock %}
 {% block plain %}
   Hi {{requester_name}},
 
@@ -7,7 +7,7 @@
   
   We will notify you when they accept or decline your request.
 
-  Thanks from AVAST!
+  Thanks from the WHOI Skills Matcher DB!
 {% endblock %}
 
 {% block html %}
@@ -21,5 +21,5 @@
 
   <p>We will notify you when they accept or decline your request.</p>
   
-  <p>Thanks from AVAST!</p>
+  <p>Thanks from the WHOI Skills Matcher DB!</p>
 {% endblock %}

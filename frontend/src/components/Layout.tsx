@@ -20,6 +20,8 @@ import logoImg from "../../public/WHOI-logo-notext.png";
 import SearchField from "./SearchField";
 import FavoritesList from "./FavoritesList";
 import { SignInSignOutButton, WelcomeName } from "./AuthUi";
+import IntlTravelFilter from "./IntlTravelFilter";
+
 const drawerWidth = 240;
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
@@ -106,11 +108,16 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               <Image src={logoImg} alt="WHOI Logo" />
             </Link>
           </Box>
-          <Link href="/" underline="none" sx={{ color: "white" }}>
-            <Typography variant="h6" noWrap component="div">
-              AVAST Skills Matcher DB
-            </Typography>
-          </Link>
+          <Box sx={{ px: 2, mt: 0.5 }}>
+            <Link href="/" underline="none" sx={{ color: "white" }}>
+              <Typography variant="h6" noWrap component="div">
+                WHOI Skills Matcher DB
+              </Typography>
+              <Typography variant="subtitle2">
+                Created by AVAST
+              </Typography>
+            </Link>
+          </Box>
           <SearchField />
           <Box
             sx={{
@@ -171,6 +178,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             )}
           </IconButton>
         </DrawerHeader>
+        <Divider />
+        <IntlTravelFilter />
         <Divider />
         <SkillsFilter />
         <Divider />

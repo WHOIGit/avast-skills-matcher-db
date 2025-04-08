@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Django backend for AVAST Skills Matcher app"
+      content="Django backend for WHOI Skills Matcher app"
     />
     <meta name="author" content="Ethan Andrews" />
 
@@ -33,8 +33,8 @@
     {% endblock %}
     <!-- Le javascript
     ================================================== -->
-    {# Placed at the top of the document so pages load faster with defer #} 
-    {% block javascript %}
+    {# Placed at the top of the document so pages load faster with defer #} {%
+    block javascript %}
     <!-- Bootstrap JS and its dependencies-->
     <script
       defer
@@ -103,10 +103,8 @@
     </div>
     <!-- /container -->
 
-    {% block modal %}{% endblock modal %} 
-
-    {% block inline_javascript %} 
-    {# Script tags with only code, no src (defer by default) #} 
-    {% endblock inline_javascript %}
+    {% block modal %}{% endblock modal %} {% block inline_javascript %} {#
+    Script tags with only code, no src (defer by default) #} {% endblock
+    inline_javascript %}
   </body>
 </html>

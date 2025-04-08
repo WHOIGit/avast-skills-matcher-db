@@ -1,8 +1,8 @@
-{% block subject %}AVAST Skills Matcher - Request for Assistance{% endblock %}
+{% block subject %}WHOI Skills Matcher DB - Request for Assistance{% endblock %}
 {% block plain %}
   Hi {{expert_name}},
 
-  The following WHOI community member has requested your assistance from the AVAST Skills Matcher site:
+  The following WHOI community member has requested your assistance from the WHOI Skills Matcher DB site:
       {{requester_name}} ({{requester_email}})
 
   {{ message }}
@@ -12,13 +12,13 @@
 
   To decline, please click here:: https://skillsdb.whoi.edu/engagements/{{engagement_id}}?response=DECLINED
 
-  Thanks from AVAST!
+  Thanks from the WHOI Skills Matcher DB!
 {% endblock %}
 
 {% block html %}
   <p>Hi {{expert_name}},</p>
 
-  <p>The following WHOI community member has requested your assistance from the AVAST Skills Matcher site:
+  <p>The following WHOI community member has requested your assistance from the WHOI Skills Matcher DB site:
       <ul>
         <li>{{requester_name}}</li>
       </ul>
@@ -43,5 +43,5 @@
 
   <p><a href="https://skillsdb.whoi.edu/engagements/{{engagement_id}}?response=DECLINED">No thanks.</a></p>
 
-  <p>Thanks from AVAST!</p>
+  <p>Thanks from WHOI Skills Matcher DB!</p>
 {% endblock %}

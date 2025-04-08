@@ -9,10 +9,13 @@ from skills_matcher_db.users.api.serializers import UserSerializer
 
 class ExpertFilter(filters.FilterSet):
     q = filters.CharFilter(method="multi_field_query", label="Search")
+    international_travel = filters.BooleanFilter(
+        field_name="expert_profile__international_travel"
+    )
 
     class Meta:
         model = Expert
-        fields = ["q"]
+        fields = ["q", "international_travel"]
 
     def multi_field_query(self, queryset, name, value):
         return Expert.objects.filter(

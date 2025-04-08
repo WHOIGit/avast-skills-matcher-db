@@ -1,21 +1,21 @@
-{% block subject %}AVAST Skills Matcher - Request for Assistance - Supervisor Copy{% endblock %}
+{% block subject %}WHOI Skills Matcher DB - Request for Assistance - Supervisor Copy{% endblock %}
 {% block plain %}
-  Hello from AVAST,
+  Hello from the WHOI Skills Matcher DB,
 
-  Your supervisee {{expert_name}} has been contacted through the AVAST Skills Matcher site.
+  Your supervisee {{expert_name}} has been contacted through the WHOI Skills Matcher DB site.
 
   The following WHOI community member has requested their assistance:
       {{requester_name}} ({{requester_email}})
 
   Message: {{ message }}
   
-  Thanks from AVAST!
+  Thanks from the WHOI Skills Matcher DB!
 {% endblock %}
 
 {% block html %}
-  <p>Hello from AVAST</p>
+  <p>Hello from the WHOI Skills Matcher DB</p>
 
-  <p>Your supervisee {{expert_name}} has been contacted through the AVAST Skills Matcher site.</p>
+  <p>Your supervisee {{expert_name}} has been contacted through the WHOI Skills Matcher DB site.</p>
 
   <p>The following WHOI community member has requested their assistance:
       <ul>
@@ -34,5 +34,5 @@
   
   <p>Message: {{ message }}</p>
 
-  <p>Thanks from AVAST!</p>
+  <p>Thanks from the WHOI Skills Matcher DB!</p>
 {% endblock %}

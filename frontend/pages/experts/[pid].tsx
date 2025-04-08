@@ -15,7 +15,7 @@ import { NextLinkComposed } from "../../src/components/Link";
 import useProfile from "../../src/hooks/useProfile";
 import useExpert from "../../src/hooks/useExpert";
 import Chip from '@mui/material/Chip';
-import CardTravelIcon from '@mui/icons-material/CardTravel';
+import PublicIcon from '@mui/icons-material/Public';
 
 export default function ExpertDetail() {
   const router = useRouter();
@@ -73,7 +73,7 @@ export default function ExpertDetail() {
           </Box>
 
           {expert.expertProfile?.internationalTravel && 
-          <Chip sx={{mt:1, mb:2}} icon={<CardTravelIcon />} label="Available for International Travel" variant="outlined" color="primary" />
+          <Chip sx={{mt:1, mb:2}} icon={<PublicIcon />} label="Available for International Travel" variant="outlined" color="primary" />
         } 
 
           <Typography component="h6" variant="h6">

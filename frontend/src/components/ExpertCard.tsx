@@ -19,7 +19,7 @@ import { User } from "../containers/authContainer";
 import useFavorite from "../hooks/useFavorite";
 import ContactDialog from "./ContactDialog";
 import UnauthContactDialog from "./UnauthContactDialog";
-import CardTravelIcon from '@mui/icons-material/CardTravel';
+import PublicIcon from '@mui/icons-material/Public';
 import Chip from '@mui/material/Chip';
 
 type CardProps = {
@@ -106,7 +106,7 @@ export default function ExpertCard({ expert }: CardProps) {
         </Typography>
 
         {expert.expertProfile?.internationalTravel && 
-          <Chip sx={{mt:1}} icon={<CardTravelIcon />} label="Available for International Travel" variant="outlined" color="primary" />
+          <Chip sx={{mt:1}} icon={<PublicIcon />} label="Available for International Travel" variant="outlined" color="primary" />
         } 
           
           

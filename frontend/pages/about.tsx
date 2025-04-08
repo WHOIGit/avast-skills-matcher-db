@@ -15,25 +15,25 @@ export default function About() {
       <InnerNav />
       <Box sx={{ my: 4 }}>
         <Typography variant="h4" component="h1" gutterBottom>
-          About the AVAST Skills Matcher Database
+          About the WHOI Skills Matcher Database
         </Typography>
 
         <Typography component="p" gutterBottom>
           The Skills Matcher DB is a web application that allows WHOI&rsquo;s
-          AVAST community to connect with each other to share technical
+          community to connect with each other to share technical
           expertise. You can use the Skills Matcher in multiple ways:
           <List>
             <ListItem>
               <ListItemIcon>
                 <DoubleArrowIcon />
               </ListItemIcon>
-              <ListItemText primary="To tell the AVAST community about your skill set and expertise" />
+              <ListItemText primary="To tell the WHOI community about your skill set and expertise" />
             </ListItem>
             <ListItem>
               <ListItemIcon>
                 <DoubleArrowIcon />
               </ListItemIcon>
-              <ListItemText primary="To find an expert in the AVAST community who has a specific skill set or expertise" />
+              <ListItemText primary="To find an expert in the WHOI community who has a specific skill set or expertise" />
             </ListItem>
             <ListItem>
               <ListItemIcon>
@@ -45,7 +45,7 @@ export default function About() {
               <ListItemIcon>
                 <DoubleArrowIcon />
               </ListItemIcon>
-              <ListItemText primary="To learn about projects or problems seeking help from the AVAST community" />
+              <ListItemText primary="To learn about projects or problems seeking help from the WHOI community" />
             </ListItem>
           </List>
         </Typography>
@@ -56,7 +56,7 @@ export default function About() {
 
         <Typography component="p" gutterBottom>
           <strong>
-            Share your expertise and skills with the AVAST community
+            Share your expertise and skills with the WHOI community
           </strong>
         </Typography>
 
@@ -65,11 +65,11 @@ export default function About() {
           <Link href="/profile/me">SME Profile</Link> (Subject Matter Expert).
           Login to the application using your WHOI credentials and create a{" "}
           <Link href="/profile/me">SME Profile</Link> with whatever information
-          you feel is valuable for the AVAST community to know. Once
+          you feel is valuable for the WHOI community to know. Once
           you&rsquo;ve saved your profile this information will be displayed in
           our <Link href="/">SME database</Link>. If another user wants to
           connect with you through the DB, you&rsquo;ll receive an email from
-          AVAST with the option to start a discussion. Set your availability
+          WHOI with the option to start a discussion. Set your availability
           preference in your profile to indicate what level of interaction you
           currently have bandwidth for. If appropriate, include your
           supervisor&rsquo;s email for cc&rsquo;s on these messages.
@@ -87,7 +87,7 @@ export default function About() {
           or skills you need help with. Then, search the SME database for
           individuals with matching skills or expertise. You can save multiple
           SMEs as Favorites as you browse through the DB. Once you find a SME
-          that you’d like to connect with, just click on the Send Message
+          that you&lsquo;d like to connect with, just click on the Send Message
           button, add an optional personal message, and the DB will contact them
           on your behalf. Once they respond to your request, the DB emails you
           their response and you can follow up from there!
@@ -122,6 +122,10 @@ export default function About() {
           email to the Project Owner with your profile details. If they want to
           follow up with you, the DB will let you know and you can start working
           together.
+        </Typography>
+
+        <Typography component="p" gutterBottom sx={{ mb: 2 }}>
+          The Skills Matcher DB was created by AVAST.
         </Typography>
 
         <Copyright />
