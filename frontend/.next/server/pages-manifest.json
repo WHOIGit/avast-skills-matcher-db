@@ -1,19 +1,6 @@
 {
-  "/about": "pages/about.html",
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/api/hello": "pages/api/hello.js",
-  "/experts/[pid]": "pages/experts/[pid].html",
-  "/profile/delete_profile": "pages/profile/delete_profile.html",
-  "/engagements/[pid]": "pages/engagements/[pid].html",
-  "/": "pages/index.html",
-  "/profile/edit": "pages/profile/edit.html",
-  "/profile/edit_profile": "pages/profile/edit_profile.html",
-  "/profile/projects/add": "pages/profile/projects/add.html",
-  "/profile/projects/edit/[pid]": "pages/profile/projects/edit/[pid].html",
-  "/projects": "pages/projects.html",
-  "/projects/[pid]": "pages/projects/[pid].html",
-  "/profile/me": "pages/profile/me.html",
-  "/404": "pages/404.html"
+  "/": "pages/index.js"
 }
