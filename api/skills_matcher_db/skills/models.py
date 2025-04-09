@@ -19,7 +19,15 @@ class Skill(MPTTModel):
         )
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
+        slug = slugify(self.name)
+        try:
+            slug_check = Skill.objects.get(slug=slug)
+            # create new slug using parent to make unique
+            slug = f"{self.parent.name}-{slug}"
+        except Exception as e:
+            print(e)
+
+        self.slug = slug
         super(Skill, self).save(*args, **kwargs)
 
     def __str__(self):
