@@ -125,7 +125,7 @@ export default function About() {
         </Typography>
 
         <Typography component="p" gutterBottom sx={{ mb: 2 }}>
-          The Skills Matcher DB was created by AVAST.
+          The Skills Matcher DB was created by AVAST and the Information Services S&E team.
         </Typography>
 
         <Copyright />

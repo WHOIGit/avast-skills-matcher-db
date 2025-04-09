@@ -114,7 +114,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 WHOI Skills Matcher DB
               </Typography>
               <Typography variant="subtitle2">
-                Created by AVAST
+                Created by AVAST and IS
               </Typography>
             </Link>
           </Box>
