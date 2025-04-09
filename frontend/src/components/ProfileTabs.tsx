@@ -143,7 +143,7 @@ export default function ProfileTabs({ profile, showTab }: ComponentProps) {
             <Typography component="h6" variant="h6">
               Your Skills
             </Typography>
-            <Stack direction="row" spacing={2}>
+            <Stack direction="row" spacing={2} useFlexGap sx={{ flexWrap: 'wrap' }}>
               {profile.expertProfile?.skills.map((id: number) => {
                 return <SkillChip key={id} skillId={id} />;
               })}

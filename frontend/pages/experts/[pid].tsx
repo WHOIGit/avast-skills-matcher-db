@@ -65,7 +65,7 @@ export default function ExpertDetail() {
             <Typography component="h6" variant="h6">
               Skills
             </Typography>
-            <Stack direction="row" spacing={2}>
+            <Stack direction="row" spacing={2} useFlexGap sx={{ flexWrap: 'wrap' }}>
               {expert.expertProfile?.skills?.map((id: number) => {
                 return <SkillChip key={id} skillId={id} size="medium" />;
               })}
