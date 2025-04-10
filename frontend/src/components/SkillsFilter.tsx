@@ -7,6 +7,7 @@ import Switch from "@mui/material/Switch";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
 //import useSkills, { Skill } from "../hooks/useSkills";
 import Skills, { Skill } from "../containers/skillsContainer";
+import {Typography} from "@mui/material";
 
 const SkillsFilter: React.FC = () => {
   const skillsCtx = Skills.useContainer();
@@ -20,7 +21,7 @@ const SkillsFilter: React.FC = () => {
     return (
       <div key={skill.id}>
         <FormControlLabel
-          label={skill.name}
+          label={<Typography variant="body2" color="textSecondary">{skill.name}</Typography>}
           control={
             <Checkbox
               checked={selectedIDs.includes(skill.id)}
@@ -41,9 +42,13 @@ const SkillsFilter: React.FC = () => {
 
   return (
     <Box sx={{ px: 2 }}>
-      {skillsCtx.skills &&
-        skillsCtx.skills.map((skill: Skill) => renderSkillsList(skill))}
-
+      <FormControl component="fieldset" variant="standard" sx={{ my: 2 }}>
+        <FormLabel component="legend">Filter by Skills</FormLabel>
+        <FormGroup>
+          {skillsCtx.skills &&
+            skillsCtx.skills.map((skill: Skill) => renderSkillsList(skill))}
+        </FormGroup>
+      </FormControl>
       <FormControl component="fieldset" variant="standard" sx={{ my: 2 }}>
         <FormLabel component="legend">Filter Type</FormLabel>
         <FormGroup>

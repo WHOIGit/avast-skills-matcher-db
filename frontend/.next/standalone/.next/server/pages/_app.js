@@ -696,7 +696,7 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_Ski
 
 
 
-const drawerWidth = 240;
+const drawerWidth = 260;
 const Main = (0,_mui_material_styles__WEBPACK_IMPORTED_MODULE_3__.styled)("main", {
     shouldForwardProp: (prop)=>prop !== "open"
 })(({ theme , open  })=>({
@@ -1050,6 +1050,7 @@ _containers_skillsContainer__WEBPACK_IMPORTED_MODULE_8__ = (__webpack_async_depe
 
 //import useSkills, { Skill } from "../hooks/useSkills";
 
+
 const SkillsFilter = ()=>{
     const skillsCtx = _containers_skillsContainer__WEBPACK_IMPORTED_MODULE_8__/* ["default"].useContainer */ .Z.useContainer();
     const selectedIDs = skillsCtx.selectedSkills.map((skill)=>skill.id);
@@ -1061,7 +1062,11 @@ const SkillsFilter = ()=>{
         return /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
             children: [
                 /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_mui_material__WEBPACK_IMPORTED_MODULE_2__.FormControlLabel, {
-                    label: skill.name,
+                    label: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_mui_material__WEBPACK_IMPORTED_MODULE_2__.Typography, {
+                        variant: "body2",
+                        color: "textSecondary",
+                        children: skill.name
+                    }),
                     control: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_mui_material__WEBPACK_IMPORTED_MODULE_2__.Checkbox, {
                         checked: selectedIDs.includes(skill.id),
                         onChange: (e)=>skillsCtx.changeSelectStatus(skill, e.target.checked)
@@ -1083,7 +1088,22 @@ const SkillsFilter = ()=>{
             px: 2
         },
         children: [
-            skillsCtx.skills && skillsCtx.skills.map((skill)=>renderSkillsList(skill)),
+            /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)((_mui_material_FormControl__WEBPACK_IMPORTED_MODULE_4___default()), {
+                component: "fieldset",
+                variant: "standard",
+                sx: {
+                    my: 2
+                },
+                children: [
+                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((_mui_material_FormLabel__WEBPACK_IMPORTED_MODULE_3___default()), {
+                        component: "legend",
+                        children: "Filter by Skills"
+                    }),
+                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((_mui_material_FormGroup__WEBPACK_IMPORTED_MODULE_5___default()), {
+                        children: skillsCtx.skills && skillsCtx.skills.map((skill)=>renderSkillsList(skill))
+                    })
+                ]
+            }),
             /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)((_mui_material_FormControl__WEBPACK_IMPORTED_MODULE_4___default()), {
                 component: "fieldset",
                 variant: "standard",

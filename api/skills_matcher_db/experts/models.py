@@ -66,3 +66,14 @@ class ExpertProfile(models.Model):
 
     def __str__(self):
         return f"{self.user.username} Profile"
+
+    def add_parent_skills(self):
+        # method to add the parent skill if it's missing from profile
+        skills = self.skills.all()
+        if skills.exists():
+            for skill in skills:
+                # check if it has parent
+                print(skill)
+                print(skill.parent)
+                if skill.parent:
+                    self.skills.add(skill.parent)

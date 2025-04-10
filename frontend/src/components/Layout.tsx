@@ -22,7 +22,7 @@ import FavoritesList from "./FavoritesList";
 import { SignInSignOutButton, WelcomeName } from "./AuthUi";
 import IntlTravelFilter from "./IntlTravelFilter";
 
-const drawerWidth = 240;
+const drawerWidth = 260;
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
   open?: boolean;

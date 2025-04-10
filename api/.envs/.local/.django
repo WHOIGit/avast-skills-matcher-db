@@ -2,3 +2,8 @@
 # ------------------------------------------------------------------------------
 USE_DOCKER=yes
 IPYTHONDIR=/app/.ipython
+
+# Azure AD settings
+CLIENT_ID=
+CLIENT_SECRET=
+TENANT_ID=
