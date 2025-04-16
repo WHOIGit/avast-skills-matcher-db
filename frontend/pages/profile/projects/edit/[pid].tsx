@@ -7,6 +7,11 @@ import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import Checkbox from "@mui/material/Checkbox";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormControl from "@mui/material/FormControl";
+import FormLabel from "@mui/material/FormLabel";
+import FormGroup from "@mui/material/FormGroup";
 import useProjects from "../../../../src/hooks/useProjects";
 import InnerNav from "../../../../src/components/InnerNav";
 import SkillsCheckboxes from "../../../../src/components/SkillsCheckboxes";
@@ -30,6 +35,7 @@ export default function EditProject() {
       title: project?.title,
       description: project?.description,
       skills: project?.skills,
+      internationalTravel: project?.internationalTravel
     });
   }, [reset, project]);
 
@@ -114,6 +120,33 @@ export default function EditProject() {
                 {errors.description && "Field is required"}
               </Box>
             </Grid>
+
+            <Grid item xs={12}>
+              <FormControl component="fieldset" variant="standard">
+                <FormLabel component="legend">International Travel Required?</FormLabel>
+                <FormGroup>
+                  <Controller
+                    name="internationalTravel"
+                    defaultValue={false}
+                    control={control}
+                    //rules={{ required: true }}
+                    render={({ field }) => (
+                      <FormControlLabel
+                        key="internationalTravel"
+                        label="YES"
+                        control={
+                          <Checkbox
+                            checked={field.value}
+                            {...field}
+                          />
+                        }
+                      />
+                    )}
+                  />
+                </FormGroup>
+              </FormControl>
+            </Grid>
+
             <Grid item xs={12}>
               <SkillsCheckboxes control={control} />
             </Grid>

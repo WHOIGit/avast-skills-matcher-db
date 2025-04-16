@@ -33,7 +33,8 @@ const useProjects = (pid)=>{
         const payload = {
             title: data.title,
             description: data.description,
-            skills: data.skills
+            skills: data.skills,
+            internationalTravel: data.internationalTravel
         };
         const resp = await fetch(url, {
             method: "POST",
@@ -54,7 +55,8 @@ const useProjects = (pid)=>{
         const payload = {
             title: data.title,
             description: data.description,
-            skills: data.skills
+            skills: data.skills,
+            internationalTravel: data.internationalTravel
         };
         const resp = await fetch(url, {
             method: "PATCH",

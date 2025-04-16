@@ -8,6 +8,7 @@ type ProjectFormData = {
   title: string;
   description: string;
   skills: number[];
+  internationalTravel: boolean;
 };
 
 export interface Project extends ProjectFormData {
@@ -50,6 +51,7 @@ const useProjects = (pid?: any): HookData => {
       title: data.title,
       description: data.description,
       skills: data.skills,
+      internationalTravel: data.internationalTravel,
     };
 
     const resp = await fetch(url, {
@@ -76,6 +78,7 @@ const useProjects = (pid?: any): HookData => {
       title: data.title,
       description: data.description,
       skills: data.skills,
+      internationalTravel: data.internationalTravel,
     };
     const resp = await fetch(url, {
       method: "PATCH",
