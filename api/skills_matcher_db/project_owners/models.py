@@ -41,6 +41,9 @@ class Project(models.Model):
     )
     experts = models.ManyToManyField(User, related_name="projects_assigned", blank=True)
     skills = TreeManyToManyField(Skill, related_name="projects", blank=True)
+    international_travel = models.BooleanField(
+        default=False, verbose_name="International Travel Required"
+    )
 
     class Meta:
         ordering = ["title"]

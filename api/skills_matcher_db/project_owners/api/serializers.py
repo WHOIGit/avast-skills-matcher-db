@@ -19,6 +19,7 @@ class ProjectSerializer(serializers.ModelSerializer):
             "project_owner_display",
             "experts",
             "skills",
+            "international_travel",
         ]
 
     def get_project_owner_display(self, obj):
