@@ -30,7 +30,7 @@ export default function Index() {
             color="text.primary"
             gutterBottom
           >
-            Welcome to the AVAST Skills Matcher DB
+            Welcome to the WHOI Skills Matcher DB
           </Typography>
 
           <Stack
