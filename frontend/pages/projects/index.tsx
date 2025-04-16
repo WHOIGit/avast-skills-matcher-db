@@ -101,7 +101,7 @@ export default function Index() {
         </Typography>
       </Box>
       
-      {!profile && (
+      {profile && (
         <Button
         startIcon={<AddIcon />}
         variant="contained"
