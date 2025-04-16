@@ -12,7 +12,8 @@ import ProjectsGrid from "../../src/components/ProjectsGrid";
 
 export default function Index() {
   const { profile } = useProfile();
-
+  console.log(profile);
+  
   return (
     <>
       <Box
@@ -73,9 +74,9 @@ export default function Index() {
                   color="text.secondary"
                   paragraph
                 >
-                  Have a project you need assistance with? Create a
-                  &quot;Project&quot; in your accoutn and it will be listed in
-                  the Project database for WHOI SMEs to discover.
+                  Want to recruit help for your research or project? Create a
+                  &quot;Project&quot; that you can request assistance with from
+                  one of our users.
                 </Typography>
 
                 <Button
@@ -99,6 +100,20 @@ export default function Index() {
           The following <strong>Projects</strong> are looking for assistance:
         </Typography>
       </Box>
+      
+      {!profile && (
+        <Button
+        startIcon={<AddIcon />}
+        variant="contained"
+        component={NextLinkComposed}
+        to={{
+          pathname: "/profile/projects/add",
+        }}
+      >
+        Add Project
+      </Button>
+      )}
+      
 
       <Box sx={{ my: 4 }}>
         <ProjectsGrid />
