@@ -16,6 +16,8 @@ import SkillChip from "./SkillChip";
 import { Project } from "../hooks/useProjects";
 import UnauthContactDialog from "./UnauthContactDialog";
 import ContactProjectDialog from "./ContactProjectDialog";
+import PublicIcon from '@mui/icons-material/Public';
+import Chip from '@mui/material/Chip';
 
 type CardProps = {
   project: Project;
@@ -80,6 +82,11 @@ export default function ProjectCard({ project }: CardProps) {
             //textTruncateChild={<a href="#">Read on</a>}
           />
         </Typography>
+
+        {project.internationalTravel && 
+          <Chip sx={{mt:1}} icon={<PublicIcon />} label="International Travel Required" variant="outlined" color="primary" />
+        } 
+
       </CardContent>
       <CardActions disableSpacing>
         {isAuthenticated ? (

@@ -6,10 +6,12 @@ import Search from "../containers/searchContainer";
 import useProjects, { Project } from "../hooks/useProjects";
 import useProjectSearch from "../hooks/useProjectSearch";
 import ProjectCard from "./ProjectCard";
+import IntlTravel from "../containers/intlTravelContainer";
 
 export default function ProjectsGrid() {
   const search = Search.useContainer();
   const skillsCtx = Skills.useContainer();
+  const IntlTravelCtx = IntlTravel.useContainer();
   const { projects, isLoading, isError } = useProjects();
   const { results } = useProjectSearch(search.searchTerms);
 
@@ -24,6 +26,15 @@ export default function ProjectsGrid() {
     } else {
       projectList = projects;
     }
+
+    // filter all Experts against international travel
+    if (projectList && IntlTravelCtx.internationalTravel) {
+      const intlTravelList = projectList.filter((item: Project) => {
+        return item.internationalTravel
+      }) as Project[];
+      projectList = intlTravelList   
+    }
+
     // filter all Engineers against the selected skills
     if (projectList) {
       if (!skillsCtx.selectedSkills.length) {
@@ -47,7 +58,7 @@ export default function ProjectsGrid() {
         setMatchingProjects(filteredList);
       }
     }
-  }, [projects, results, skillsCtx.filterInclusive, skillsCtx.selectedSkills]);
+  }, [projects, results, skillsCtx.filterInclusive, skillsCtx.selectedSkills, IntlTravelCtx.internationalTravel]);
 
   if (!matchingProjects || !matchingProjects?.length) {
     return (

@@ -73,8 +73,8 @@ export default function ExpertDetail() {
           </Box>
 
           {expert.expertProfile?.internationalTravel && 
-          <Chip sx={{mt:1, mb:2}} icon={<PublicIcon />} label="Available for International Travel" variant="outlined" color="primary" />
-        } 
+            <Chip sx={{mt:1, mb:2}} icon={<PublicIcon />} label="Available for International Travel" variant="outlined" color="primary" />
+          } 
 
           <Typography component="h6" variant="h6">
             Availability

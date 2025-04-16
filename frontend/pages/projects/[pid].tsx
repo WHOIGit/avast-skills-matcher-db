@@ -5,6 +5,8 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 import Stack from "@mui/material/Stack";
+import Chip from '@mui/material/Chip';
+import PublicIcon from '@mui/icons-material/Public';
 // local imports
 import SkillChip from "../../src/components/SkillChip";
 import InnerNav from "../../src/components/InnerNav";
@@ -59,6 +61,10 @@ export default function ProjectDetail() {
               })}
             </Stack>
           </Box>
+
+          {project.internationalTravel && 
+            <Chip sx={{mt:1, mb:2}} icon={<PublicIcon />} label="International Travel Required" variant="outlined" color="primary" />
+          } 
 
           <Typography component="h6" variant="h6">
             Description
