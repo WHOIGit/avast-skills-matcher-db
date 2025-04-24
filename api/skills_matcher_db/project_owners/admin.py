@@ -7,7 +7,12 @@ class ProjectOwnerAdmin(admin.ModelAdmin):
 
 
 class ProjectAdmin(admin.ModelAdmin):
-    pass
+    list_display = [
+        "title",
+        "project_owner",
+        "date_created",
+        "international_travel",
+    ]
 
 
 admin.site.register(ProjectOwner, ProjectOwnerAdmin)

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.base_user import BaseUserManager
 from mptt.models import TreeManyToManyField
+from django.utils import timezone
 
 from skills_matcher_db.users.models import User
 from skills_matcher_db.skills.models import Skill
@@ -44,6 +45,7 @@ class Project(models.Model):
     international_travel = models.BooleanField(
         default=False, verbose_name="International Travel Required"
     )
+    date_created = models.DateTimeField(default=timezone.now)
 
     class Meta:
         ordering = ["title"]
