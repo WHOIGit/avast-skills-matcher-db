@@ -61,4 +61,11 @@ class FavoriteAdmin(admin.ModelAdmin):
 
 @admin.register(Engagement)
 class EngagementAdmin(admin.ModelAdmin):
-    list_display = ["project_owner", "expert", "date_created", "date_responded"]
+    list_display = [
+        "project_owner",
+        "expert",
+        "engagement_type",
+        "response",
+        "date_created",
+        "date_responded",
+    ]
