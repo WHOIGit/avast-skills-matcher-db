@@ -8,8 +8,15 @@ from django.views.generic import RedirectView
 
 from rest_framework.authtoken.views import obtain_auth_token
 
+from config.admin import CustomAdminSite
 from skills_matcher_db.users.api import jwt_views
 from skills_matcher_db.users.api.views import Ping
+
+# custom admin site class
+admin.site.__class__ = CustomAdminSite
+admin.site.site_header = "WHOI Skills Matcher Administration"
+admin.site.index_title = "Site administration"
+admin.site.site_title = "WHOI Skills Matcher Administration"
 
 urlpatterns = [
     path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),

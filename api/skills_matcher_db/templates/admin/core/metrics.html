@@ -1,0 +1,45 @@
+{# templates/admin/custom_page.html #}
+
+{% extends 'admin/change_list.html' %}
+{% load crispy_forms_tags %}
+
+{% block pagination %}
+{% endblock %}
+{% block filters %}{% endblock filters %}
+{% block object-tools %}{% endblock object-tools %}
+{% block search %}{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <a href="{% url 'admin:index' %}">Home</a>
+    {% if page_name %} &rsaquo; {{ page_name }}{% endif %}
+</div>
+{% endblock %}
+
+{% block result_list %}
+<div class="content">
+    <h1>Application Metrics</h1>
+
+    <h2>New Users by Month</h2>
+        <ul>
+            {% for item in user_metrics %}
+                <li>{{ item.month|date:"Y-m" }} - {{ item.user_count }} user</li>
+            {% empty %}
+                <li>No items found.</li>
+            {% endfor %}
+        </ul>
+        
+    
+    <h2>New Projects by Month</h2>
+    <ul>
+        {% for item in projects_metrics_qs %}
+            <li>{{ item.month|date:"Y-m" }} - {{ item.project_count }} project</li>
+        {% empty %}
+            <li>No items found.</li>
+        {% endfor %}
+    </ul>
+    
+
+
+</div>
+{% endblock result_list %}
