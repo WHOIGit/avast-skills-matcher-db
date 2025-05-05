@@ -21,23 +21,67 @@
     <h1>Application Metrics</h1>
 
     <h2>New Users by Month</h2>
-        <ul>
-            {% for item in user_metrics %}
-                <li>{{ item.month|date:"Y-m" }} - {{ item.user_count }} user</li>
+    <table style="width:300px">
+        <tr>
+          <th scope="row">
+            <a href="{% url 'admin:view_metrics' %}"> Month </a>
+          </th>
+          <th scope="row">
+            <a href="{% url 'admin:view_metrics' %}"> Users </a>
+          </th>
+        </tr>
+       
+        {% for item in user_metrics %}
+            <tr>
+                <td>{{ item.month|date:"Y-m" }} </td><td> {{ item.user_count }} </td>
             {% empty %}
-                <li>No items found.</li>
-            {% endfor %}
-        </ul>
+                <td>No items found.</td><td></td>
+            </tr>
+        {% endfor %}
         
+      </table>
     
     <h2>New Projects by Month</h2>
-    <ul>
-        {% for item in projects_metrics_qs %}
-            <li>{{ item.month|date:"Y-m" }} - {{ item.project_count }} project</li>
-        {% empty %}
-            <li>No items found.</li>
+    <table style="width:300px">
+        <tr>
+          <th scope="row">
+            <a href="{% url 'admin:view_metrics' %}"> Month </a>
+          </th>
+          <th scope="row">
+            <a href="{% url 'admin:view_metrics' %}"> Projects </a>
+          </th>
+        </tr>
+       
+        {% for item in project_metrics %}
+            <tr>
+                <td>{{ item.month|date:"Y-m" }} </td><td> {{ item.project_count }} </td>
+            {% empty %}
+                <td>No items found.</td><td></td>
+            </tr>
         {% endfor %}
-    </ul>
+        
+      </table>
+
+    <h2>New Engagements by Month</h2>
+    <table style="width:300px">
+        <tr>
+          <th scope="row">
+            <a href="{% url 'admin:view_metrics' %}"> Month </a>
+          </th>
+          <th scope="row">
+            <a href="{% url 'admin:view_metrics' %}"> Engagements </a>
+          </th>
+        </tr>
+       
+        {% for item in eng_metrics %}
+            <tr>
+                <td>{{ item.month|date:"Y-m" }} </td><td> {{ item.eng_count }} </td>
+            {% empty %}
+                <td>No items found.</td><td></td>
+            </tr>
+        {% endfor %}
+        
+      </table>
     
 
 

@@ -4,7 +4,7 @@ from django.views.generic.base import RedirectView, TemplateView
 from django.db.models.functions import TruncMonth
 from django.db.models import Count
 
-from skills_matcher_db.users.models import User
+from skills_matcher_db.users.models import User, Engagement
 from skills_matcher_db.project_owners.models import Project
 
 
@@ -29,11 +29,19 @@ class AdminMetricsView(TemplateView):
             .order_by("month")
         )
 
-        # get user metric data
+        # get project metric data
         projects_metrics_qs = (
             Project.objects.annotate(month=TruncMonth("date_created"))
             .values("month")
             .annotate(project_count=Count("id"))
+            .order_by("month")
+        )
+
+        # get Engagement metric data
+        eng_metrics_qs = (
+            Engagement.objects.annotate(month=TruncMonth("date_created"))
+            .values("month")
+            .annotate(eng_count=Count("id"))
             .order_by("month")
         )
 
@@ -42,6 +50,7 @@ class AdminMetricsView(TemplateView):
                 "node_type": "assemblies",
                 "user_metrics": user_metrics_qs,
                 "project_metrics": projects_metrics_qs,
+                "eng_metrics": eng_metrics_qs,
             }
         )
         return context

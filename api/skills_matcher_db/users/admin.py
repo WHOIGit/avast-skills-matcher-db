@@ -61,4 +61,4 @@ class FavoriteAdmin(admin.ModelAdmin):
 
 @admin.register(Engagement)
 class EngagementAdmin(admin.ModelAdmin):
-    pass
+    list_display = ["project_owner", "expert", "date_created", "date_responded"]
