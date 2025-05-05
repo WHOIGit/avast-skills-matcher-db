@@ -6,7 +6,7 @@ from skills_matcher_db.users.api.views import (
     FavoriteViewSet,
     EngagementViewSet,
 )
-from skills_matcher_db.engineers.api.views import EngineerViewSet
+
 from skills_matcher_db.experts.api.views import ExpertViewSet
 from skills_matcher_db.skills.api.views import SkillViewSet
 from skills_matcher_db.project_owners.api.views import (
@@ -22,7 +22,6 @@ else:
 router.register(r"users", UserViewSet)
 router.register(r"engagements", EngagementViewSet)
 router.register(r"favorites", FavoriteViewSet)
-router.register(r"engineers", EngineerViewSet)
 router.register(r"experts", ExpertViewSet)
 router.register(r"skills", SkillViewSet)
 router.register(r"project_owners", ProjectOwnerViewSet)

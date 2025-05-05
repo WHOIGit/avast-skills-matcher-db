@@ -1,6 +1,7 @@
 """
 Base settings to build other settings files upon.
 """
+
 from pathlib import Path
 from datetime import timedelta
 
@@ -81,7 +82,7 @@ LOCAL_APPS = [
     "skills_matcher_db.users.apps.UsersConfig",
     # Your stuff: custom apps go here
     "skills_matcher_db.project_owners",
-    "skills_matcher_db.engineers",
+    # "skills_matcher_db.engineers",
     "skills_matcher_db.skills",
     "skills_matcher_db.experts",
 ]
