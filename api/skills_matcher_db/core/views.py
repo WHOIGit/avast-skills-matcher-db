@@ -26,7 +26,7 @@ class AdminMetricsView(TemplateView):
             User.objects.annotate(month=TruncMonth("date_joined"))
             .values("month")
             .annotate(user_count=Count("id"))
-            .order_by("month")
+            .order_by("-month")
         )
 
         # get project metric data
@@ -34,7 +34,7 @@ class AdminMetricsView(TemplateView):
             Project.objects.annotate(month=TruncMonth("date_created"))
             .values("month")
             .annotate(project_count=Count("id"))
-            .order_by("month")
+            .order_by("-month")
         )
 
         # get Engagement metric data
@@ -42,7 +42,7 @@ class AdminMetricsView(TemplateView):
             Engagement.objects.annotate(month=TruncMonth("date_created"))
             .values("month")
             .annotate(eng_count=Count("id"))
-            .order_by("month")
+            .order_by("-month")
         )
 
         context.update(
