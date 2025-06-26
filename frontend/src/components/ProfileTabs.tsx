@@ -171,6 +171,11 @@ export default function ProfileTabs({ profile, showTab }: ComponentProps) {
           <Typography component="h6" variant="h6">
             Availability
           </Typography>
+
+           {profile.expertProfile?.urgentProjectSeek && 
+            <Chip label="Urgently Seeking New Project" color="primary" variant="outlined"  />
+           } 
+
           <Typography component="p" variant="body1" paragraph>
             {profile.expertProfile?.availabilityDisplay?.join(", ")}
           </Typography>

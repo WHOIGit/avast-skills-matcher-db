@@ -79,11 +79,11 @@ export default function ExpertDetail() {
           <Typography component="h6" variant="h6">
             Availability
           </Typography>
+
           {expert.expertProfile?.urgentProjectSeek && 
-            <Typography component="p" variant="body1" paragraph>
-              <strong>Urgently Seeking New Project</strong>
-            </Typography>
+            <Chip label="Urgently Seeking New Project" color="primary" variant="outlined" />
            } 
+
           <Typography component="p" variant="body1" paragraph>
             {expert.expertProfile?.availabilityDisplay?.join(", ")}
           </Typography>
