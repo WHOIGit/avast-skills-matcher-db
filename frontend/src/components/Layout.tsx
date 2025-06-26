@@ -21,6 +21,7 @@ import SearchField from "./SearchField";
 import FavoritesList from "./FavoritesList";
 import { SignInSignOutButton, WelcomeName } from "./AuthUi";
 import IntlTravelFilter from "./IntlTravelFilter";
+import UrgentFilter from "./UrgentFilter";
 
 const drawerWidth = 260;
 
@@ -180,6 +181,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         </DrawerHeader>
         <Divider />
         <IntlTravelFilter />
+        <UrgentFilter />
         <Divider />
         <SkillsFilter />
         <Divider />

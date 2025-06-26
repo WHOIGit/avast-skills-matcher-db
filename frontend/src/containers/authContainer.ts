@@ -11,6 +11,7 @@ export type Profile = {
   availabilityDisplay?: string[] | null;
   orcidId: string | null;
   internationalTravel: boolean;
+  urgentProjectSeek: boolean;
 };
 
 export type Favorite = {

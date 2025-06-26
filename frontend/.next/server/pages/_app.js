@@ -46,10 +46,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _src_containers_searchContainer__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(5767);
 /* harmony import */ var _src_authConfig__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(4844);
 /* harmony import */ var _src_NavigationClient__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(6183);
-/* harmony import */ var _src_lib_ga__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(9245);
+/* harmony import */ var _src_lib_ga__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(9245);
 /* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(1853);
 /* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_15__);
 /* harmony import */ var _src_containers_intlTravelContainer__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(5049);
+/* harmony import */ var _src_containers_urgentContainer__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(200);
 var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_emotion_react__WEBPACK_IMPORTED_MODULE_5__, _src_utils_createEmotionCache__WEBPACK_IMPORTED_MODULE_9__, _src_components_Layout__WEBPACK_IMPORTED_MODULE_10__, _src_containers_skillsContainer__WEBPACK_IMPORTED_MODULE_11__]);
 ([_emotion_react__WEBPACK_IMPORTED_MODULE_5__, _src_utils_createEmotionCache__WEBPACK_IMPORTED_MODULE_9__, _src_components_Layout__WEBPACK_IMPORTED_MODULE_10__, _src_containers_skillsContainer__WEBPACK_IMPORTED_MODULE_11__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
 
@@ -61,6 +62,7 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_emo
 
 
 // local imports
+
 
 
 
@@ -95,7 +97,7 @@ const MyApp = (props)=>{
     // function to track page views for GA
     react__WEBPACK_IMPORTED_MODULE_1__.useEffect(()=>{
         const handleRouteChange = (url)=>{
-            _src_lib_ga__WEBPACK_IMPORTED_MODULE_17__/* .pageview */ .L(url);
+            _src_lib_ga__WEBPACK_IMPORTED_MODULE_18__/* .pageview */ .L(url);
         };
         //When the component is mounted, subscribe to router changes
         //and log those page views
@@ -128,15 +130,17 @@ const MyApp = (props)=>{
                     instance: msalInstance,
                     children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_src_containers_skillsContainer__WEBPACK_IMPORTED_MODULE_11__/* ["default"].Provider */ .Z.Provider, {
                         children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_src_containers_searchContainer__WEBPACK_IMPORTED_MODULE_12__/* ["default"].Provider */ .Z.Provider, {
-                            children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_src_containers_intlTravelContainer__WEBPACK_IMPORTED_MODULE_16__/* ["default"].Provider */ .Z.Provider, {
-                                children: [
-                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((_mui_material_CssBaseline__WEBPACK_IMPORTED_MODULE_4___default()), {}),
-                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_src_components_Layout__WEBPACK_IMPORTED_MODULE_10__/* ["default"] */ .Z, {
-                                        children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(Component, {
-                                            ...pageProps
+                            children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_src_containers_intlTravelContainer__WEBPACK_IMPORTED_MODULE_16__/* ["default"].Provider */ .Z.Provider, {
+                                children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_src_containers_urgentContainer__WEBPACK_IMPORTED_MODULE_17__/* ["default"].Provider */ .Z.Provider, {
+                                    children: [
+                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((_mui_material_CssBaseline__WEBPACK_IMPORTED_MODULE_4___default()), {}),
+                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_src_components_Layout__WEBPACK_IMPORTED_MODULE_10__/* ["default"] */ .Z, {
+                                            children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(Component, {
+                                                ...pageProps
+                                            })
                                         })
-                                    })
-                                ]
+                                    ]
+                                })
                             })
                         })
                     })
@@ -673,8 +677,10 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony import */ var _FavoritesList__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(9704);
 /* harmony import */ var _AuthUi__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(6359);
 /* harmony import */ var _IntlTravelFilter__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(4269);
+/* harmony import */ var _UrgentFilter__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(8584);
 var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_SkillsFilter__WEBPACK_IMPORTED_MODULE_15__, _FavoritesList__WEBPACK_IMPORTED_MODULE_18__, _AuthUi__WEBPACK_IMPORTED_MODULE_19__]);
 ([_SkillsFilter__WEBPACK_IMPORTED_MODULE_15__, _FavoritesList__WEBPACK_IMPORTED_MODULE_18__, _AuthUi__WEBPACK_IMPORTED_MODULE_19__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+
 
 
 
@@ -895,6 +901,7 @@ const Layout = ({ children  })=>{
                     }),
                     /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((_mui_material_Divider__WEBPACK_IMPORTED_MODULE_9___default()), {}),
                     /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_IntlTravelFilter__WEBPACK_IMPORTED_MODULE_20__/* ["default"] */ .Z, {}),
+                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_UrgentFilter__WEBPACK_IMPORTED_MODULE_21__/* ["default"] */ .Z, {}),
                     /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((_mui_material_Divider__WEBPACK_IMPORTED_MODULE_9___default()), {}),
                     /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_SkillsFilter__WEBPACK_IMPORTED_MODULE_15__/* ["default"] */ .Z, {}),
                     /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((_mui_material_Divider__WEBPACK_IMPORTED_MODULE_9___default()), {}),
@@ -1147,6 +1154,72 @@ __webpack_async_result__();
 
 /***/ }),
 
+/***/ 8584:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(997);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6689);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5692);
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_mui_material__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _mui_material_FormLabel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6096);
+/* harmony import */ var _mui_material_FormLabel__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_mui_material_FormLabel__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _mui_material_FormControl__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(8891);
+/* harmony import */ var _mui_material_FormControl__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_mui_material_FormControl__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _mui_material_FormGroup__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(8860);
+/* harmony import */ var _mui_material_FormGroup__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_mui_material_FormGroup__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _mui_material_Switch__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(3191);
+/* harmony import */ var _mui_material_Switch__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_mui_material_Switch__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _containers_urgentContainer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(200);
+
+
+
+
+
+
+
+
+const UrgentFilter = ()=>{
+    const urgentCtx = _containers_urgentContainer__WEBPACK_IMPORTED_MODULE_7__/* ["default"].useContainer */ .Z.useContainer();
+    console.log(urgentCtx);
+    return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_mui_material__WEBPACK_IMPORTED_MODULE_2__.Box, {
+        sx: {
+            px: 2
+        },
+        children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)((_mui_material_FormControl__WEBPACK_IMPORTED_MODULE_4___default()), {
+            component: "fieldset",
+            variant: "standard",
+            sx: {
+                my: 2
+            },
+            children: [
+                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((_mui_material_FormLabel__WEBPACK_IMPORTED_MODULE_3___default()), {
+                    component: "legend",
+                    children: "Urgently Seeking Project"
+                }),
+                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((_mui_material_FormGroup__WEBPACK_IMPORTED_MODULE_5___default()), {
+                    children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_mui_material__WEBPACK_IMPORTED_MODULE_2__.FormControlLabel, {
+                        control: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((_mui_material_Switch__WEBPACK_IMPORTED_MODULE_6___default()), {
+                            checked: urgentCtx.urgentProjectSeek,
+                            onChange: (event)=>urgentCtx.setUrgentProjectSeek(event.target.checked),
+                            name: "urgentProjectSeek"
+                        }),
+                        label: "Yes"
+                    })
+                })
+            ]
+        })
+    });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (UrgentFilter);
+
+
+/***/ }),
+
 /***/ 5049:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -1193,6 +1266,31 @@ function useSearch() {
 }
 const Search = (0,unstated_next__WEBPACK_IMPORTED_MODULE_1__.createContainer)(useSearch);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Search);
+
+
+/***/ }),
+
+/***/ 200:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6689);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var unstated_next__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7441);
+/* harmony import */ var unstated_next__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(unstated_next__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function useUrgent() {
+    const [urgentProjectSeek, setUrgentProjectSeek] = react__WEBPACK_IMPORTED_MODULE_0__.useState(false);
+    return {
+        urgentProjectSeek: urgentProjectSeek,
+        setUrgentProjectSeek: setUrgentProjectSeek
+    };
+}
+const Urgent = (0,unstated_next__WEBPACK_IMPORTED_MODULE_1__.createContainer)(useUrgent);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Urgent);
 
 
 /***/ }),

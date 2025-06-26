@@ -40,6 +40,7 @@ export default function EditProfileForm() {
       orcidId: profile?.expertProfile?.orcidId,
       availability: profile?.expertProfile?.availability,
       internationalTravel: profile?.expertProfile?.internationalTravel,
+      urgentProjectSeek: profile?.expertProfile?.urgentProjectSeek
     });
   }, [reset, profile]);
 
@@ -205,6 +206,32 @@ export default function EditProfileForm() {
                     render={({ field }) => (
                       <FormControlLabel
                         key="internationalTravel"
+                        label="YES"
+                        control={
+                          <Checkbox
+                            checked={field.value}
+                            {...field}
+                          />
+                        }
+                      />
+                    )}
+                  />
+                </FormGroup>
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={12}>
+              <FormControl component="fieldset" variant="standard">
+                <FormLabel component="legend">Urgently Seeking New Project?</FormLabel>
+                <FormGroup>
+                  <Controller
+                    name="urgentProjectSeek"
+                    defaultValue={false}
+                    control={control}
+                    //rules={{ required: true }}
+                    render={({ field }) => (
+                      <FormControlLabel
+                        key="urgentProjectSeek"
                         label="YES"
                         control={
                           <Checkbox

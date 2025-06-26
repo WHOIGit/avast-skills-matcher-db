@@ -22,6 +22,7 @@ import { CustomNavigationClient } from "../src/NavigationClient";
 import * as ga from "../src/lib/ga";
 import { useRouter } from "next/router";
 import IntlTravel from "../src/containers/intlTravelContainer";
+import Urgent from "../src/containers/urgentContainer";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -80,11 +81,13 @@ const MyApp = (props: IAppProps) => {
           <Skills.Provider>
             <Search.Provider>
               <IntlTravel.Provider>
-              {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-              <CssBaseline />
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
+                <Urgent.Provider>
+                  {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+                  <CssBaseline />
+                  <Layout>
+                    <Component {...pageProps} />
+                  </Layout>
+                </Urgent.Provider>
               </IntlTravel.Provider>
             </Search.Provider>
           </Skills.Provider>

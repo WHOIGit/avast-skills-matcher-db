@@ -8,11 +8,13 @@ import useExperts from "../hooks/useExperts";
 import useExpertSearch from "../hooks/useExpertSearch";
 import ExpertCard from "./ExpertCard";
 import IntlTravel from "../containers/intlTravelContainer";
+import Urgent from "../containers/urgentContainer";
 
 export default function ExpertsGrid() {
   const search = Search.useContainer();
   const skillsCtx = Skills.useContainer();
   const IntlTravelCtx = IntlTravel.useContainer();
+  const urgentCtx = Urgent.useContainer();
 
   const { experts, isLoading, isError } = useExperts();
   const { results } = useExpertSearch(search.searchTerms);
@@ -37,6 +39,15 @@ export default function ExpertsGrid() {
       }) as User[];
       console.log(intlTravelList);
       expertList = intlTravelList   
+    }
+
+    // filter all Experts against Urgently Seeking
+    if (expertList && urgentCtx.urgentProjectSeek) {
+      const urgentList = expertList.filter((item: User) => {
+        return item.expertProfile.urgentProjectSeek
+      }) as User[];
+      console.log(urgentList);
+      expertList = urgentList   
     }
 
 
@@ -67,7 +78,7 @@ export default function ExpertsGrid() {
         setMatchingEngineers(filteredList);
       }
     }
-  }, [experts, results, skillsCtx.filterInclusive, skillsCtx.selectedSkills, IntlTravelCtx.internationalTravel]);
+  }, [experts, results, skillsCtx.filterInclusive, skillsCtx.selectedSkills, IntlTravelCtx.internationalTravel, urgentCtx.urgentProjectSeek]);
 
   if (!matchingEngineers) {
     return null;

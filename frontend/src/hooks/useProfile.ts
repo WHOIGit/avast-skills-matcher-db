@@ -14,6 +14,7 @@ export type Profile = {
   availabilityDisplay?: string[] | null;
   orcidId: string | null;
   internationalTravel: boolean;
+  urgentProjectSeek: boolean;
 };
 
 export type Favorite = {
@@ -144,7 +145,8 @@ const useProfile = (): HookData => {
       skills: data.skills,
       orcidId: data.orcidId,
       availability: data.availability,
-      internationalTravel: data.internationalTravel
+      internationalTravel: data.internationalTravel,
+      urgentProjectSeek: data.urgentProjectSeek
     };
     const url = makeUrl(`/api/users/update_expert_profile/`);
     const resp = await fetch(url, {

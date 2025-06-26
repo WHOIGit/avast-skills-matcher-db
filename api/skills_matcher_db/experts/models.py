@@ -63,6 +63,9 @@ class ExpertProfile(models.Model):
     international_travel = models.BooleanField(
         default=False, verbose_name="Willing to Travel Internationally"
     )
+    urgent_project_seek = models.BooleanField(
+        default=False, verbose_name="Urgently Seeking New Project"
+    )
 
     def __str__(self):
         return f"{self.user.username} Profile"

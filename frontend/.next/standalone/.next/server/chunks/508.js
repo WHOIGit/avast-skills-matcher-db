@@ -85,7 +85,8 @@ const useProfile = ()=>{
             skills: data.skills,
             orcidId: data.orcidId,
             availability: data.availability,
-            internationalTravel: data.internationalTravel
+            internationalTravel: data.internationalTravel,
+            urgentProjectSeek: data.urgentProjectSeek
         };
         const url = (0,_utils_apiUtils__WEBPACK_IMPORTED_MODULE_2__/* .makeUrl */ .bf)(`/api/users/update_expert_profile/`);
         const resp = await fetch(url, {
