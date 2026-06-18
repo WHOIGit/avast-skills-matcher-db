@@ -9,12 +9,18 @@ import useExpertSearch from "../hooks/useExpertSearch";
 import ExpertCard from "./ExpertCard";
 import IntlTravel from "../containers/intlTravelContainer";
 import Urgent from "../containers/urgentContainer";
+import FieldWork from "../containers/fieldWorkContainer";
+import PartTimeWork from "../containers/partTimeWorkContainer";
+import Seagoing from "../containers/seagoingContainer";
 
 export default function ExpertsGrid() {
   const search = Search.useContainer();
   const skillsCtx = Skills.useContainer();
   const IntlTravelCtx = IntlTravel.useContainer();
   const urgentCtx = Urgent.useContainer();
+  const fieldWorkCtx = FieldWork.useContainer();
+  const partTimeWorkCtx = PartTimeWork.useContainer();
+  const seagoingCtx = Seagoing.useContainer();
 
   const { experts, isLoading, isError } = useExperts();
   const { results } = useExpertSearch(search.searchTerms);
@@ -37,7 +43,6 @@ export default function ExpertsGrid() {
       const intlTravelList = expertList.filter((item: User) => {
         return item.expertProfile.internationalTravel
       }) as User[];
-      console.log(intlTravelList);
       expertList = intlTravelList   
     }
 
@@ -46,10 +51,33 @@ export default function ExpertsGrid() {
       const urgentList = expertList.filter((item: User) => {
         return item.expertProfile.urgentProjectSeek
       }) as User[];
-      console.log(urgentList);
       expertList = urgentList   
     }
 
+    // filter all Experts against Looking for Field Work
+    if (expertList && fieldWorkCtx.lookingForFieldWork) {
+      const fieldWorkList = expertList.filter((item: User) => {
+        return item.expertProfile.lookingForFieldWork
+      }) as User[];
+      console.log("field work list", fieldWorkList);
+      expertList = fieldWorkList   
+    }
+
+    // filter all Experts against Looking for Part Time Work
+    if (expertList && partTimeWorkCtx.lookingForPartTimeWork) {
+      const partTimeWorkList = expertList.filter((item: User) => {
+        return item.expertProfile.lookingForPartTimeWork
+      }) as User[];
+      expertList = partTimeWorkList   
+    }
+
+    // filter all Experts against Available for Seagoing
+    if (expertList && seagoingCtx.availableForSeagoing) {
+      const seagoingList = expertList.filter((item: User) => {
+        return item.expertProfile.availableForSeagoing
+      }) as User[];
+      expertList = seagoingList   
+    }
 
     // filter all Experts against the selected skills
     if (expertList) {
@@ -78,7 +106,7 @@ export default function ExpertsGrid() {
         setMatchingEngineers(filteredList);
       }
     }
-  }, [experts, results, skillsCtx.filterInclusive, skillsCtx.selectedSkills, IntlTravelCtx.internationalTravel, urgentCtx.urgentProjectSeek]);
+  }, [experts, results, skillsCtx.filterInclusive, skillsCtx.selectedSkills, IntlTravelCtx.internationalTravel, urgentCtx.urgentProjectSeek, fieldWorkCtx.lookingForFieldWork, partTimeWorkCtx.lookingForPartTimeWork, seagoingCtx.availableForSeagoing]);
 
   if (!matchingEngineers) {
     return null;

@@ -62,7 +62,8 @@ const SkillsFilter: React.FC = () => {
                 name="filterType"
               />
             }
-            label="Inclusive"
+            label={<Typography variant="body2" color="textSecondary">Show SMEs who match ANY of the skills checked. Uncheck to limit search to ALL selected skills</Typography>}
+            
           />
         </FormGroup>
       </FormControl>

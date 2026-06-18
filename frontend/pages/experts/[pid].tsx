@@ -84,6 +84,18 @@ export default function ExpertDetail() {
             <Chip label="Urgently Seeking New Project" color="primary" variant="outlined" />
            } 
 
+           {expert.expertProfile?.lookingForFieldWork && 
+            <Chip label="Looking for Field Work" color="primary" variant="outlined"  />
+           } 
+
+           {expert.expertProfile?.lookingForPartTimeWork && 
+            <Chip label="Looking for Part-time or Short-term Work" color="primary" variant="outlined"  />
+           } 
+
+           {expert.expertProfile?.availableForSeagoing && 
+            <Chip label="Available for Seagoing Opportunities" color="primary" variant="outlined"  />
+           } 
+
           <Typography component="p" variant="body1" paragraph>
             {expert.expertProfile?.availabilityDisplay?.join(", ")}
           </Typography>

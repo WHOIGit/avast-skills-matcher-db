@@ -40,13 +40,21 @@ export default function EditProfileForm() {
       orcidId: profile?.expertProfile?.orcidId,
       availability: profile?.expertProfile?.availability,
       internationalTravel: profile?.expertProfile?.internationalTravel,
-      urgentProjectSeek: profile?.expertProfile?.urgentProjectSeek
+      urgentProjectSeek: profile?.expertProfile?.urgentProjectSeek,
+      lookingForFieldWork: profile?.expertProfile?.lookingForFieldWork,
+      lookingForPartTimeWork: profile?.expertProfile?.lookingForPartTimeWork,
+      availableForSeagoing: profile?.expertProfile?.availableForSeagoing,
     });
   }, [reset, profile]);
 
   const onSubmit = async (data: any): Promise<void> => {
-    console.log(data);
-    
+    console.log("form data", data);
+    // check if this is a new "Urgently Seeking Project" request
+    // if so, send notificaton email
+    if (!profile?.expertProfile?.urgentProjectSeek && data.urgentProjectSeek) {
+      console.log("New urgent request, send email")
+    }
+
     // send form data to API
     try {
       const resp = await editExpertProfile(data);
@@ -232,6 +240,84 @@ export default function EditProfileForm() {
                     render={({ field }) => (
                       <FormControlLabel
                         key="urgentProjectSeek"
+                        label="YES"
+                        control={
+                          <Checkbox
+                            checked={field.value}
+                            {...field}
+                          />
+                        }
+                      />
+                    )}
+                  />
+                </FormGroup>
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={12}>
+              <FormControl component="fieldset" variant="standard">
+                <FormLabel component="legend">Looking for Field Work?</FormLabel>
+                <FormGroup>
+                  <Controller
+                    name="lookingForFieldWork"
+                    defaultValue={false}
+                    control={control}
+                    //rules={{ required: true }}
+                    render={({ field }) => (
+                      <FormControlLabel
+                        key="lookingForFieldWork"
+                        label="YES"
+                        control={
+                          <Checkbox
+                            checked={field.value}
+                            {...field}
+                          />
+                        }
+                      />
+                    )}
+                  />
+                </FormGroup>
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={12}>
+              <FormControl component="fieldset" variant="standard">
+                <FormLabel component="legend">Looking for Part-time or Short-term Work?</FormLabel>
+                <FormGroup>
+                  <Controller
+                    name="loo"
+                    defaultValue={false}
+                    control={control}
+                    //rules={{ required: true }}
+                    render={({ field }) => (
+                      <FormControlLabel
+                        key="lookingForPartTimeWork"
+                        label="YES"
+                        control={
+                          <Checkbox
+                            checked={field.value}
+                            {...field}
+                          />
+                        }
+                      />
+                    )}
+                  />
+                </FormGroup>
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={12}>
+              <FormControl component="fieldset" variant="standard">
+                <FormLabel component="legend">Available for Seagoing Opportunities?</FormLabel>
+                <FormGroup>
+                  <Controller
+                    name="loo"
+                    defaultValue={false}
+                    control={control}
+                    //rules={{ required: true }}
+                    render={({ field }) => (
+                      <FormControlLabel
+                        key="availableForSeagoing"
                         label="YES"
                         control={
                           <Checkbox

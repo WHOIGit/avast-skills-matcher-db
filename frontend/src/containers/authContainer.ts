@@ -12,7 +12,11 @@ export type Profile = {
   orcidId: string | null;
   internationalTravel: boolean;
   urgentProjectSeek: boolean;
+  lookingForFieldWork: boolean;
+  lookingForPartTimeWork: boolean;
+  availableForSeagoing: boolean;
 };
+
 
 export type Favorite = {
   id: number;

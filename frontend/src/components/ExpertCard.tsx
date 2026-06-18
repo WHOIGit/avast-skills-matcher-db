@@ -109,6 +109,18 @@ export default function ExpertCard({ expert }: CardProps) {
           <Chip sx={{mt:1}} label="Urgently Seeking New Project" color="primary" variant="outlined"  />
          } 
 
+         {expert.expertProfile?.lookingForFieldWork && 
+          <Chip sx={{mt:1}} label="Looking for Field Work" color="primary" variant="outlined"  />
+         } 
+
+         {expert.expertProfile?.lookingForPartTimeWork && 
+          <Chip sx={{mt:1}} label="Looking for Part-time or Short-term Work" color="primary" variant="outlined"  />
+         } 
+
+         {expert.expertProfile?.availableForSeagoing && 
+          <Chip sx={{mt:1}} label="Available for Seagoing Opportunities" color="primary" variant="outlined"  />
+         } 
+
         {expert.expertProfile?.internationalTravel && 
           <Chip sx={{mt:1}} icon={<PublicIcon />} label="Available for International Travel" variant="outlined" color="primary" />
         } 

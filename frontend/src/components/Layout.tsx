@@ -22,6 +22,9 @@ import FavoritesList from "./FavoritesList";
 import { SignInSignOutButton, WelcomeName } from "./AuthUi";
 import IntlTravelFilter from "./IntlTravelFilter";
 import UrgentFilter from "./UrgentFilter";
+import FieldWorkFilter from "./FieldWorkFilter";
+import PartTimeWorkFilter from "./PartTimeWorkFilter";
+import SeagoingFilter from "./SeagoingFilter";
 
 const drawerWidth = 260;
 
@@ -182,6 +185,12 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         <Divider />
         <IntlTravelFilter />
         <UrgentFilter />
+        <Divider />
+        <FieldWorkFilter />
+        <Divider />
+        <PartTimeWorkFilter />
+        <Divider />
+        <SeagoingFilter />
         <Divider />
         <SkillsFilter />
         <Divider />

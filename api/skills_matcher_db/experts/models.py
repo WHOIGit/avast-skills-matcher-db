@@ -66,6 +66,15 @@ class ExpertProfile(models.Model):
     urgent_project_seek = models.BooleanField(
         default=False, verbose_name="Urgently Seeking New Project"
     )
+    looking_for_field_work = models.BooleanField(
+        default=False, verbose_name="Looking for Field Work"
+    )
+    looking_for_part_time_work = models.BooleanField(
+        default=False, verbose_name="Looking for part-time or short-term work"
+    )
+    available_for_seagoing = models.BooleanField(
+        default=False, verbose_name="Available for seagoing opportunities"
+    )
 
     def __str__(self):
         return f"{self.user.username} Profile"

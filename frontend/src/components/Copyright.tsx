@@ -8,11 +8,11 @@ export default function Copyright() {
       {"Copyright © "}
       <MuiLink
         color="inherit"
-        href="https://intranet.whoi.edu/avast/"
+        href="https://intranet.whoi.edu/deeptech/"
         target="_blank"
       >
-        WHOI AVAST
-      </MuiLink>{" "}
+        WHOI DeepTech
+      </MuiLink> and IS {" "}
       {new Date().getFullYear()}.
     </Typography>
   );

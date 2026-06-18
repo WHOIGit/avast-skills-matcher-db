@@ -23,6 +23,9 @@ import * as ga from "../src/lib/ga";
 import { useRouter } from "next/router";
 import IntlTravel from "../src/containers/intlTravelContainer";
 import Urgent from "../src/containers/urgentContainer";
+import FieldWork from "../src/containers/fieldWorkContainer";
+import PartTimeWork from "../src/containers/partTimeWorkContainer";
+import Seagoing from "../src/containers/seagoingContainer";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -82,11 +85,17 @@ const MyApp = (props: IAppProps) => {
             <Search.Provider>
               <IntlTravel.Provider>
                 <Urgent.Provider>
-                  {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-                  <CssBaseline />
-                  <Layout>
-                    <Component {...pageProps} />
-                  </Layout>
+                  <FieldWork.Provider>
+                    <PartTimeWork.Provider>
+                      <Seagoing.Provider>
+                        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+                        <CssBaseline />
+                        <Layout>
+                          <Component {...pageProps} />
+                        </Layout>
+                      </Seagoing.Provider>
+                    </PartTimeWork.Provider>
+                  </FieldWork.Provider>
                 </Urgent.Provider>
               </IntlTravel.Provider>
             </Search.Provider>

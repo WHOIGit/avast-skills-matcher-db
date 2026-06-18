@@ -2,10 +2,14 @@ from django.db import models
 from django.contrib.auth.base_user import BaseUserManager
 from mptt.models import TreeManyToManyField
 from django.utils import timezone
+from datetime import timedelta
 
 from skills_matcher_db.users.models import User
 from skills_matcher_db.skills.models import Skill
 
+
+def six_months_from_now():
+    return timezone.now() + timedelta(days=182)
 
 class ProjectOwnerManager(BaseUserManager):
     def get_queryset(self, *args, **kwargs):
@@ -46,6 +50,7 @@ class Project(models.Model):
         default=False, verbose_name="International Travel Required"
     )
     date_created = models.DateTimeField(default=timezone.now)
+    reply_by_date = models.DateTimeField(default=six_months_from_now)
 
     class Meta:
         ordering = ["title"]

@@ -1,0 +1,21 @@
+{% block subject %}WHOI Skills Matcher DB - New User Urgently Seeking Project{% endblock %}
+{% block plain %}
+  Hello,
+
+  The following user has updated their Skills Matcher profile to "Urgently Seeking Project":
+  {{expert_name}} ( {{expert_email}} )
+
+  Thanks from the WHOI Skills Matcher DB!
+{% endblock %}
+
+{% block html %}
+  <p>Hello,</p>
+
+  <p>The following user has updated their Skills Matcher profile to "Urgently Seeking Project":
+      <ul>
+        <li>{{expert_name}} ( {{expert_email}} )</li>
+      </ul>
+  </p>
+  
+  <p>Thanks from the WHOI Skills Matcher DB!</p>
+{% endblock %}

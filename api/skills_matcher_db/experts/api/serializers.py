@@ -17,6 +17,9 @@ class ExpertProfileSerializer(serializers.ModelSerializer):
             "orcid_id",
             "international_travel",
             "urgent_project_seek",
+            "looking_for_field_work",
+            "looking_for_part_time_work",
+            "available_for_seagoing"
         ]
 
     def get_availability_display(self, obj):
