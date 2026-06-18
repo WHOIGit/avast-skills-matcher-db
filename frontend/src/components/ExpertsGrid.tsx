@@ -116,7 +116,7 @@ export default function ExpertsGrid() {
     <Grid container spacing={2}>
       {matchingEngineers.map((expert: User) => {
         return (
-          <Grid item xs={4} key={expert.id}>
+          <Grid item size={4} key={expert.id}>
             <ExpertCard expert={expert} />
           </Grid>
         );

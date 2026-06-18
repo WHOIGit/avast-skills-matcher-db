@@ -74,7 +74,7 @@ export default function ProjectsGrid() {
     <Grid container spacing={2}>
       {matchingProjects.map((project: Project) => {
         return (
-          <Grid item xs={4} key={project.id}>
+          <Grid item size={4} key={project.id}>
             <ProjectCard project={project} />
           </Grid>
         );
