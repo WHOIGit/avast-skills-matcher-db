@@ -9,8 +9,8 @@
  */
 (() => {
 var exports = {};
-exports.id = "pages/_error";
-exports.ids = ["pages/_error"];
+exports.id = "/_error";
+exports.ids = ["/_error"];
 exports.modules = {
 
 /***/ "./node_modules/@swc/helpers/lib/_interop_require_default.js":
