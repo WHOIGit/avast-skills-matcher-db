@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class EngineersConfig(AppConfig):
-    name = 'engineers'
+    name = 'skills_matcher_db.engineers'
