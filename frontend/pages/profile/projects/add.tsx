@@ -1,4 +1,5 @@
 import * as React from "react";
+import dayjs from 'dayjs';
 import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useRouter } from "next/router";
@@ -12,6 +13,9 @@ import Checkbox from "@mui/material/Checkbox";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import FormGroup from "@mui/material/FormGroup";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 // local imports
 import useProjects from "../../../src/hooks/useProjects";
 import SkillsCheckboxes from "../../../src/components/SkillsCheckboxes";
@@ -67,7 +71,7 @@ export default function AddProject() {
           sx={{ mt: 3, width: 600 }}
         >
           <Grid container spacing={2}>
-            <Grid item xs={12}>
+            <Grid item size={12}>
               <Controller
                 name="title"
                 defaultValue=""
@@ -86,7 +90,8 @@ export default function AddProject() {
                 {errors.title && "Title is required"}
               </Box>
             </Grid>
-            <Grid item xs={12}>
+
+            <Grid item size={12}>
               <Controller
                 name="description"
                 defaultValue=""
@@ -109,7 +114,7 @@ export default function AddProject() {
               </Box>
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item size={12}>
               <FormControl component="fieldset" variant="standard">
                 <FormLabel component="legend">International Travel Required?</FormLabel>
                 <FormGroup>
@@ -135,7 +140,7 @@ export default function AddProject() {
               </FormControl>
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item size={12}>
               <SkillsCheckboxes control={control} />
             </Grid>
           </Grid>

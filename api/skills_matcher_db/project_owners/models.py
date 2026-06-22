@@ -50,7 +50,7 @@ class Project(models.Model):
         default=False, verbose_name="International Travel Required"
     )
     date_created = models.DateTimeField(default=timezone.now)
-    reply_by_date = models.DateTimeField(default=six_months_from_now)
+    reply_by_date = models.DateField(default=six_months_from_now)
 
     class Meta:
         ordering = ["title"]

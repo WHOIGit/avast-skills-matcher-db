@@ -10,7 +10,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import Typography from "@mui/material/Typography";
-import { FormHelperText } from "@mui/material/";
+import { FormHelperText } from "@mui/material";
 // local imports
 import useProfile from "../../src/hooks/useProfile";
 import InnerNav from "../../src/components/InnerNav";
@@ -144,7 +144,7 @@ export default function EditForm() {
           sx={{ mt: 3 }}
         >
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
+            <Grid item size={12} sm={6}>
               <Controller
                 name="firstName"
                 defaultValue=""
@@ -164,7 +164,7 @@ export default function EditForm() {
                 {errors.firstName && "First name is required"}
               </Box>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item size={12} sm={6}>
               <Controller
                 name="lastName"
                 defaultValue=""
@@ -182,7 +182,7 @@ export default function EditForm() {
                 {errors.lastName && "Last name is required"}
               </Box>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item size={12}>
               <Controller
                 name="email"
                 defaultValue=""
@@ -204,7 +204,7 @@ export default function EditForm() {
               </FormHelperText>
               <Box sx={{ color: "error.main" }}>{errors.email?.message}</Box>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item size={12}>
               <Controller
                 name="title"
                 defaultValue=""
@@ -221,7 +221,7 @@ export default function EditForm() {
               />
               <Box sx={{ color: "error.main" }}>{errors.email?.message}</Box>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item size={12}>
               <Controller
                 name="supervisorEmail"
                 defaultValue=""

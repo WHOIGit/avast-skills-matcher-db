@@ -20,6 +20,7 @@ class ProjectSerializer(serializers.ModelSerializer):
             "experts",
             "skills",
             "international_travel",
+            "date_created",
             "reply_by_date"
         ]
 

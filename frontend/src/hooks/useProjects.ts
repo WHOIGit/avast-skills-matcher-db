@@ -3,12 +3,14 @@ import { useMsal } from "@azure/msal-react";
 import { getMsToken } from "../utils/azureAuth";
 import { makeUrl, fetcher, API_BASE } from "../utils/apiUtils";
 import useProfile from "./useProfile";
+import dayjs from "dayjs";
 
 type ProjectFormData = {
   title: string;
   description: string;
   skills: number[];
   internationalTravel: boolean;
+  replyByDate: string;
 };
 
 export interface Project extends ProjectFormData {
@@ -52,6 +54,7 @@ const useProjects = (pid?: any): HookData => {
       description: data.description,
       skills: data.skills,
       internationalTravel: data.internationalTravel,
+      replyByDate: data.replyByDate
     };
 
     const resp = await fetch(url, {
@@ -79,6 +82,7 @@ const useProjects = (pid?: any): HookData => {
       description: data.description,
       skills: data.skills,
       internationalTravel: data.internationalTravel,
+      replyByDate: data.replyByDate
     };
     const resp = await fetch(url, {
       method: "PATCH",
