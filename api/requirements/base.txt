@@ -16,9 +16,9 @@ django-crispy-forms==1.13.0  # https://github.com/django-crispy-forms/django-cri
 django-redis==5.0.0  # https://github.com/jazzband/django-redis
 django-extensions==3.1.5
 # Django REST Framework
-djangorestframework==3.12.4  # https://github.com/encode/django-rest-framework
+djangorestframework==3.14.0 # https://github.com/encode/django-rest-framework
 django-cors-headers==3.10.0 # https://github.com/adamchainz/django-cors-headers
-djangorestframework-simplejwt==5.0.0
+djangorestframework-simplejwt==5.1.0
 djangorestframework-camel-case==1.2.0
 
 # Project specific

@@ -115,6 +115,28 @@ export default function AddProject() {
             </Grid>
 
             <Grid item size={12}>
+              <Controller
+                name="replyByDate"
+                defaultValue=""
+                control={control}
+                rules={{ required: true }}
+                render={({ field: { onChange, value } }) => (
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DatePicker
+                      label="Reply By Date"
+                      value={value}
+                      onChange={onChange}
+                    />
+                  
+                </LocalizationProvider>
+                )}
+              />
+              <Box sx={{ color: "error.main" }}>
+                {errors.replyByDate && "Field is required"}
+              </Box>
+            </Grid>
+
+            <Grid item size={12}>
               <FormControl component="fieldset" variant="standard">
                 <FormLabel component="legend">International Travel Required?</FormLabel>
                 <FormGroup>
