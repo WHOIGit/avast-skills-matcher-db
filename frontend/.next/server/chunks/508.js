@@ -87,7 +87,9 @@ const useProfile = ()=>{
             availability: data.availability,
             internationalTravel: data.internationalTravel,
             urgentProjectSeek: data.urgentProjectSeek,
-            lookingForFieldWork: data.lookingForFieldWork
+            lookingForFieldWork: data.lookingForFieldWork,
+            lookingForPartTimeWork: data.lookingForPartTimeWork,
+            availableForSeagoing: data.availableForSeagoing
         };
         const url = (0,_utils_apiUtils__WEBPACK_IMPORTED_MODULE_2__/* .makeUrl */ .bf)(`/api/users/update_expert_profile/`);
         const resp = await fetch(url, {
