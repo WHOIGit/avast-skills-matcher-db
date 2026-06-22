@@ -179,7 +179,7 @@ export default function EditProfileForm() {
           sx={{ mt: 3, width: 600 }}
         >
           <Grid container spacing={2}>
-            <Grid item xs={12}>
+            <Grid item size={12}>
               <Controller
                 name="experience"
                 defaultValue=""
@@ -202,7 +202,7 @@ export default function EditProfileForm() {
               </Box>
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item size={12}>
               <FormControl component="fieldset" variant="standard">
                 <FormLabel component="legend">Available for International Travel?</FormLabel>
                 <FormGroup>
@@ -228,7 +228,7 @@ export default function EditProfileForm() {
               </FormControl>
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item size={12}>
               <FormControl component="fieldset" variant="standard">
                 <FormLabel component="legend">Urgently Seeking New Project?</FormLabel>
                 <FormGroup>
@@ -254,7 +254,7 @@ export default function EditProfileForm() {
               </FormControl>
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item size={12}>
               <FormControl component="fieldset" variant="standard">
                 <FormLabel component="legend">Looking for Field Work?</FormLabel>
                 <FormGroup>
@@ -280,12 +280,12 @@ export default function EditProfileForm() {
               </FormControl>
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item size={12}>
               <FormControl component="fieldset" variant="standard">
                 <FormLabel component="legend">Looking for Part-time or Short-term Work?</FormLabel>
                 <FormGroup>
                   <Controller
-                    name="loo"
+                    name="lookingForPartTimeWork"
                     defaultValue={false}
                     control={control}
                     //rules={{ required: true }}
@@ -306,12 +306,12 @@ export default function EditProfileForm() {
               </FormControl>
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item size={12}>
               <FormControl component="fieldset" variant="standard">
                 <FormLabel component="legend">Available for Seagoing Opportunities?</FormLabel>
                 <FormGroup>
                   <Controller
-                    name="loo"
+                    name="availableForSeagoing"
                     defaultValue={false}
                     control={control}
                     //rules={{ required: true }}
@@ -332,7 +332,7 @@ export default function EditProfileForm() {
               </FormControl>
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item size={12}>
               <FormControl component="fieldset" variant="standard">
                 <FormLabel component="legend">Your Availability</FormLabel>
                 <FormGroup>
@@ -353,7 +353,7 @@ export default function EditProfileForm() {
                 </FormGroup>
               </FormControl>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item size={12}>
               <Controller
                 name="orcidId"
                 defaultValue=""
@@ -380,7 +380,7 @@ export default function EditProfileForm() {
                 {errors.orcidId && "Must be a valid ORCID URL"}
               </Box>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item size={12}>
               <FormControl component="fieldset" variant="standard">
                 <FormLabel component="legend">Skills</FormLabel>
                 <FormGroup>
