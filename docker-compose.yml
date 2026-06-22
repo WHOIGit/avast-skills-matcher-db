@@ -22,7 +22,7 @@ services:
     network_mode: "host" # <-- to send email from container with local smtp
 
   postgres:
-    image: ghcr.io/whoigit/postgres-docker-scripts:13.5
+    image: ghcr.io/whoigit/postgres-docker-scripts:14.23
     container_name: postgres
     volumes:
       - production_postgres_data:/var/lib/postgresql/data
