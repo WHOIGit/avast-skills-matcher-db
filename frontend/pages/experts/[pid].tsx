@@ -72,29 +72,29 @@ export default function ExpertDetail() {
             </Stack>
           </Box>
 
+           {expert.expertProfile?.urgentProjectSeek && 
+            <Chip sx={{mt:1, mb:2}}  label="Urgently Seeking New Project" color="primary" variant="outlined" />
+           } 
+
           {expert.expertProfile?.internationalTravel && 
             <Chip sx={{mt:1, mb:2}} icon={<PublicIcon />} label="Available for International Travel" variant="outlined" color="primary" />
           } 
 
-          <Typography component="h6" variant="h6">
-            Availability
-          </Typography>
-
-          {expert.expertProfile?.urgentProjectSeek && 
-            <Chip label="Urgently Seeking New Project" color="primary" variant="outlined" />
-           } 
-
            {expert.expertProfile?.lookingForFieldWork && 
-            <Chip label="Looking for Field Work" color="primary" variant="outlined"  />
+            <Chip sx={{mt:1, mb:2}}  label="Looking for Field Work" color="primary" variant="outlined"  />
            } 
 
            {expert.expertProfile?.lookingForPartTimeWork && 
-            <Chip label="Looking for Part-time or Short-term Work" color="primary" variant="outlined"  />
+            <Chip sx={{mt:1, mb:2}}  label="Looking for Part-time or Short-term Work" color="primary" variant="outlined"  />
            } 
 
            {expert.expertProfile?.availableForSeagoing && 
-            <Chip label="Available for Seagoing Opportunities" color="primary" variant="outlined"  />
+            <Chip  sx={{mt:1, mb:2}} label="Available for Seagoing Opportunities" color="primary" variant="outlined"  />
            } 
+
+          <Typography component="h6" variant="h6">
+            Availability
+          </Typography>
 
           <Typography component="p" variant="body1" paragraph>
             {expert.expertProfile?.availabilityDisplay?.join(", ")}

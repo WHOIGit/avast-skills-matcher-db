@@ -150,7 +150,9 @@ const useProfile = (): HookData => {
       availability: data.availability,
       internationalTravel: data.internationalTravel,
       urgentProjectSeek: data.urgentProjectSeek,
-      lookingForFieldWork: data.lookingForFieldWork
+      lookingForFieldWork: data.lookingForFieldWork,
+      lookingForPartTimeWork: data.lookingForPartTimeWork,
+      availableForSeagoing: data.availableForSeagoing
     };
     const url = makeUrl(`/api/users/update_expert_profile/`);
     const resp = await fetch(url, {

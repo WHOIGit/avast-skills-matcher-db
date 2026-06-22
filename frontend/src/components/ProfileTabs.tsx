@@ -168,13 +168,30 @@ export default function ProfileTabs({ profile, showTab }: ComponentProps) {
             </>
           )}
 
+          {profile.expertProfile?.urgentProjectSeek && 
+            <Chip sx={{mt:1, mb:2}}  label="Urgently Seeking New Project" color="primary" variant="outlined" />
+           } 
+
+          {profile.expertProfile?.internationalTravel && 
+            <Chip sx={{mt:1, mb:2}} icon={<PublicIcon />} label="Available for International Travel" variant="outlined" color="primary" />
+          } 
+
+           {profile.expertProfile?.lookingForFieldWork && 
+            <Chip sx={{mt:1, mb:2}}  label="Looking for Field Work" color="primary" variant="outlined"  />
+           } 
+
+           {profile.expertProfile?.lookingForPartTimeWork && 
+            <Chip sx={{mt:1, mb:2}}  label="Looking for Part-time or Short-term Work" color="primary" variant="outlined"  />
+           } 
+
+           {profile.expertProfile?.availableForSeagoing && 
+            <Chip  sx={{mt:1, mb:2}} label="Available for Seagoing Opportunities" color="primary" variant="outlined"  />
+           } 
+
+
           <Typography component="h6" variant="h6">
             Availability
           </Typography>
-
-           {profile.expertProfile?.urgentProjectSeek && 
-            <Chip label="Urgently Seeking New Project" color="primary" variant="outlined"  />
-           } 
 
           <Typography component="p" variant="body1" paragraph>
             {profile.expertProfile?.availabilityDisplay?.join(", ")}
