@@ -5,10 +5,12 @@ argon2-cffi==21.1.0  # https://github.com/hynek/argon2_cffi
 whitenoise==5.3.0  # https://github.com/evansd/whitenoise
 redis==3.5.3  # https://github.com/andymccurdy/redis-py
 hiredis==2.0.0  # https://github.com/redis/hiredis-py
+setuptools>=65
 
 # Django
 # ------------------------------------------------------------------------------
-django==3.1.13  # pyup: < 3.2  # https://www.djangoproject.com/
+#django==4.2.30  # pyup: < 3.2  # https://www.djangoproject.com/
+django==3.1.13 
 django-environ==0.8.1  # https://github.com/joke2k/django-environ
 django-model-utils==4.2.0  # https://github.com/jazzband/django-model-utils
 django-allauth==0.45.0  # https://github.com/pennersr/django-allauth
