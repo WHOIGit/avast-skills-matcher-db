@@ -47,6 +47,18 @@ export default function About() {
               </ListItemIcon>
               <ListItemText primary="To learn about projects or problems seeking help from the WHOI community" />
             </ListItem>
+            <ListItem>
+              <ListItemIcon>
+                <DoubleArrowIcon />
+              </ListItemIcon>
+              <ListItemText primary="To supplement existing work if current funds are diminishing, or find new work if current funds are ending" />
+            </ListItem>
+            <ListItem>
+              <ListItemIcon>
+                <DoubleArrowIcon />
+              </ListItemIcon>
+              <ListItemText primary="To find experts looking for ocean-going work or projects looking for ocean-going support" />
+            </ListItem>
           </List>
         </Typography>
 
@@ -110,7 +122,7 @@ export default function About() {
 
         <Typography component="p" gutterBottom>
           <strong>
-            See what Projects are in need of specific skills or expertise
+            Find Projects in need of specific skills or expertise
           </strong>
         </Typography>
 
@@ -122,6 +134,19 @@ export default function About() {
           email to the Project Owner with your profile details. If they want to
           follow up with you, the DB will let you know and you can start working
           together.
+        </Typography>
+
+        <Typography component="p" gutterBottom>
+          <strong>
+            Find users who are (urgently) seeking new projects
+          </strong>
+        </Typography>
+
+        <Typography component="p" gutterBottom sx={{ mb: 2 }}>
+          To support an Institutional directive to retain talent in a challenging funding climate, 
+          we encourage you to seek experts who might be losing funding but want to stay a part of the 
+          WHOI community.  Search users who are &quot;Urgently Seeking Project&quot; to find 
+          appropriate skill sets and retain talent at WHOI.
         </Typography>
 
         <Typography component="p" gutterBottom sx={{ mb: 2 }}>

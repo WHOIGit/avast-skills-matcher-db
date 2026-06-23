@@ -33,6 +33,7 @@ export default function AddProject() {
 
   const onSubmit = async (data: any): Promise<void> => {
     // send form data to API
+    console.log(data)
     try {
       const resp = await createProject(data);
       if (!resp.ok) {
@@ -113,29 +114,35 @@ export default function AddProject() {
                 {errors.description && "Field is required"}
               </Box>
             </Grid>
-          {/*      
+             
             <Grid item size={12}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
               <Controller
                 name="replyByDate"
-                defaultValue=""
                 control={control}
-                rules={{ required: true }}
-                render={({ field: { onChange, value } }) => (
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DatePicker
-                      label="Reply By Date"
-                      value={value}
-                      onChange={onChange}
-                    />
-                  
-                </LocalizationProvider>
+                rules={{ required: 'Reply by date is required' }} // React Hook Form validation rules
+                render={({ field: { onChange, value, ...fieldProps } }) => (
+                  <DatePicker
+                    {...fieldProps}
+                    label="Reply by Date"
+                    value={value}
+                    onChange={(newValue) => onChange(newValue)} // Explicitly pass the new value to React Hook Form
+                    slotProps={{
+                      textField: {
+                        error: !!errors.replyByDate,
+                        helperText: errors.replyByDate?.message,
+                        fullWidth: true,
+                      },
+                    }}
+                  />
                 )}
               />
+              </LocalizationProvider>
               <Box sx={{ color: "error.main" }}>
                 {errors.replyByDate && "Field is required"}
               </Box>
             </Grid>
-            */}   
+              
             <Grid item size={12}>
               <FormControl component="fieldset" variant="standard">
                 <FormLabel component="legend">International Travel Required?</FormLabel>

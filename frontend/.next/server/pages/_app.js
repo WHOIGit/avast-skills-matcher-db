@@ -870,8 +870,8 @@ const Layout = ({ children  })=>{
                                         children: "WHOI Skills Matcher DB"
                                     }),
                                     /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_8__["default"], {
-                                        variant: "subtitle2",
-                                        children: "Created by AVAST and IS"
+                                        variant: "body2",
+                                        children: "Created by DeepTech (under former Director Sam Laney) and IS"
                                     })
                                 ]
                             })

@@ -117,8 +117,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               <Typography variant="h6" noWrap component="div">
                 WHOI Skills Matcher DB
               </Typography>
-              <Typography variant="subtitle2">
-                Created by AVAST and IS
+              <Typography variant="body2">
+                Created by DeepTech (under former Director Sam Laney) and IS
               </Typography>
             </Link>
           </Box>

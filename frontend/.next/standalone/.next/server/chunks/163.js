@@ -35,7 +35,7 @@ const useProjects = (pid)=>{
             description: data.description,
             skills: data.skills,
             internationalTravel: data.internationalTravel,
-            replyByDate: data.replyByDate
+            replyByDate: data.replyByDate.format("YYYY-MM-DD")
         };
         const resp = await fetch(url, {
             method: "POST",
@@ -58,7 +58,7 @@ const useProjects = (pid)=>{
             description: data.description,
             skills: data.skills,
             internationalTravel: data.internationalTravel,
-            replyByDate: data.replyByDate
+            replyByDate: data.replyByDate.format("YYYY-MM-DD")
         };
         const resp = await fetch(url, {
             method: "PATCH",

@@ -1,4 +1,5 @@
 import * as React from "react";
+import dayjs from 'dayjs';
 import { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useRouter } from "next/router";
@@ -12,6 +13,9 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import FormGroup from "@mui/material/FormGroup";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import useProjects from "../../../../src/hooks/useProjects";
 import InnerNav from "../../../../src/components/InnerNav";
 import SkillsCheckboxes from "../../../../src/components/SkillsCheckboxes";
@@ -35,7 +39,8 @@ export default function EditProject() {
       title: project?.title,
       description: project?.description,
       skills: project?.skills,
-      internationalTravel: project?.internationalTravel
+      internationalTravel: project?.internationalTravel,
+      replyByDate: project?.replyByDate ? dayjs(project?.replyByDate) : null, 
     });
   }, [reset, project]);
 
@@ -79,7 +84,7 @@ export default function EditProject() {
           sx={{ mt: 3, width: 600 }}
         >
           <Grid container spacing={2}>
-            <Grid item xs={12}>
+            <Grid item size={12}>
               <Controller
                 name="title"
                 defaultValue=""
@@ -98,7 +103,7 @@ export default function EditProject() {
                 {errors.title && "Title is required"}
               </Box>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item size={12}>
               <Controller
                 name="description"
                 defaultValue=""
@@ -121,7 +126,35 @@ export default function EditProject() {
               </Box>
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item size={12}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <Controller
+                name="replyByDate"
+                control={control}
+                rules={{ required: 'Reply by date is required' }} // React Hook Form validation rules
+                render={({ field: { onChange, value, ...fieldProps } }) => (
+                  <DatePicker
+                    {...fieldProps}
+                    label="Reply by Date"
+                    value={value}
+                    onChange={(newValue) => onChange(newValue)} // Explicitly pass the new value to React Hook Form
+                    slotProps={{
+                      textField: {
+                        error: !!errors.replyByDate,
+                        helperText: errors.replyByDate?.message,
+                        fullWidth: true,
+                      },
+                    }}
+                  />
+                )}
+              />
+              </LocalizationProvider>
+              <Box sx={{ color: "error.main" }}>
+                {errors.replyByDate && "Field is required"}
+              </Box>
+            </Grid>
+
+            <Grid item size={12}>
               <FormControl component="fieldset" variant="standard">
                 <FormLabel component="legend">International Travel Required?</FormLabel>
                 <FormGroup>
@@ -147,7 +180,7 @@ export default function EditProject() {
               </FormControl>
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item size={12}>
               <SkillsCheckboxes control={control} />
             </Grid>
           </Grid>

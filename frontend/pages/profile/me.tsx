@@ -39,13 +39,14 @@ const Me = (): React.ReactElement => {
   }, [query]);
 
   return (
+  
     <MsalAuthenticationTemplate
       interactionType={InteractionType.Redirect}
       errorComponent={ErrorComponent}
       loadingComponent={LoadingComponent}
     >
-      <Box
-        sx={{
+ 
+      <Box sx={{
           marginTop: 8,
           display: "flex",
           flexDirection: "column",
@@ -214,7 +215,9 @@ const Me = (): React.ReactElement => {
           </Box>
         )}
       </Box>
+
     </MsalAuthenticationTemplate>
+
   );
 };
 
