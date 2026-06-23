@@ -130,6 +130,7 @@ export default function EditProject() {
               <LocalizationProvider dateAdapter={AdapterDayjs}>
               <Controller
                 name="replyByDate"
+                defaultValue=""
                 control={control}
                 rules={{ required: 'Reply by date is required' }} // React Hook Form validation rules
                 render={({ field: { onChange, value, ...fieldProps } }) => (
