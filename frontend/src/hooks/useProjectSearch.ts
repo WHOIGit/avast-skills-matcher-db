@@ -11,11 +11,11 @@ type HookData = {
 
 // Returns date portion only: "2026-07-10"
 const today = new Date().toISOString().split('T')[0]; 
-
+console.log(today)
 export default function useProjectSearch(searchTerms?: string): HookData {
   let params;
   if (searchTerms) {
-    params = new URLSearchParams({ q: searchTerms, dateBefore: today });
+    params = new URLSearchParams({ q: searchTerms, date_before: today });
   }
   console.log(params)
 
