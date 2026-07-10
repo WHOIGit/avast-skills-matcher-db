@@ -36,11 +36,16 @@ type HookData = {
 const useProjects = (pid?: any): HookData => {
   const { instance, inProgress } = useMsal();
   const { mutateProfile } = useProfile();
+
+  // Returns date portion only: "2026-07-10"
+  const today = new Date().toISOString().split('T')[0]; 
+  // limit projects list to only valid "reply_by_date"
+  const params = new URLSearchParams({ date_after: today });
   const {
     data: dataProjects,
     mutate: mutateProject,
     error: errorProjects,
-  } = useSWR(`${API_BASE}/api/projects/`, fetcher);
+  } = useSWR(`${API_BASE}/api/projects/?${params}`, fetcher);
 
   const { data: dataProject, error: errorProject } = useSWR(
     pid ? `${API_BASE}/api/projects/${pid}/` : null,

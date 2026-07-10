@@ -26,7 +26,13 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([swr_
 const useProjects = (pid)=>{
     const { instance , inProgress  } = (0,_azure_msal_react__WEBPACK_IMPORTED_MODULE_1__.useMsal)();
     const { mutateProfile  } = (0,_useProfile__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .Z)();
-    const { data: dataProjects , mutate: mutateProject , error: errorProjects ,  } = (0,swr__WEBPACK_IMPORTED_MODULE_0__["default"])(`${_utils_apiUtils__WEBPACK_IMPORTED_MODULE_3__/* .API_BASE */ .Sg}/api/projects/`, _utils_apiUtils__WEBPACK_IMPORTED_MODULE_3__/* .fetcher */ ._i);
+    // Returns date portion only: "2026-07-10"
+    const today = new Date().toISOString().split("T")[0];
+    // limit projects list to only valid "reply_by_date"
+    const params = new URLSearchParams({
+        date_after: today
+    });
+    const { data: dataProjects , mutate: mutateProject , error: errorProjects ,  } = (0,swr__WEBPACK_IMPORTED_MODULE_0__["default"])(`${_utils_apiUtils__WEBPACK_IMPORTED_MODULE_3__/* .API_BASE */ .Sg}/api/projects/?${params}`, _utils_apiUtils__WEBPACK_IMPORTED_MODULE_3__/* .fetcher */ ._i);
     const { data: dataProject , error: errorProject  } = (0,swr__WEBPACK_IMPORTED_MODULE_0__["default"])(pid ? `${_utils_apiUtils__WEBPACK_IMPORTED_MODULE_3__/* .API_BASE */ .Sg}/api/projects/${pid}/` : null, _utils_apiUtils__WEBPACK_IMPORTED_MODULE_3__/* .fetcher */ ._i);
     const createProject = async (data)=>{
         const url = (0,_utils_apiUtils__WEBPACK_IMPORTED_MODULE_3__/* .makeUrl */ .bf)("/api/projects/");
