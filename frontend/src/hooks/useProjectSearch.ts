@@ -1,6 +1,7 @@
 import useSWR from "swr";
 import { Project } from "./useProjects";
 import { fetcher, API_BASE } from "../utils/apiUtils";
+import { log } from "console";
 
 type HookData = {
   results: Project[];
@@ -8,11 +9,15 @@ type HookData = {
   isError: any;
 };
 
+// Returns date portion only: "2026-07-10"
+const today = new Date().toISOString().split('T')[0]; 
+
 export default function useProjectSearch(searchTerms?: string): HookData {
   let params;
   if (searchTerms) {
-    params = new URLSearchParams({ q: searchTerms });
+    params = new URLSearchParams({ q: searchTerms, dateBefore: today });
   }
+  console.log(params)
 
   // search Experts by search term
   const { data, error } = useSWR(
