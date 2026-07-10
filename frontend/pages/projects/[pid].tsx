@@ -44,6 +44,10 @@ export default function ProjectDetail() {
           <Typography component="div" variant="subtitle1">
             Project Owner: {project?.projectOwnerDisplay}
           </Typography>
+
+          <Typography component="div" variant="subtitle1">
+            Reply By Date: {project?.replyByDate}
+          </Typography>
         </Box>
 
         {project && (

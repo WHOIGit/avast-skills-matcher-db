@@ -12,10 +12,13 @@ from .serializers import ProjectSerializer
 
 class ProjectFilter(filters.FilterSet):
     q = filters.CharFilter(method="multi_field_query", label="Search")
+    # Filter for exact date or date-time ranges
+    date_after = filters.DateTimeFilter(field_name="reply_by_date", lookup_expr="gte")
+    date_before = filters.DateTimeFilter(field_name="reply_by_date", lookup_expr="lte")
 
     class Meta:
         model = Project
-        fields = ["q"]
+        fields = ["q", "date_after", "date_before"]
 
     def multi_field_query(self, queryset, name, value):
         return Project.objects.filter(

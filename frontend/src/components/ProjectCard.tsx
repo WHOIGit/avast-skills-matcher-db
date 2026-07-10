@@ -73,6 +73,10 @@ export default function ProjectCard({ project }: CardProps) {
           })}
         </SkillChipsList>
 
+        <Typography variant="body2" sx={{ mt: 2 }}>
+            Reply By Date: {project.replyByDate}
+          </Typography>
+
         <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
           <TextTruncate
             line={4}
