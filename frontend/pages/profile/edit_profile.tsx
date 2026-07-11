@@ -22,7 +22,7 @@ import { availabilityChoices, avChoice } from "../../src/constants";
 export default function EditProfileForm() {
   const router = useRouter();
   const skillsCtx = Skills.useContainer();
-  const { profile, editExpertProfile } = useProfile();
+  const { profile, editExpertProfile, contactUrgent } = useProfile();
   const {
     handleSubmit,
     control,
@@ -53,6 +53,19 @@ export default function EditProfileForm() {
     // if so, send notificaton email
     if (!profile?.expertProfile?.urgentProjectSeek && data.urgentProjectSeek) {
       console.log("New urgent request, send email")
+      try {
+        const resp = await contactUrgent();
+        if (!resp.ok) {
+          setErrorMessage("API connection error. Please try again later.");
+        } else {
+          setErrorMessage("");
+          console.log("Email sent")
+        }
+      } catch (error: any) {
+        console.error(error);
+        // TODO: actually parse api 400 error messages
+        setErrorMessage(error.message);
+      }
     }
 
     // send form data to API

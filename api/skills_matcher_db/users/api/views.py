@@ -277,6 +277,33 @@ class UserViewSet(viewsets.ModelViewSet):
                 print(e)
                 return Response(status=status.HTTP_400_BAD_REQUEST, data={"error": e})
 
+    @action(detail=False)
+    def contact_urgently_seeking(self, request):
+        # sends email to Dept chairs if user changes their profile to "Urgently Seeking Project"
+        user = request.user
+
+        if user:
+            # send email
+            print("sending email...")
+            try:
+                # send email to Dept Chairs
+                send_templated_mail(
+                    template_name="urgently_seeking_notice",
+                    from_email="noreply-skillsdb@whoi.edu",
+                    recipient_list=["eandrews@whoi.edu"],
+                    context={
+                        "user_name": f"{user.first_name} {user.last_name}",
+                        "user_email": {user.email},
+                    },
+                )
+                print("Email sent")
+                return Response(
+                    status=status.HTTP_200_OK, data={"action": "email sent"}
+                )
+            except Exception as e:
+                print(e)
+                return Response(status=status.HTTP_400_BAD_REQUEST, data={"error": e})
+
 
 class Ping(GenericAPIView):
     permission_classes = (IsAuthenticated,)

@@ -68,6 +68,7 @@ type HookData = {
     projects: number[]
   ) => Promise<Response>;
   mutateProfile: KeyedMutator<any>;
+  contactUrgent: () => Promise<Response>;
 };
 
 const useProfile = (): HookData => {
@@ -239,6 +240,19 @@ const useProfile = (): HookData => {
     return resp;
   };
 
+  const contactUrgent = async (): Promise<Response> => {
+    const url = makeUrl(`/api/users/contact_urgently_seeking/`);
+    const resp = await fetch(url, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${await getMsToken(instance)}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    return resp;
+  };
+
   return {
     profile: data,
     createUser: createUser,
@@ -248,6 +262,7 @@ const useProfile = (): HookData => {
     deleteExpertProfile: deleteExpertProfile,
     contactExpert: contactExpert,
     mutateProfile: mutateProfile,
+    contactUrgent: contactUrgent,
   };
 };
 

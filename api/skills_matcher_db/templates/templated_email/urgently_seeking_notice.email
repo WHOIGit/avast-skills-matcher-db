@@ -3,7 +3,7 @@
   Hello,
 
   The following user has updated their Skills Matcher profile to "Urgently Seeking Project":
-  {{expert_name}} ( {{expert_email}} )
+  {{user_name}} ( {{user_email}} )
 
   Thanks from the WHOI Skills Matcher DB!
 {% endblock %}
@@ -13,7 +13,7 @@
 
   <p>The following user has updated their Skills Matcher profile to "Urgently Seeking Project":
       <ul>
-        <li>{{expert_name}} ( {{expert_email}} )</li>
+        <li>{{user_name}} ( {{user_email}} )</li>
       </ul>
   </p>
   

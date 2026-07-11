@@ -162,6 +162,17 @@ const useProfile = ()=>{
         });
         return resp;
     };
+    const contactUrgent = async ()=>{
+        const url = (0,_utils_apiUtils__WEBPACK_IMPORTED_MODULE_2__/* .makeUrl */ .bf)(`/api/users/contact_urgently_seeking/`);
+        const resp = await fetch(url, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${await (0,_utils_azureAuth__WEBPACK_IMPORTED_MODULE_3__/* .getMsToken */ .a)(instance)}`,
+                "Content-Type": "application/json"
+            }
+        });
+        return resp;
+    };
     return {
         profile: data,
         createUser: createUser,
@@ -170,7 +181,8 @@ const useProfile = ()=>{
         editExpertProfile: editExpertProfile,
         deleteExpertProfile: deleteExpertProfile,
         contactExpert: contactExpert,
-        mutateProfile: mutateProfile
+        mutateProfile: mutateProfile,
+        contactUrgent: contactUrgent
     };
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (useProfile);
