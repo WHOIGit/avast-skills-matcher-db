@@ -11,7 +11,7 @@ def new_project_email_test(user, project):
     }
 
     async_task(
-        "send_templated_mail",
+        "templated_email.send_templated_mail",
         "new_project_notice",
         "noreply-skillsdb@whoi.edu",
         ["eandrews@whoi.edu"],
