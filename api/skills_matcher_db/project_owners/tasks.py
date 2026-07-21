@@ -20,17 +20,24 @@ def new_project_email_test(user, project):
 
 
 def new_project_email(user, project):
+    print(user, project)
+    context = {
+        "project_title": project.title,
+        "project_id": project.id,
+    }
 
-    for u in User.objects.exclude(pk=user.pk):
+    for u in User.objects.exclude(id=user.id):
         context = {
             "project_title": project.title,
             "project_id": project.id,
         }
-
+        print(u.email)
+        """
         async_task(
-            "send_templated_mail",
+            "templated_email.send_templated_mail",
             "new_project_notice",
             "noreply-skillsdb@whoi.edu",
             [u.email],
             context,
         )
+        """

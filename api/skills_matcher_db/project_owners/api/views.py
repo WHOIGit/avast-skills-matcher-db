@@ -8,7 +8,7 @@ from ..models import ProjectOwner, Project
 from skills_matcher_db.users.api.serializers import UserSerializer
 from skills_matcher_db.users.models import User
 from .serializers import ProjectSerializer
-from ..tasks import new_project_email_test
+from ..tasks import new_project_email
 
 
 class ProjectFilter(filters.FilterSet):
@@ -52,4 +52,4 @@ class ProjectViewSet(ModelViewSet):
 
         # Save the instance and send email to user list to notify of new Project
         instance = serializer.save()
-        new_project_email_test(user, instance)
+        new_project_email(user, instance)
