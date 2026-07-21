@@ -77,11 +77,11 @@ THIRD_PARTY_APPS = [
     "django_mptt_admin",
     "django_filters",
     "django_auth_adfs",
+    "django_q",
 ]
 
 LOCAL_APPS = [
     "skills_matcher_db.users.apps.UsersConfig",
-    # Your stuff: custom apps go here
     "skills_matcher_db.project_owners",
     # "skills_matcher_db.engineers",
     "skills_matcher_db.skills",
@@ -356,3 +356,13 @@ else:
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+# Django-Q2 config
+Q_CLUSTER = {
+    "workers": 4,
+    "timeout": 90,
+    "retry": 120,
+    "queue_limit": 100,
+    "bulk": 10,
+    "orm": "default",
+}

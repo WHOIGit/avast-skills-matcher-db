@@ -8,6 +8,7 @@ from ..models import ProjectOwner, Project
 from skills_matcher_db.users.api.serializers import UserSerializer
 from skills_matcher_db.users.models import User
 from .serializers import ProjectSerializer
+from ..tasks import new_project_email_test
 
 
 class ProjectFilter(filters.FilterSet):
@@ -47,6 +48,8 @@ class ProjectViewSet(ModelViewSet):
             user.user_type = [User.Types.PROJECT_OWNER]
         elif User.Types.PROJECT_OWNER not in user.user_type:
             user.user_type.append(User.Types.PROJECT_OWNER)
-
         user.save()
-        serializer.save()
+
+        # Save the instance and send email to user list to notify of new Project
+        instance = serializer.save()
+        new_project_email_test(user, instance)

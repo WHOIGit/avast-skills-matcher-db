@@ -9,7 +9,8 @@ from skills_matcher_db.skills.models import Skill
 
 
 def six_months_from_now():
-    return timezone.now() + timedelta(days=182)
+    return (timezone.now() + timedelta(days=182)).date()
+
 
 class ProjectOwnerManager(BaseUserManager):
     def get_queryset(self, *args, **kwargs):

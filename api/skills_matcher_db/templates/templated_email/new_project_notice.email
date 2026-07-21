@@ -1,0 +1,25 @@
+{% block subject %}WHOI Skills Matcher DB - New Project Posted{% endblock %}
+{% block plain %}
+  Hello,
+
+  A new Project has been posted to the WHOI Skills Matcher DB:
+  {{project_name}}
+
+  https://skillsdb.whoi.edu/projects/{{project_id}}
+
+  Thanks from the WHOI Skills Matcher DB!
+{% endblock %}
+
+{% block html %}
+  <p>Hello,</p>
+
+  <p>A new Project has been posted to the WHOI Skills Matcher DB::
+      <ul>
+        <li>{{project_title}}</li>
+      </ul>
+  </p>
+
+  <p>You can view the project here: <a href="https://skillsdb.whoi.edu/projects/{{project_id}}">https://skillsdb.whoi.edu/projects/{{project_id}}</a>
+  
+  <p>Thanks from the WHOI Skills Matcher DB!</p>
+{% endblock %}

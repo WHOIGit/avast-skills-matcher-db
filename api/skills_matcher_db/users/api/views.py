@@ -293,7 +293,8 @@ class UserViewSet(viewsets.ModelViewSet):
                     recipient_list=["eandrews@whoi.edu"],
                     context={
                         "user_name": f"{user.first_name} {user.last_name}",
-                        "user_email": {user.email},
+                        "user_email": user.email,
+                        "user_id": user.id,
                     },
                 )
                 print("Email sent")

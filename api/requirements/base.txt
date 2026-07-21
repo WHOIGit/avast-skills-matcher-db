@@ -30,3 +30,4 @@ django-mptt-admin==2.9.0
 django-filter==25.2
 django-auth-adfs==1.16.0
 django-templated-email==3.1.1
+django-q2==1.10.0
