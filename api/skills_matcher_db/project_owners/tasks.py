@@ -14,7 +14,7 @@ def new_project_email_test(user, project):
         "templated_email.send_templated_mail",
         "new_project_notice",
         "noreply-skillsdb@whoi.edu",
-        ["eandrews@whoi.edu"],
+        ["eandrews@whoi.edu", "jossolinski@whoi.edu", "margaret.gresh@whoi.edu"],
         context,
     )
 
